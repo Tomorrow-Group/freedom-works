@@ -95,7 +95,9 @@ for _p in PROJECTS:
 
 def voices_html(items, label='What clients say', foot='', theme=''):
     slides = ''.join(f'<figure class="slide{" on" if i == 0 else ""}"><blockquote>\u201c{esc(q)}\u201d</blockquote><figcaption class="who">{esc(n)}<span>{esc(t)}</span></figcaption></figure>' for i, (q, n, t) in enumerate(items))
-    return f'<section class="voice voices wrap dark{(" " + theme) if theme else ""}" aria-label="What clients say" aria-roledescription="carousel">{('<div class="sec-head"><h2 class="sec-title">What clients <span class="thin">say</span></h2></div>' if theme else '<p class="sec-lbl"><span class="mk" aria-hidden="true"></span>' + esc(label) + '</p>')}{slides}<div class="ctrl"><button type="button" data-prev aria-label="Previous quote"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button><button type="button" data-next aria-label="Next quote"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button><button type="button" data-toggle aria-pressed="false" aria-label="Pause quotes"><svg class="i-pause" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><rect x="3" y="2" width="2.5" height="10" fill="currentColor"/><rect x="8.5" y="2" width="2.5" height="10" fill="currentColor"/></svg><svg class="i-play" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M4 2l8 5-8 5z" fill="currentColor"/></svg></button><span class="count">1 / {len(items)}</span></div>' + (f'<p class="voice-foot">{esc(foot)}</p>' if foot else '') + '</section>'
+    head = ('<div class="sec-head"><h2 class="sec-title">What clients <span class="thin">say</span></h2></div>' if theme
+            else '<p class="sec-lbl"><span class="mk" aria-hidden="true"></span>' + esc(label) + '</p>')
+    return f'<section class="voice voices wrap dark{(" " + theme) if theme else ""}" aria-label="What clients say" aria-roledescription="carousel">{head}{slides}<div class="ctrl"><button type="button" data-prev aria-label="Previous quote"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button><button type="button" data-next aria-label="Next quote"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button><button type="button" data-toggle aria-pressed="false" aria-label="Pause quotes"><svg class="i-pause" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><rect x="3" y="2" width="2.5" height="10" fill="currentColor"/><rect x="8.5" y="2" width="2.5" height="10" fill="currentColor"/></svg><svg class="i-play" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M4 2l8 5-8 5z" fill="currentColor"/></svg></button><span class="count">1 / {len(items)}</span></div>' + (f'<p class="voice-foot">{esc(foot)}</p>' if foot else '') + '</section>'
 
 AUTHOR_LINKEDIN = {'Jon Williams': 'https://www.linkedin.com/in/creativegenius/', 'Aim\u00e9e Luther': 'https://www.linkedin.com/in/aimeeluther/'}
 
@@ -976,7 +978,8 @@ def page_terms(L, A):
 # ---------------- chrome ----------------
 def header(L, A, active, theme='light'):
     cur = ' aria-current="page"'
-    links = ''.join(f'<a href="{L(p)}"{cur if p == active else ""}{" data-cta=\"header-talk-to-us\"" if p == "contact/" else ""}>{t}</a>' for p, t in NAV)
+    cta_attr = ' data-cta="header-talk-to-us"'
+    links = ''.join(f'<a href="{L(p)}"{cur if p == active else ""}{cta_attr if p == "contact/" else ""}>{t}</a>' for p, t in NAV)
     big = ''.join(f'<li><a href="{L(p)}"{cur if p == active else ""}>{t}</a></li>' for p, t in NAV)
     return f'''<a class="skip" href="#main">Skip to content</a>
 <header class="site-head" data-theme="{theme}">
