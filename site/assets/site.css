@@ -22,7 +22,13 @@
 @font-face{font-family:"FW Cond";src:url(fonts/cond-600.woff2) format("woff2");font-weight:600;font-display:swap}
 
 /* metric-matched system fallback for the body face, so the swap doesn't shift layout */
-@font-face{font-family:"Hanken Fallback";src:local("Arial"),local("Helvetica Neue"),local("Helvetica");size-adjust:96%;ascent-override:104%;descent-override:31%;line-gap-override:0%}
+/* metric-matched stand-ins: each is scaled to the width of the brand font it stands in for, so text doesn't reflow (and the page doesn't jump) when the brand fonts arrive */
+@font-face{font-family:"FW Castel Fallback";src:local("Times New Roman"),local("Times"),local("Liberation Serif");font-style:normal;font-weight:100 900;size-adjust:57.0%;ascent-override:173.7%;descent-override:43.8%;line-gap-override:0.0%}
+@font-face{font-family:"FW Castel Fallback";src:local("Times New Roman Italic"),local("TimesNewRomanPS-ItalicMT"),local("Times-Italic"),local("Liberation Serif Italic");font-style:italic;font-weight:100 900;size-adjust:66.6%;ascent-override:148.7%;descent-override:37.5%;line-gap-override:0.0%}
+@font-face{font-family:"FW Serif Fallback";src:local("Times New Roman"),local("Times"),local("Liberation Serif");font-style:normal;font-weight:400;size-adjust:83.2%;ascent-override:119.0%;descent-override:37.2%;line-gap-override:0.0%}
+@font-face{font-family:"FW Serif Fallback";src:local("Times New Roman Italic"),local("TimesNewRomanPS-ItalicMT"),local("Times-Italic"),local("Liberation Serif Italic");font-style:italic;font-weight:400;size-adjust:87.7%;ascent-override:112.8%;descent-override:35.3%;line-gap-override:0.0%}
+@font-face{font-family:"FW Cond Fallback";src:local("Arial"),local("Helvetica Neue"),local("Helvetica"),local("Liberation Sans");font-style:normal;font-weight:100 900;size-adjust:67.4%;ascent-override:148.3%;descent-override:29.7%;line-gap-override:0.0%}
+@font-face{font-family:"Hanken Fallback";src:local("Arial"),local("Helvetica Neue"),local("Helvetica"),local("Liberation Sans");font-style:normal;font-weight:100 900;size-adjust:100.7%;ascent-override:99.3%;descent-override:30.1%;line-gap-override:0.0%}
 
 /* ---------- 2. Tokens ---------- */
 :root{
@@ -31,9 +37,9 @@
   --scarlet:#FF3F25; --scarlet-ink:#C8290F; --peri:#BBB6E2;
 
   /* families */
-  --f-display:"FW Castel","FW Serif","Times New Roman",serif;
-  --f-serif:"FW Serif","Times New Roman",serif;
-  --f-label:"FW Cond","Arial Narrow",sans-serif;
+  --f-display:"FW Castel","FW Castel Fallback","FW Serif","Times New Roman",serif;
+  --f-serif:"FW Serif","FW Serif Fallback","Times New Roman",serif;
+  --f-label:"FW Cond","FW Cond Fallback","Arial Narrow",sans-serif;
   --f-body:"Hanken","Hanken Fallback",system-ui,sans-serif;
 
   /* fluid type scale, 390 → 1440px. Each size has its own line-height and tracking. */
@@ -837,7 +843,7 @@ a.im-card:hover .n{color:var(--linen)}
    the negative margin cancels the padding so the layout is identical with or without the effect. */
 .rw .w{display:inline-block;overflow:hidden;vertical-align:top;padding:.12em .22em .18em;margin:-.12em -.22em -.18em}
 .rw em .w,.rw i .w,.rw .thin .w{padding-inline:.32em;margin-inline:-.32em}
-.rw .wi{display:inline-block;transform:translateY(110%);transition:transform 900ms cubic-bezier(.2,.75,.2,1)}
+.rw .wi{display:inline-block;transition:transform 900ms cubic-bezier(.2,.75,.2,1)}
 .rw.in .wi{transform:none}
 /* the media pill grows in with its headline */
 .rw .pill{transition:transform 1s cubic-bezier(.2,.75,.2,1) .25s,opacity .6s ease .25s}
@@ -1158,3 +1164,12 @@ button.sec-link.cookie-settings{background:none;border:0;border-bottom:1px solid
 .rebrand-note .rn-close{flex:none;margin-left:auto;width:34px;height:34px;border-radius:50%;border:1px solid rgba(237,235,227,.35);background:transparent;color:var(--linen);font-size:20px;line-height:1;cursor:pointer}
 .rebrand-note .rn-close:hover,.rebrand-note .rn-close:focus-visible{background:var(--linen);color:var(--indigo)}
 @media (prefers-reduced-motion:reduce){.rebrand-note{transition:none}}
+
+/* headline reveal: words sit in place for everyone; they only start hidden when the reveal script is running */
+.js .rw:not(.in) .wi{transform:translateY(110%)}
+@media (prefers-reduced-motion:reduce){.js .rw .wi{transform:none!important}}
+
+/* large headlines keep their lines steady while fonts load */
+.page-hero h1,.proj-hero h1,.svc-top h1,.contact-page h1,.nf h1,.sec-title,.h2{text-wrap:balance}
+/* while the brand fonts are still arriving (max 1.8s), headlines wait unseen so the swap can't make them jump */
+.fp .rw:not(.in){visibility:hidden}

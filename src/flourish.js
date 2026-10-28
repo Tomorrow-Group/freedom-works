@@ -12,6 +12,7 @@ document.addEventListener('click',function(e){ var a=e.target.closest('a'); if(!
   var IO = 'IntersectionObserver' in window;
 
   /* muted autoplay videos (hero, headline pills) */
+  window.addEventListener('load',function(){ document.querySelectorAll('video[data-play-after-load]').forEach(function(v){ if(RM) return; v.setAttribute('preload','auto'); v.load(); var pr=v.play(); if(pr) pr.catch(function(){}); }); });
   document.querySelectorAll('video[autoplay]').forEach(function(v){ v.muted=true; if(RM){ v.removeAttribute('autoplay'); v.pause(); return; } var pr=v.play(); if(pr) pr.catch(function(){}); });
 
   /* reading-pace speed for the prose ticker */
@@ -85,10 +86,14 @@ document.addEventListener('click',function(e){ var a=e.target.closest('a'); if(!
     el.querySelectorAll('.wi').forEach(function(w,i){ w.style.transitionDelay=(Math.min(i,12)*step)+'ms'; });
   }
   if(!RM && IO){
-    var hio=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); hio.unobserve(e.target); } }); },{rootMargin:'0px 0px -10% 0px'});
+    /* reveal headlines once the brand fonts are in (max 1.8s), so the font swap happens while the words are still hidden: no visible jump, no Times flash */
+    var fontsIn=(document.fonts&&document.fonts.status!=='loaded') ? Promise.race([document.fonts.ready, new Promise(function(r){ setTimeout(r,1800); })]) : Promise.resolve();
+    fontsIn.then(function(){ document.documentElement.classList.remove('fp'); });
+    var hio=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ var el=e.target; hio.unobserve(el); fontsIn.then(function(){ requestAnimationFrame(function(){ el.classList.add('in'); }); }); } }); },{rootMargin:'0px 0px -10% 0px'});
     document.querySelectorAll(HEADS).forEach(function(h){ if(!h.textContent.trim()) return;
-      h.setAttribute('aria-label', h.textContent.replace(/\s+/g,' ').trim());   /* screen readers get the whole line, not word fragments */
-      h.classList.add('rw'); splitWords(h); hio.observe(h); });
+      if(!h.getAttribute('aria-label')) h.setAttribute('aria-label', h.textContent.replace(/\s+/g,' ').trim());   /* screen readers get the whole line, not word fragments */
+      h.classList.add('rw'); if(!h.querySelector('.wi')) splitWords(h); else { var st=h.classList.contains('wi-title')?150:45; h.querySelectorAll('.wi').forEach(function(w,i){ w.style.transitionDelay=(Math.min(i,12)*st)+'ms'; }); } hio.observe(h); });
+  } else { document.documentElement.classList.remove('fp'); document.querySelectorAll('.rw').forEach(function(h){ h.classList.add('in'); });
   }
 
   /* ---------- reveals: opacity + 20px rise, short staggers, nothing above the fold is hidden ---------- */
@@ -275,4 +280,4 @@ document.addEventListener('click',function(e){var b=e.target.closest('[data-cook
   el.querySelector('a').addEventListener('click',function(){ fwTrack('fw_rebrand_note_click',{page:location.pathname}); });
   el.querySelector('.rn-close').addEventListener('click',function(){ el.classList.remove('on'); setTimeout(function(){ el.remove(); },400); });
 })();
-
+window.__fwReady=true;

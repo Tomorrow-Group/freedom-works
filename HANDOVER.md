@@ -139,3 +139,19 @@ The full audit runs across all 176 pages. Everything is built in, so new pages g
 - The wording is in `src/flourish.js`.
 
 **Cookiebot is live in the build:** domain group ID `c9e759c8-bb2b-436a-9904-497e636e9d29` (the default in `build.py`; override with `COOKIEBOT_ID` in Netlify). The snippet matches Cookiebot's manual-blocking script. It is off on Replit and in the Claude preview, like GTM.
+
+## Performance and layout stability (28 Oct)
+
+**Layout shift (CLS).** Under 0.1 ("good") on every page tested, even with fonts delayed by 1.2s.
+- **Metric-matched stand-in fonts:** `FW Castel Fallback`, `FW Serif Fallback`, `FW Cond Fallback` and `Hanken Fallback`. They are local Times or Arial, with `size-adjust` and ascent and descent overrides measured from the brand fonts, so text doesn't reflow when the brand fonts arrive.
+- **Headlines are split into words at build time** (`presplit_headings` in `build.py`), so the reveal never re-wraps them.
+- **While the brand fonts load** (the `html.fp` class, max 1.8s), headlines wait unseen, then reveal.
+- **With scripts off,** headlines show normally. Words only start hidden under `html.js`.
+- **Large headlines** use `text-wrap: balance`.
+
+**Mobile loading.**
+- Only the two headline fonts (Castel regular and italic) are preloaded.
+- The homepage hero still has phone and tablet sizes (`hero-poster-828.webp` at 12 KB, `hero-poster-1280.webp`).
+- The hero film loads and plays after the page's `load` event (`data-play-after-load`), so it doesn't compete with first paint.
+
+**Python.** Netlify builds with Python 3.11. Test every `build.py` change against 3.11: no reused quotes or backslashes inside f-string expressions.

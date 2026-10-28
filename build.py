@@ -337,6 +337,65 @@ def localise_inline(body, A):
     return re.sub(r'<img[^>]*\bsrc="([^"]+)"[^>]*>', sub, body)
 
 
+# ---------------- headlines arrive already split into words (no layout shift when the reveal starts) ----------------
+from html.parser import HTMLParser as _HP
+_HEAD_RULES = [('h1', {'page-hero', 'proj-hero', 'svc-top', 'contact-page', 'nf'}), ('h2', {'contact'}), ('h2', {'lw-head'}), ('h2', {'over'})]
+def _wants_split(tag, cls, ancestors):
+    if tag not in ('h1', 'h2'): return False
+    if 'sec-title' in cls or 'h2' in cls: return True
+    anc = set().union(*ancestors) if ancestors else set()
+    return any(tag == t and (need & anc) for t, need in _HEAD_RULES)
+class _Finder(_HP):
+    def __init__(self, src):
+        super().__init__(convert_charrefs=False); self.src = src; self.stack = []; self.found = []; self.open = []
+        self.line_off = [0]
+        for ln in src.split('\n'): self.line_off.append(self.line_off[-1] + len(ln) + 1)
+    def off(self): l, c = self.getpos(); return self.line_off[l - 1] + c
+    def handle_starttag(self, tag, attrs):
+        if tag in ('br', 'img', 'source', 'meta', 'link', 'input', 'hr', 'wbr'): return
+        cls = set((dict(attrs).get('class') or '').split()); start = self.off()
+        if _wants_split(tag, cls, [c for _, c in self.stack]) and not self.open:
+            self.open.append((tag, start, len(self.stack)))
+        self.stack.append((tag, cls))
+    def handle_endtag(self, tag):
+        while self.stack:
+            t, _ = self.stack.pop()
+            if self.open and len(self.stack) == self.open[-1][2] and t == self.open[-1][0]:
+                ot, st, _ = self.open.pop(); self.found.append((st, self.off() + len(f'</{tag}>')))
+            if t == tag: break
+def _split_inner(inner):
+    out = []; pill = 0; depth = 0
+    for tok in re.split(r'(<[^>]+>)', inner):
+        if not tok: continue
+        if tok.startswith('<'):
+            if re.match(r'<span\b[^>]*\bclass="[^"]*\bpill\b', tok): pill = 1; depth = 0
+            elif pill and tok.startswith('<span'): depth += 1
+            elif pill and tok.startswith('</span'):
+                if depth == 0: pill = 0; out.append(tok); continue
+                depth -= 1
+            out.append(tok); continue
+        if pill: out.append(tok); continue
+        for part in re.split(r'(\s+)', tok):
+            if not part: continue
+            out.append(part if part.isspace() else f'<span class="w"><span class="wi">{part}</span></span>')
+    return ''.join(out)
+def presplit_headings(body):
+    if 'class="wi"' in body and False: return body
+    f = _Finder(body)
+    try: f.feed(body); f.close()
+    except Exception: return body
+    for st, en in sorted(f.found, reverse=True):
+        seg = body[st:en]; m = re.match(r'(<(h[12])\b[^>]*>)(.*)(</h[12]>)$', seg, re.S)
+        if not m or 'class="w"' in m.group(3): continue
+        open_tag, inner, close = m.group(1), m.group(3), m.group(4)
+        label = ' '.join(html.unescape(re.sub(r'<[^>]+>', ' ', re.sub(r'<span\b[^>]*\bpill\b.*?</span>', ' ', inner, flags=re.S))).split())
+        if not label: continue
+        if 'class="' in open_tag: open_tag = re.sub(r'class="', 'class="rw ', open_tag, count=1)
+        else: open_tag = open_tag[:-1] + ' class="rw">'
+        if 'aria-label=' not in open_tag: open_tag = open_tag[:-1] + f' aria-label="{esc(label)}">'
+        body = body[:st] + open_tag + _split_inner(inner) + close + body[en:]
+    return body
+
 LASTMOD = {}
 HOME_TILE_COPY = {
     'king-arthur-baking': ('A creative platform that celebrates the essence of the King Arthur brand and drives differentiation in a low-interest category.', 'From #2 to #1 flour brand in the US. Doubled sales.'),
@@ -1021,7 +1080,7 @@ SCRIPT = '''<script>
 ORG = {"@context": "https://schema.org", "@type": "Organization", "name": "Freedom Works", "alternateName": "FRE3DOM WORKS",
        "description": "A global creative agency built on Calibre, Culture and Craft: brand strategy, identity, creative, production, and in-house creative, from 500+ award-winning independent creatives handpicked for every brief.",
        "slogan": "Freedom makes better work.",
-       "url": DOMAIN, "logo": DOMAIN + "/assets/brand/logo-indigo.png", "address": {"@type": "PostalAddress", "addressLocality": "London", "addressCountry": "GB"},
+       "url": DOMAIN, "logo": DOMAIN + "/assets/brand/logo-indigo.png", "address": {"@type": "PostalAddress", "streetAddress": "167\u2013169 Great Portland Street, 5th Floor", "addressLocality": "London", "postalCode": "W1W 5PF", "addressCountry": "GB"}, "email": "hello@freedom.works", "contactPoint": {"@type": "ContactPoint", "contactType": "new business", "email": "hello@freedom.works", "url": DOMAIN + "/contact/"},
        "subOrganization": {"@type": "Organization", "name": "Culture3", "url": DOMAIN + "/culture3/", "description": "Culture3 connects brands to the partnerships, communities, moments, and voices shaping culture."}}
 
 def crumbs(path, title):
@@ -1173,7 +1232,7 @@ def pages():
         yield (f'work/{p["slug"]}/', f'{p["client"]}: {p["camp"]} | Freedom Works', case_desc(p), (lambda i: lambda L, A: page_project(i, L, A))(i), 'work/', [art])
     yield ('thinking/', 'Thinking | Freedom Works', 'Articles on creativity, AI, talent, and the agency model from Freedom Works.', page_thinking, 'thinking/', [])
     for p in POSTS:
-        art = {"@context": "https://schema.org", "@type": "Article", "headline": p['title'], "datePublished": p['date'], "author": dict({"@type": "Person", "name": p['author']}, **({"sameAs": AUTHOR_LINKEDIN[p['author']]} if p['author'] in AUTHOR_LINKEDIN else {})), "publisher": {"@type": "Organization", "name": "Freedom Works"}}
+        art = {"@context": "https://schema.org", "@type": "Article", "headline": p['title'], "datePublished": p['date'], "author": dict({"@type": "Person", "name": p['author']}, **({"url": AUTHOR_LINKEDIN[p['author']], "sameAs": AUTHOR_LINKEDIN[p['author']]} if p['author'] in AUTHOR_LINKEDIN else {"url": DOMAIN + "/agency/"})), "publisher": {"@type": "Organization", "name": "Freedom Works"}}
         desc = fit_desc(p['description'] or p['title'], p['body_md'])
         yield (f'thinking/{p["slug"]}/', f'{p["title"]} | Freedom Works', desc, (lambda p: lambda L, A, **k: page_article(p, L, A, **k))(p), 'thinking/', [art])
     yield ('contact/', 'Contact | Freedom Works', 'Talk to Freedom Works, a global creative agency. Tell us about your brief and we\u2019ll handpick the right team, from strategy to production.', page_contact, 'contact/', [])
@@ -1283,6 +1342,7 @@ def build_site():
         A = lambda rel, R=R: (VIDEO_CDN + '/assets/' + rel) if (VIDEO_CDN and rel.endswith('.mp4')) else (R + 'assets/' + rel)
         body = add_pill(fn(L, A), path, A)
         if HIDE_PENDING and path == 'agency/': body = tidy_pending(body)
+        body = presplit_headings(body)
         if VIDEO_CDN: body = re.sub(r'''(?<=["'(])(?:\.\./)*assets/((?:film|media)/[\w.-]+\.mp4)''', lambda m: VIDEO_CDN + '/assets/' + m.group(1), body)
         canon = DOMAIN + '/' + (path if path != '404' else '')
         _slug = path.strip('/').split('/')[-1] if path.startswith('thinking/') and path.count('/') == 2 else None
@@ -1306,6 +1366,7 @@ def build_site():
 <html lang="en-GB">
 <head>
 <meta charset="utf-8">
+<script>document.documentElement.classList.add('js','fp');setTimeout(function(){{document.documentElement.classList.remove('fp');if(!window.__fwReady)document.querySelectorAll('.rw').forEach(function(h){{h.classList.add('in')}})}},3500)</script>
 {analytics_head()}<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 {robots}<title>{esc(seo_title)}</title>
 <meta name="description" content="{esc(desc)}">
@@ -1325,10 +1386,7 @@ def build_site():
 <link rel="apple-touch-icon" href="{A('apple-touch-icon.png')}">
 <meta name="theme-color" content="#20243A">
 <link rel="preload" href="{A('fonts/castel-500.woff2')}" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="{A('fonts/hanken.woff2')}" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="{A('fonts/castel-900i.woff2')}" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="{A('fonts/serif-400.woff2')}" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="{A('fonts/cond-600.woff2')}" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{A('site.css')}">
 {schema_tags(path if path != '404' else '', title, extra)}
 </head>
