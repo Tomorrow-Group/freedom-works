@@ -627,7 +627,7 @@ def page_home(L, A):
 </section>'''
     who_intro = '''<section class="who-intro wrap white" aria-labelledby="whoi">
   <h1 class="sec-title wi-title" id="whoi">Welcome to <span class="thin">Freedom Works.</span></h1>
-  <div class="wi-lead"><p>In a world drowning in content, we make work that matters. The world\u2019s best creative minds anchor your brand at the heart of culture, and craft the work for impact.</p><p class="wi-tag">Calibre, Culture &amp; Craft.</p></div>
+  <div class="wi-lead"><p>We\u2019re a global creative agency.In a world drowning in content, we make work that matters. The world\u2019s best creative minds anchor your brand at the heart of culture, and craft the work for impact.</p><p class="wi-tag">Calibre, Culture &amp; Craft.</p></div>
 </section>'''
     pillars = f'''<section class="pillars-e wrap light" aria-labelledby="who">
   <div class="sec-head"><h2 class="sec-title" id="who">Who <span class="thin">we are</span></h2></div>
