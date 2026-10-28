@@ -1,0 +1,13 @@
+/culture              /culture3/   301
+/guild                /the-guild/  301
+/approach             /services/   301
+/voices-and-partners  /culture3/   301
+/about                /agency/     301
+/services/creative/creator-and-influencer/  /services/creative/  301
+/services/creative/creator-and-influencer   /services/creative/  301
+# The old Liberty Guild site was a single page: send everything on its domain to the new homepage.
+# These only take effect once the old domain is added to this Netlify site as a domain alias.
+https://thelibertyguild.com/*      https://freedom.works/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
+https://www.thelibertyguild.com/*  https://freedom.works/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
+http://thelibertyguild.com/*       https://freedom.works/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
+http://www.thelibertyguild.com/*   https://freedom.works/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
