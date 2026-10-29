@@ -132,7 +132,7 @@ The full audit runs across all 176 pages. Everything is built in, so new pages g
 - To stop depending on Substack at build time, commit `src/thinking-img/` and `src/thinking-images.json` to GitHub once.
 
 **Old domain and rebrand note.**
-- Every address on `thelibertyguild.com` (with or without www, http or https) 301s to `https://freedom.works/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand`. This takes effect once the domain is added to Netlify as a domain alias and its DNS points to Netlify.
+- Every address on `thelibertyguild.com` and `libertyguild.co.uk` (with or without www, http or https) 301s to the homepage, tagged `utm_source=thelibertyguild.com` or `utm_source=libertyguild.co.uk` (plus `utm_medium=redirect&utm_campaign=rebrand`). This takes effect once the domain is added to Netlify as a domain alias and its DNS points to Netlify.
 - Visitors arriving with that tag see a one-time, dismissible note under the header: "Looking for The Liberty Guild? You’re in the right place. We’re now Freedom Works. About us".
 - It is remembered in `localStorage`, so it shows only once per visitor.
 - Tracked as `fw_rebrand_note_view` and `fw_rebrand_note_click`. The UTM tag also attributes these visits in GA4.
@@ -155,3 +155,60 @@ The full audit runs across all 176 pages. Everything is built in, so new pages g
 - The hero film loads and plays after the page's `load` event (`data-play-after-load`), so it doesn't compete with first paint.
 
 **Python.** Netlify builds with Python 3.11. Test every `build.py` change against 3.11: no reused quotes or backslashes inside f-string expressions.
+
+## SEO review changes (29 Oct, from Ema's review)
+
+**Navigation**
+- Services is first, with a dropdown of the 5 main areas (`L2_SERVICES` in `build.py`).
+- On mobile, the 5 areas are listed under Services.
+- The footer has a Services column.
+
+**Homepage**
+- The H1 is "Freedom Works · Global creative agency": small, at the top of the hero.
+- "Welcome to Freedom Works." is now an H2.
+
+**Services hub**
+- Every sub-service is linked.
+- Moving client logo strip.
+
+**Service pages**
+- "See all work" links to /work/.
+- The quote has its own "What clients say" section.
+- Thinking shows as image cards.
+- Sub-service pages say "Related services".
+- The 5 main pages open with a case-study still and a caption link (`SVC_HERO_CASE`).
+
+**Thinking**
+- Five topic pages at `/thinking/<topic>/`, with intros in `TOPIC_INTRO`. "On the model" is now "The agency model" (`/thinking/the-agency-model/`).
+- The Thinking page's topic buttons are now links.
+
+**Articles**
+- Topic link at the top.
+- "By {name}, {role}" byline, linking to the person's bio on the About page (`#jon-williams` etc).
+- Authors come only from `src/confirmed_authors.json`. Everything else is credited to Freedom Works.
+- `AUTHOR_ROLE` holds the roles; Aimée's is pending.
+- Share row: LinkedIn, X, email, copy link (tracked as `fw_share`).
+- "Put this thinking to work" panel, with paired services by topic (`TOPIC_SVC`).
+- "More on {topic}" cards.
+- A sticky "Talk to us" on desktop (`data-cta="article-sticky-talk-to-us"`).
+- One in-text link to a service on articles that naturally mention one (`SVC_PHRASES`).
+
+**About**
+- New plain opening paragraph.
+- "Brands we've made work for" logo wall.
+- Closing statement ("We make work that matters…").
+- Each leader has a link point.
+
+**Images**
+- `optimise_images()` makes 800px copies of the case-study stills, used through srcset in tiles.
+- WebP copies of all logos and awards, which pages use automatically (`webpify`).
+
+**Other**
+- Fuller `llms.txt`, generated from the site's own data, in the strict llmstxt.org format. Lighthouse 13.6 Agentic Browsing scores 3/3 (accessibility tree, CLS, llms.txt).
+- Alt text on all logo images.
+- 500+ everywhere.
+
+**Still waiting on**
+- LinkedIn and Instagram addresses (footer and contact page).
+- Whether there's a publishable address (footer, contact and map).
+- Ema's confirmation on the service page H1 size.

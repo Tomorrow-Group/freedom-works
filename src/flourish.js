@@ -269,7 +269,7 @@ document.addEventListener('click',function(e){ var a=e.target.closest('a'); if(!
 document.addEventListener('click',function(e){var b=e.target.closest('[data-cookie-settings]'); if(!b) return; e.preventDefault(); if(window.Cookiebot&&Cookiebot.renew){Cookiebot.renew();} else { var a=document.querySelector('.foot .legal a[href*="cookies/"]'); if(a) location.href=a.href; }});
 /* rebrand note: only for visitors redirected from thelibertyguild.com (the redirect adds utm_source), shown once */
 (function(){
-  var q=new URLSearchParams(location.search), fromOld=q.get('utm_source')==='thelibertyguild.com' || /thelibertyguild\.com/.test(document.referrer||'');
+  var q=new URLSearchParams(location.search), fromOld=/libertyguild/.test(q.get('utm_source')||'') || /libertyguild\.(com|co\.uk)/.test(document.referrer||'');
   if(!fromOld) return;
   try{ if(localStorage.getItem('fw-rebrand-seen')) return; localStorage.setItem('fw-rebrand-seen','1'); }catch(e){}
   var about=(document.querySelector('.site-head nav a[href*="agency/"]')||{}).getAttribute ? document.querySelector('.site-head nav a[href*="agency/"]').getAttribute('href') : 'agency/';
@@ -281,3 +281,36 @@ document.addEventListener('click',function(e){var b=e.target.closest('[data-cook
   el.querySelector('.rn-close').addEventListener('click',function(){ el.classList.remove('on'); setTimeout(function(){ el.remove(); },400); });
 })();
 window.__fwReady=true;
+/* Services dropdown: the arrow button opens and closes it for touch and keyboard; hover and focus work too; Escape closes */
+(function(){
+  document.querySelectorAll('.nav-dd').forEach(function(dd){
+    var b=dd.querySelector('.dd-btn'); if(!b) return;
+    function set(o){ dd.classList.toggle('open',o); dd.classList.toggle('closed',!o && dd.matches(':hover')); b.setAttribute('aria-expanded',o?'true':'false'); }
+    b.addEventListener('click',function(e){ e.preventDefault(); set(!dd.classList.contains('open')); });
+    dd.addEventListener('mouseleave',function(){ dd.classList.remove('closed'); if(dd.classList.contains('open')) set(false); });
+    dd.addEventListener('keydown',function(e){ if(e.key==='Escape'){ set(false); dd.classList.add('closed'); b.focus(); setTimeout(function(){dd.classList.remove('closed');},300); } });
+    document.addEventListener('click',function(e){ if(!dd.contains(e.target)) set(false); });
+  });
+})();
+/* articles: copy-link button, share tracking, and the sticky "Talk to us" (shows once reading starts, hides near the end panel) */
+(function(){
+  document.addEventListener('click',function(e){
+    var s=e.target.closest('[data-share]'); if(!s) return;
+    fwTrack('fw_share',{network:s.getAttribute('data-share'), page:location.pathname});
+    if(s.hasAttribute('data-copy')){
+      e.preventDefault(); var u=s.getAttribute('data-copy'), out=s.parentNode.querySelector('.copied');
+      var done=function(){ if(out){ out.textContent='Link copied'; setTimeout(function(){out.textContent='';},2500);} };
+      if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(u).then(done,function(){ window.prompt('Copy this link:',u); }); } else { window.prompt('Copy this link:',u); }
+    }
+  });
+  var st=document.querySelector('.sticky-cta'); if(!st) return;
+  var head=document.querySelector('.article-head'), stop=document.querySelector('.next-step')||document.querySelector('section.contact');
+  var past=false, near=false;
+  function upd(){ st.classList.toggle('on', past && !near); }
+  if('IntersectionObserver' in window){
+    if(head) new IntersectionObserver(function(es){ past=!es[0].isIntersecting && es[0].boundingClientRect.top<0; upd(); }).observe(head);
+    [document.querySelector('.next-step'),document.querySelector('section.contact')].forEach(function(el){ if(!el) return;
+      new IntersectionObserver(function(es){ es.forEach(function(x){ x.target.__vis=x.isIntersecting; }); near=[].some.call(document.querySelectorAll('.next-step,section.contact'),function(n){return n.__vis;}); upd(); }).observe(el); });
+  }
+})();
+

@@ -1,3 +1,4 @@
+import urllib.parse
 import os, re, json, html, base64, shutil, datetime
 ROOT = os.path.dirname(os.path.abspath(__file__))
 def SP(*a): return os.path.join(ROOT, 'src', *a)
@@ -12,9 +13,9 @@ DOMAIN = 'https://freedom.works'
 CSS = open(SP('site.css')).read()   # the whole design system: tokens, grounds, layout, type, components, templates, motion
 HOME_MAIN = open(SP('home-main.html')).read()
 
-NAV = [('work/', 'Work'), ('agency/', 'About'), ('services/', 'Services'), ('the-guild/', 'The Guild'),
+NAV = [('services/', 'Services'), ('work/', 'Work'), ('agency/', 'About'), ('the-guild/', 'The Guild'),
        ('culture3/', 'Culture3'), ('thinking/', 'Thinking'), ('contact/', 'Talk to us')]
-TAGS = {'ai-and-creativity': 'AI and creativity', 'on-the-model': 'On the model', 'talent-and-work': 'Talent and work',
+TAGS = {'ai-and-creativity': 'AI and creativity', 'on-the-model': 'The agency model', 'talent-and-work': 'Talent and work',
         'culture-and-ads': 'Culture and advertising', 'purpose': 'Purpose'}
 
 def esc(t): return html.escape(t, quote=True)
@@ -115,6 +116,24 @@ def load_posts():
     posts.sort(key=lambda p: p['date'], reverse=True)
     return posts
 POSTS = load_posts()
+# Authors: only those confirmed from the articles' own sign-offs (src/confirmed_authors.json); everything else is credited to
+# Freedom Works until confirmed. To confirm more, add [slug, name] pairs to that file.
+_CONF = {s_: a for s_, a in json.load(open(SP('confirmed_authors.json'), encoding='utf-8'))} if os.path.exists(SP('confirmed_authors.json')) else {}
+for _p in POSTS: _p['author'] = _CONF.get(_p['slug'], 'Freedom Works')
+AUTHOR_ROLE = {'Jon Williams': 'Founder and Chief Creative Officer'}   # add Aim\u00e9e's role here once confirmed
+TOPIC_SLUG = {'ai-and-creativity': 'ai-and-creativity', 'on-the-model': 'the-agency-model', 'talent-and-work': 'talent-and-work',
+              'culture-and-ads': 'culture-and-advertising', 'purpose': 'purpose'}
+TOPIC_INTRO = {
+    'ai-and-creativity': 'What AI changes for creativity, and what it never will. Our thinking on using AI for process and production, while people stay in charge of the ideas.',
+    'on-the-model': 'How agencies are built, paid, and run, and why the old model is creaking. Our thinking on independent talent, charging for ideas, and building an agency fit for the next ten years.',
+    'talent-and-work': 'The people who make the work, and how they want to work. Our thinking on independent talent, distributed teams, and getting the best creative minds onto every brief.',
+    'culture-and-ads': 'Where brands meet culture, and what it takes to earn a place there. Our thinking on campaigns, cultural moments, and the ideas that get people talking.',
+    'purpose': 'Purpose that\u2019s real, and purpose that\u2019s just words. Our thinking on brands, responsibility, and doing good in a way people believe.'}
+TOPIC_SVC = {'ai-and-creativity': ('AI production', 'Creative'), 'on-the-model': ('In-house creative', 'Creative'),
+             'talent-and-work': ('Creative', 'In-house creative'), 'culture-and-ads': ('Campaign strategy and development', 'Brand and product launches'),
+             'purpose': ('Brand positioning', 'Brand strategy')}
+_clash = [t for t in TOPIC_SLUG.values() if any(_p['slug'] == t for _p in POSTS)]
+assert not _clash, f'topic page address clashes with an article: {_clash}'
 
 FAQ = [
     ("Who are Freedom Works?", "A global creative agency built on Calibre, Culture and Craft. More than 500 award-winning independent creatives and strategists across 37 countries and cultures, led by a founder and leadership team who have run businesses, boutique agencies, global networks, production companies, and start-ups."),
@@ -181,9 +200,9 @@ def svc_logos(sp, A):
     for sl in slugs:
         x = wall.get(sl); f = os.path.join(OUT, 'assets', 'logos', 'wall', sl + '-ink.png')
         if x and os.path.exists(f):
-            out.append(f'<li><img src="{A("logos/wall/"+sl+"-ink.png")}" alt="{esc(x["name"])}" style="height:{min(44, 1500 / x["w"]):.0f}px" loading="lazy"></li>')
+            out.append(f'<li><img src="{A("logos/wall/"+sl+"-ink.png")}" alt="{esc(x["name"])}" style="max-height:{min(44, 1500 / x["w"]):.0f}px" loading="lazy"></li>')
         elif os.path.exists(f):
-            out.append(f'<li><img src="{A("logos/wall/"+sl+"-ink.png")}" alt="{esc(LOGO_NAMES.get(sl, sl))}" style="height:{LOGO_EXTRA_H.get(sl, 36)}px" loading="lazy"></li>')
+            out.append(f'<li><img src="{A("logos/wall/"+sl+"-ink.png")}" alt="{esc(LOGO_NAMES.get(sl, sl))}" style="max-height:{LOGO_EXTRA_H.get(sl, 36)}px" loading="lazy"></li>')
         else:
             out.append(f'<li><span class="logo-name">{esc((x or {}).get("name") or LOGO_NAMES.get(sl, sl))}</span></li>')
     return ''.join(out)
@@ -200,7 +219,7 @@ def case_logo(p, A):
     h = round(min(104, 3600 / wall[sl]['w'])) if sl in wall else {'snowfox-group': 132, 'rowse-honey': 120}.get(sl, 100)
     name = wall[sl]['name'] if sl in wall else LOGO_NAMES.get(sl, p['client'])
     tag = f'<span class="client-tag">{esc(CASE_BRAND[p["slug"]])}</span>' if p['slug'] in CASE_BRAND else ''
-    return f'<p class="client client-has-logo"><img class="client-logo" src="{A("logos/wall/"+sl+"-col.png")}" alt="{esc(name)}" style="height:{h}px">{tag}</p>'
+    return f'<p class="client client-has-logo"><img class="client-logo" src="{A("logos/wall/"+sl+"-col.png")}" alt="{esc(name)}" style="max-height:{h}px">{tag}</p>'
 
 # ---------------- Case studies: copy deck section 7 (simplified, one structure throughout) ----------------
 # Logo, headline, film, case copy, headline stat + supporting results, quote, next project. No extra sections or galleries.
@@ -368,7 +387,7 @@ def _split_inner(inner):
     for tok in re.split(r'(<[^>]+>)', inner):
         if not tok: continue
         if tok.startswith('<'):
-            if re.match(r'<span\b[^>]*\bclass="[^"]*\bpill\b', tok): pill = 1; depth = 0
+            if re.match(r'<span\b[^>]*\bclass="[^"]*\b(?:pill|sr-only|wi-sub)\b', tok): pill = 1; depth = 0
             elif pill and tok.startswith('<span'): depth += 1
             elif pill and tok.startswith('</span'):
                 if depth == 0: pill = 0; out.append(tok); continue
@@ -396,6 +415,25 @@ def presplit_headings(body):
         body = body[:st] + open_tag + _split_inner(inner) + close + body[en:]
     return body
 
+L2_SERVICES = [('Brand strategy', 'services/brand-strategy/'), ('Brand identity', 'services/brand-identity/'), ('Creative', 'services/creative/'),
+               ('Production', 'services/production/'), ('In-house creative', 'services/in-house/')]
+CHEVRON = '<svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M1.5 3.5 5 7l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>'
+
+SHARE_TITLES = {'': 'Freedom Works | Global creative agency', 'agency/': 'About Freedom Works | Global creative agency',
+                'services/': 'Services | Freedom Works', 'work/': 'Our work | Freedom Works', 'the-guild/': 'The Guild | Freedom Works',
+                'culture3/': 'Culture3 | Freedom Works', 'thinking/': 'Thinking | Freedom Works', 'contact/': 'Contact Freedom Works'}
+
+def share_title(path, title):
+    """What a shared link says on LinkedIn: the page's full name, plus Freedom Works (articles keep their full headline)."""
+    if path in SHARE_TITLES: return SHARE_TITLES[path]
+    slug = path.strip('/').split('/')[-1] if path.startswith('thinking/') else None
+    post = next((x for x in POSTS if x['slug'] == slug), None) if slug else None
+    tag = next((t for t in TOPIC_SLUG if path == 'thinking/' + TOPIC_SLUG[t] + '/'), None)
+    if tag: return f'{TAGS[tag]} | Thinking from Freedom Works'
+    name = post['title'] if post else title.split(' | ')[0]
+    full = f'{name} | Freedom Works'
+    return full if len(full) <= 110 else name
+
 LASTMOD = {}
 HOME_TILE_COPY = {
     'king-arthur-baking': ('A creative platform that celebrates the essence of the King Arthur brand and drives differentiation in a low-interest category.', 'From #2 to #1 flour brand in the US. Doubled sales.'),
@@ -413,7 +451,11 @@ for _p in PROJECTS:
 def tile(p, L, A, hl='h3', home=False):
     stat = p['stat'] or 'Play'
     if p['img']:
-        media = f'<img src="{A("media/"+p["img"]+".webp")}" alt="{esc(p["client"])}, {esc(p["camp"])}" loading="lazy">'
+        small = os.path.join(OUT, 'assets', 'media', p['img'] + '-800.webp')
+        if os.path.exists(small) and not PREVIEW_MODE[0] and _IMG_W.get(p['img']):
+            ss = f' srcset="{A("media/"+p["img"]+"-800.webp")} 800w, {A("media/"+p["img"]+".webp")} {_IMG_W[p["img"]]}w" sizes="(max-width: 900px) 92vw, 46vw"'
+        else: ss = ''
+        media = f'<img src="{A("media/"+p["img"]+".webp")}"{ss} alt="{esc(p["client"])}, {esc(p["camp"])}" loading="lazy">'
     else:
         big = p['stat'] or p['client']
         media = f'<div class="typo" aria-hidden="true"><span class="tn">{num_html(big)}</span><span class="tc">{esc(p["client"])}</span></div>'
@@ -524,6 +566,12 @@ def logo_marquee(A):
     dup = dup.replace(' data-alt="', ' alt="" data-alt="')
     return f'<section class="logo-run" aria-label="Brands we\u2019ve made work for"><ul class="track">{items}{dup}</ul></section>'
 
+def img_wh(rel):
+    try:
+        from PIL import Image
+        w, h = Image.open(os.path.join(OUT, 'assets', rel)).size; return f' width="{w}" height="{h}"'
+    except Exception: return ''
+
 def logos_band(A, dark=False):
     strip = 'clients-white' if dark else 'clients-dark'
     cls = ' dark' if dark else ''
@@ -531,7 +579,7 @@ def logos_band(A, dark=False):
     return f'''<section class="logos-band{cls}" aria-label="Clients">
   <p class="lbl wrap"><span class="mk{mk}" aria-hidden="true"></span>Brands we've made work for</p>
   <div class="marquee" aria-label="Clients include Heineken, Wizz Air, Diageo, Nestlé, TUI, P&amp;G, Coca-Cola, GSK, M&amp;S Food, Brompton, and loveholidays">
-    <img src="{A("logos/"+strip+".png")}" alt=""><img src="{A("logos/"+strip+".png")}" alt="" aria-hidden="true">
+    <img src="{A("logos/"+strip+".png")}" alt=""{img_wh("logos/"+strip+".png")}><img src="{A("logos/"+strip+".png")}" alt="" aria-hidden="true"{img_wh("logos/"+strip+".png")}>
   </div>
 </section>'''
 
@@ -626,8 +674,8 @@ def page_home(L, A):
   </div>
 </section>'''
     who_intro = '''<section class="who-intro wrap white" aria-labelledby="whoi">
-  <h1 class="sec-title wi-title" id="whoi">Welcome to <span class="thin">Freedom Works.</span></h1>
-  <div class="wi-lead"><p>We\u2019re a global creative agency. In a world drowning in content, we make work that matters. The world\u2019s best creative minds anchor your brand at the heart of culture, and craft the work for impact.</p><p class="wi-tag">Calibre, Culture &amp; Craft.</p></div>
+  <h1 class="sec-title wi-title" id="whoi">Welcome to <span class="thin">Freedom Works.</span> <span class="wi-sub">Global creative agency</span></h1>
+  <div class="wi-lead"><p>In a world drowning in content, we make work that matters. The world\u2019s best creative minds anchor your brand at the heart of culture, and craft the work for impact.</p><p class="wi-tag">Calibre, Culture &amp; Craft.</p></div>
 </section>'''
     pillars = f'''<section class="pillars-e wrap light" aria-labelledby="who">
   <div class="sec-head"><h2 class="sec-title" id="who">Who <span class="thin">we are</span></h2></div>
@@ -674,7 +722,7 @@ def page_agency(L, A):
     return f'''<section class="page-hero wrap">
   <h1>Freedom makes <span class="thin">better</span> work.</h1>
   <div class="intro"><div class="stack">
-    <p>Freedom Works is a global creative agency. We make work that matters. Work that\u2019s anchored in culture, crafted for impact, and guided by the best creative minds in the industry.</p>
+    <p>Freedom Works is a global creative agency offering brand strategy, brand identity, creative, production, and in-house creative. We bring together The Guild, a network of more than 500 award-winning independent creatives, strategists, and producers across 37 countries and cultures, and Culture3, our cultural partnerships business, to build a handpicked team for every brief.</p>
     <p>We believe freedom makes better work. Not as fancy words. In practice. In real life. Creativity doesn\u2019t thrive in rigid systems or office-bound models. It thrives when people are trusted and supported to do their best thinking.</p>
   </div></div>
 </section>
@@ -705,13 +753,15 @@ def page_agency(L, A):
     <div class="r"><p class="lead-light">Anyone can generate a hundred ideas now. Knowing a great idea from an average one is where the value lies. This call gets made by people who've made it at the very top of the industry, on the biggest brands in the world. And they don't hand it off after the presentation. They stay on it until it deploys.</p></div>
   </div>
   <div class="leaders">
-    <article class="lead-row"><div class="ph">Portrait to come</div><div class="lr-txt"><h3>Jon Williams</h3><p class="role">Founder and Chief Creative Officer</p><a class="lr-li" href="https://www.linkedin.com/in/creativegenius/" target="_blank" rel="noopener" aria-label="Jon Williams on LinkedIn"><svg aria-hidden="true" viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4z"/></svg><span>LinkedIn</span></a><ul class="pstats"><li><b data-count>49</b>Agencies led</li><li><b data-count>105</b>Cannes Lions</li><li><b data-count>109</b>Effies</li><li><b data-count>51</b>D&amp;AD Pencils</li></ul><div class="bio"><p>Jon Williams is Founder and Chief Creative Officer of Freedom Works.</p><p>At Publicis he created HYPE for HP, the platform Cannes used as its benchmark for the Titanium Lion, and \u201cChoices\u201d for the DePaul Trust, the world\u2019s first true interactive TV spot. He went on to make the Carling iPint, the world\u2019s first native branded iPhone app, downloaded six million times.</p><p>As Chief Creative Officer of Grey London, then Grey EMEA across 47 agencies, he built the network\u2019s best-performing creative region: 105 Cannes Lions, 109 Effies, and 51 D&amp;AD Pencils, plus a 2,000-strong talent platform.</p><p>In 2017 he founded The Liberty Guild, which now powers Freedom Works.</p><p>As well as having chaired or sat on pretty much every award show there is, Jon sits on the Creative UK council and has judged the Luma AI Dream Brief and the Advertising Turing Test. Fuelling his conviction that as machines make more, human taste and judgement matter more than ever.</p></div></div></article>
-    <article class="lead-row"><div class="ph">Portrait to come</div><div class="lr-txt"><h3>Aim\u00e9e Luther</h3><p class="role"><span class="pending-tag">Role to confirm</span></p><a class="lr-li" href="https://www.linkedin.com/in/aimeeluther/" target="_blank" rel="noopener" aria-label="Aimée Luther on LinkedIn"><svg aria-hidden="true" viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4z"/></svg><span>LinkedIn</span></a><ul class="pstats pending"><li><b>00</b>Stat to come</li><li><b>00</b>Stat to come</li><li><b>00</b>Stat to come</li></ul><div class="bio"><p>Aim\u00e9e\u2019s career isn\u2019t just a series of job titles and accolades. It\u2019s a masterclass in blending razor-sharp business acumen with a genuine commitment to making a difference.</p><p>She began ad-life as a graduate at Ogilvy &amp; Mather in 2000, before joining start-up agency BMB in 2006 and becoming Managing Director in 2013. There she ran the TUI business for a decade, producing some of the most decorated campaigns in the industry.</p><p>After launching Fortnight Collective in Europe, she joined The Liberty Guild, a fresh, scalable alternative to the traditional agency model. Alongside leading key client business, Aim\u00e9e guided The Guild to a place in the Sunday Times Best Places to Work 2026.</p><p>Aim\u00e9e has been a Founding Trustee of CALM since 2006, is the Chair of Words Matter and a Trustee of the Langa Township Pre-School Trust in Cape Town. She is also a Marketer in Residence and Honorary Teaching Fellow at Lancaster University. And whilst not a natural athlete, Aim\u00e9e has harrumphed around the London Marathon five times.</p></div></div></article>
-    <article class="lead-row"><div class="ph">Portrait to come</div><div class="lr-txt"><h3>Holly Dillon</h3><p class="role"><span class="pending-tag">Role to confirm</span></p><a class="lr-li" href="https://www.linkedin.com/in/holly-dillon/" target="_blank" rel="noopener" aria-label="Holly Dillon on LinkedIn"><svg aria-hidden="true" viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4z"/></svg><span>LinkedIn</span></a><ul class="pstats pending"><li><b>00</b>Stat to come</li><li><b>00</b>Stat to come</li><li><b>00</b>Stat to come</li></ul><div class="bio"><p>Holly leads the business across commercial strategy, growth, operations, and delivery. She oversees senior client relationships and strategic partnerships, including partnerships with cultural organisations such as TED, connecting brands and businesses with the conversations, communities and moments shaping their industries.</p><p>With over 15 years of experience building businesses and leading international teams, Holly brings executive leadership experience from film and television production and storytelling, which informs her approach to business strategy, creative ambition, and commercial growth. She works closely with C-suite leaders and senior decision-makers to identify commercial opportunities, build relationships, and translate ambition into business growth.</p><p>Prior to Culture3, Holly launched and built Variety\u2019s branded content studio, developing partnerships with Netflix and Apple TV, and delivering award-winning work around NEON\u2019s Parasite.</p><p>Holly is also the founder of Get Your Skin Out, changing how visible skin conditions are represented across culture.</p></div></div></article>
-    <article class="lead-row"><div class="ph">Portrait to come</div><div class="lr-txt"><h3>Jamila Saidi</h3><p class="role"><span class="pending-tag">Role to confirm</span></p><a class="lr-li" href="https://www.linkedin.com/in/jamila-saidi/" target="_blank" rel="noopener" aria-label="Jamila Saidi on LinkedIn"><svg aria-hidden="true" viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4z"/></svg><span>LinkedIn</span></a><ul class="pstats pending"><li><b>00</b>Stat to come</li><li><b>00</b>Stat to come</li><li><b>00</b>Stat to come</li></ul><div class="bio"><p>Jamila leads on strategic growth, partnership development, and commercial expansion, working with brands, businesses, and entrepreneurs at the intersection of culture, creativity, and commerce. Her background in marketing and international trade and investment promotion informs a commercially grounded approach to building lasting client relationships.</p><p>With over 20 years of experience as a global growth leader and commercial strategist, Jamila specialises in entering new markets, building high-value partnerships, and scaling opportunities internationally. She works closely with founders, C-suite leaders, and brand decision-makers to unlock growth that is both ambitious and culturally resonant.</p><p>Jamila brings deep expertise in retail, luxury, fashion, beauty, digital, and the creative industries. She is a passionate advocate for digital trade as a growth enabler and champions female founders and SMEs across the creative economy.</p><p>Prior to joining Culture3, Jamila held senior leadership roles at the UK\u2019s Department for Business and Trade, and worked in international marketing roles at Lloyds Bank Private Banking, Merrill Lynch Global Wealth Management and Grant Thornton.</p></div></div></article>
-    <article class="lead-row"><div class="ph">Portrait to come</div><div class="lr-txt"><h3>Lins Karnes</h3><p class="role">Growth Lead</p><a class="lr-li" href="https://www.linkedin.com/in/linskarnes/" target="_blank" rel="noopener" aria-label="Lins Karnes on LinkedIn"><svg aria-hidden="true" viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4z"/></svg><span>LinkedIn</span></a><ul class="pstats pending"><li><b>00</b>Stat to come</li><li><b>00</b>Stat to come</li><li><b>00</b>Stat to come</li></ul><div class="bio"><p>Lins\u2019 attention to detail keeps everyone in line and makes stuff actually happen. He\u2019s a rare multi-platform, multi-format, digital-native production leader with a degree in computer science.</p><p>He\u2019s worked with big tech, CMS, e-commerce, and digital transformation for companies such as HP, Compaq, Ford, Harvard Business School, and non-governmental agencies. He\u2019s headed up digital production at Wunderman, BHH, and Saint@RKCR/Y&amp;R, improving creative output across digital, and integrated, and delivering global, European, and national programmes for clients such as Microsoft and Unilever.</p><p>His last gig before he came to co-found The Liberty Guild was MD of B-Reel, the world\u2019s leading mixed-media production company, where he drove technical innovation and creative excellence across TV, film, content, digital, integrated, experiential, and product development.</p></div></div></article>
+    <article class="lead-row" id="jon-williams"><div class="ph">Portrait to come</div><div class="lr-txt"><h3>Jon Williams</h3><p class="role">Founder and Chief Creative Officer</p><a class="lr-li" href="https://www.linkedin.com/in/creativegenius/" target="_blank" rel="noopener" aria-label="Jon Williams on LinkedIn"><svg aria-hidden="true" viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4z"/></svg><span>LinkedIn</span></a><ul class="pstats"><li><b data-count>49</b>Agencies led</li><li><b data-count>105</b>Cannes Lions</li><li><b data-count>109</b>Effies</li><li><b data-count>51</b>D&amp;AD Pencils</li></ul><div class="bio"><p>Jon Williams is Founder and Chief Creative Officer of Freedom Works.</p><p>At Publicis he created HYPE for HP, the platform Cannes used as its benchmark for the Titanium Lion, and \u201cChoices\u201d for the DePaul Trust, the world\u2019s first true interactive TV spot. He went on to make the Carling iPint, the world\u2019s first native branded iPhone app, downloaded six million times.</p><p>As Chief Creative Officer of Grey London, then Grey EMEA across 47 agencies, he built the network\u2019s best-performing creative region: 105 Cannes Lions, 109 Effies, and 51 D&amp;AD Pencils, plus a 2,000-strong talent platform.</p><p>In 2017 he founded The Liberty Guild, which now powers Freedom Works.</p><p>As well as having chaired or sat on pretty much every award show there is, Jon sits on the Creative UK council and has judged the Luma AI Dream Brief and the Advertising Turing Test. Fuelling his conviction that as machines make more, human taste and judgement matter more than ever.</p></div></div></article>
+    <article class="lead-row" id="aimee-luther"><div class="ph">Portrait to come</div><div class="lr-txt"><h3>Aim\u00e9e Luther</h3><p class="role"><span class="pending-tag">Role to confirm</span></p><a class="lr-li" href="https://www.linkedin.com/in/aimeeluther/" target="_blank" rel="noopener" aria-label="Aimée Luther on LinkedIn"><svg aria-hidden="true" viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4z"/></svg><span>LinkedIn</span></a><ul class="pstats pending"><li><b>00</b>Stat to come</li><li><b>00</b>Stat to come</li><li><b>00</b>Stat to come</li></ul><div class="bio"><p>Aim\u00e9e\u2019s career isn\u2019t just a series of job titles and accolades. It\u2019s a masterclass in blending razor-sharp business acumen with a genuine commitment to making a difference.</p><p>She began ad-life as a graduate at Ogilvy &amp; Mather in 2000, before joining start-up agency BMB in 2006 and becoming Managing Director in 2013. There she ran the TUI business for a decade, producing some of the most decorated campaigns in the industry.</p><p>After launching Fortnight Collective in Europe, she joined The Liberty Guild, a fresh, scalable alternative to the traditional agency model. Alongside leading key client business, Aim\u00e9e guided The Guild to a place in the Sunday Times Best Places to Work 2026.</p><p>Aim\u00e9e has been a Founding Trustee of CALM since 2006, is the Chair of Words Matter and a Trustee of the Langa Township Pre-School Trust in Cape Town. She is also a Marketer in Residence and Honorary Teaching Fellow at Lancaster University. And whilst not a natural athlete, Aim\u00e9e has harrumphed around the London Marathon five times.</p></div></div></article>
+    <article class="lead-row" id="holly-dillon"><div class="ph">Portrait to come</div><div class="lr-txt"><h3>Holly Dillon</h3><p class="role"><span class="pending-tag">Role to confirm</span></p><a class="lr-li" href="https://www.linkedin.com/in/holly-dillon/" target="_blank" rel="noopener" aria-label="Holly Dillon on LinkedIn"><svg aria-hidden="true" viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4z"/></svg><span>LinkedIn</span></a><ul class="pstats pending"><li><b>00</b>Stat to come</li><li><b>00</b>Stat to come</li><li><b>00</b>Stat to come</li></ul><div class="bio"><p>Holly leads the business across commercial strategy, growth, operations, and delivery. She oversees senior client relationships and strategic partnerships, including partnerships with cultural organisations such as TED, connecting brands and businesses with the conversations, communities and moments shaping their industries.</p><p>With over 15 years of experience building businesses and leading international teams, Holly brings executive leadership experience from film and television production and storytelling, which informs her approach to business strategy, creative ambition, and commercial growth. She works closely with C-suite leaders and senior decision-makers to identify commercial opportunities, build relationships, and translate ambition into business growth.</p><p>Prior to Culture3, Holly launched and built Variety\u2019s branded content studio, developing partnerships with Netflix and Apple TV, and delivering award-winning work around NEON\u2019s Parasite.</p><p>Holly is also the founder of Get Your Skin Out, changing how visible skin conditions are represented across culture.</p></div></div></article>
+    <article class="lead-row" id="jamila-saidi"><div class="ph">Portrait to come</div><div class="lr-txt"><h3>Jamila Saidi</h3><p class="role"><span class="pending-tag">Role to confirm</span></p><a class="lr-li" href="https://www.linkedin.com/in/jamila-saidi/" target="_blank" rel="noopener" aria-label="Jamila Saidi on LinkedIn"><svg aria-hidden="true" viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4z"/></svg><span>LinkedIn</span></a><ul class="pstats pending"><li><b>00</b>Stat to come</li><li><b>00</b>Stat to come</li><li><b>00</b>Stat to come</li></ul><div class="bio"><p>Jamila leads on strategic growth, partnership development, and commercial expansion, working with brands, businesses, and entrepreneurs at the intersection of culture, creativity, and commerce. Her background in marketing and international trade and investment promotion informs a commercially grounded approach to building lasting client relationships.</p><p>With over 20 years of experience as a global growth leader and commercial strategist, Jamila specialises in entering new markets, building high-value partnerships, and scaling opportunities internationally. She works closely with founders, C-suite leaders, and brand decision-makers to unlock growth that is both ambitious and culturally resonant.</p><p>Jamila brings deep expertise in retail, luxury, fashion, beauty, digital, and the creative industries. She is a passionate advocate for digital trade as a growth enabler and champions female founders and SMEs across the creative economy.</p><p>Prior to joining Culture3, Jamila held senior leadership roles at the UK\u2019s Department for Business and Trade, and worked in international marketing roles at Lloyds Bank Private Banking, Merrill Lynch Global Wealth Management and Grant Thornton.</p></div></div></article>
+    <article class="lead-row" id="lins-karnes"><div class="ph">Portrait to come</div><div class="lr-txt"><h3>Lins Karnes</h3><p class="role">Growth Lead</p><a class="lr-li" href="https://www.linkedin.com/in/linskarnes/" target="_blank" rel="noopener" aria-label="Lins Karnes on LinkedIn"><svg aria-hidden="true" viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4z"/></svg><span>LinkedIn</span></a><ul class="pstats pending"><li><b>00</b>Stat to come</li><li><b>00</b>Stat to come</li><li><b>00</b>Stat to come</li></ul><div class="bio"><p>Lins\u2019 attention to detail keeps everyone in line and makes stuff actually happen. He\u2019s a rare multi-platform, multi-format, digital-native production leader with a degree in computer science.</p><p>He\u2019s worked with big tech, CMS, e-commerce, and digital transformation for companies such as HP, Compaq, Ford, Harvard Business School, and non-governmental agencies. He\u2019s headed up digital production at Wunderman, BHH, and Saint@RKCR/Y&amp;R, improving creative output across digital, and integrated, and delivering global, European, and national programmes for clients such as Microsoft and Unilever.</p><p>His last gig before he came to co-found The Liberty Guild was MD of B-Reel, the world\u2019s leading mixed-media production company, where he drove technical innovation and creative excellence across TV, film, content, digital, integrated, experiential, and product development.</p></div></div></article>
   </div>
 </section>
+{logo_wall(A)}
+<section class="closing-st wrap" aria-label="What we stand for"><p>We make work that matters. Work that\u2019s anchored in culture, crafted for impact, and guided by the best creative minds in the industry.</p></section>
 {cta(L)}'''
 
 def mosaic(A, title, para, link_href, link_text):
@@ -745,7 +795,7 @@ def page_guild(L, A):
     return f'''<section class="page-hero wrap">
   <h1>The best creative <span class="thin">department in the world.</span></h1>
   <div class="intro"><div class="stack">
-    <p>The Guild is the creative A-list: 600+ of the world\u2019s best independent creatives, strategists, and producers across 37 countries and cultures, with 2,315 awards between them.</p>
+    <p>The Guild is the creative A-list: 500+ of the world\u2019s best independent creatives, strategists, and producers across 37 countries and cultures, with 2,315 awards between them.</p>
     <p>We work with our clients to handpick a bespoke team from this community for every project, whatever or wherever required.</p>
   </div></div>
 </section>
@@ -753,7 +803,7 @@ def page_guild(L, A):
 <section class="band tight dark" aria-label="The Guild in numbers">
   <div class="wrap">
     <div class="figures">
-      <div><span class="n">600+</span><span class="l">Creatives, strategists, and producers</span></div>
+      <div><span class="n">500+</span><span class="l">Creatives, strategists, and producers</span></div>
       <div><span class="n">37</span><span class="l">Countries and cultures</span></div>
       <div><span class="n">2,315</span><span class="l">Lions, Pencils, and Effies collectively</span></div>
       <div><span class="n">33<span class="u">%</span></span><span class="l">Female (14% industry benchmark)</span></div>
@@ -805,9 +855,14 @@ def page_services(L, A):
     for i, (name, txt, caps, img) in enumerate(WHATWEDO):
         cap = ''.join(f'<li>{esc(c)}</li>' for c in caps)
         more = ''
+        l2 = None
         if SERVICE_PAGES_LIVE:
             from service_pages import LEVEL2
             l2 = next((x for x in LEVEL2 if x['name'].lower() == name.lower()), None)
+            if l2 and l2.get('children'):
+                names = {c['name'].lower() for c in l2['children']}
+                cap = (''.join(f'<li><a href="{L(c["path"])}">{esc(c["name"])}</a></li>' for c in l2['children'])
+                       + ''.join(f'<li>{esc(c)}</li>' for c in caps if c.lower() not in names))
             if l2: more = f'<a class="sec-link svc-more" href="{L(l2["path"])}">Explore {esc(name.lower())}</a>'
         head = esc(name)
         if SERVICE_PAGES_LIVE and l2: head = f'<a class="k-link" href="{L(l2["path"])}">{esc(name)}</a>'
@@ -827,6 +882,7 @@ def page_services(L, A):
 {chr(10).join(rows)}
   </ul>
 </section>
+{logo_wall(A)}
 {cta(L)}'''
 
 def page_culture(L, A):
@@ -835,25 +891,30 @@ def page_culture(L, A):
              ('Voices that matter', 'Thinkers, speakers, creators, and specialists who bring authority, perspective, and cultural relevance to a conversation.'),
              ('Creativity that matters', "Freedom Works' global network of independent creatives, bringing culturally fluent perspectives across markets, disciplines, and communities.")]
     bx = '\n'.join(f'<div class="box"><h2>{esc(k)}</h2><p>{esc(v)}</p></div>' for k, v in boxes)
-    svc = [('Strategic cultural partners', 'Partner strategy, access, and activation with the institutions that shape culture. TED, and a pipeline of new partnerships.'),
-           ('Talent and voice curation', 'Speakers, thinkers, creators, and specialists around your topic and ambition. TED talent, K\u016a KAI, our wider network.'),
-           ('Live cultural programming', 'Events, conversations, panels, and salons built around relevant topics and voices. Offstage, Culture3 Conversations.'),
-           ('Original formats and IP', 'Repeatable editorial, film, and event propositions built around a cultural opportunity. The PwC Chair Table.')]
-    rows = '\n'.join(f'<li><span class="k">{esc(k)}</span><span class="v">{esc(v)}</span></li>' for k, v in svc)
+    ted = f'<img class="ted-name" src="{A("logos/ted.webp")}" alt="TED Partnerships" width="1280" height="471">'
+    offers = [
+        ('<h3>Offstage</h3>', 'Event sponsorship and partnerships',
+         'Culture3\u2019s curated event series for C-suite leaders, decision-makers, and cultural voices, held at key moments such as Cannes. Brands sponsor an intimate, moderated conversation built around their industry, with access to a carefully curated room of people and perspectives.'),
+        (f'<h3 class="c3n">A <span class="c3-inline">{c3_logo()}</span> Conversation</h3>', 'Sponsored conversations and cultural partnerships',
+         'A focused, programmed discussion on a question that matters to a brand\u2019s industry, at moments such as SXSW London. We find the topic, partners, and speakers, with the option to extend the conversation into editorial content.'),
+        (f'<h3 class="ted-h">{ted}</h3>', 'TED Partnerships: strategic partnerships and cultural access',
+         'Bespoke partnerships with TED, one of the world\u2019s leading platforms for ideas. Access to TED\u2019s ecosystem of voices, content, and events gives brands a credible role in the conversations shaping their industry.'),
+        ('<h3>Cultural partners</h3>', 'Strategic partnerships and cultural access',
+         'We connect brands with established cultural institutions, platforms, and intellectual property, and build bespoke commercial opportunities across content, events, influential voices, and audience engagement.'),
+        ('<h3>Custom brand partnerships</h3>', 'Brand strategy, content, and experiences',
+         'We work directly with brands on bespoke cultural partnerships, from original film and editorial series to curated events and live experiences, to give them a credible role in culture and reach new audiences.')]
+    ol = '\n'.join(f'      <li><div class="ok">{h}<p class="os">{esc(sub)}</p></div><p class="ov">{esc(d)}</p></li>' for h, sub, d in offers)
     return f'''<section class="page-hero c3-hero wrap">
-  <div class="c3-mark">{c3_logo()}</div>
   <h1>Culture gets <span class="thin">you noticed.</span></h1>
   <div class="intro"><div class="stack">
-    <p>Culture3 connects brands and organisations to the partnerships, communities, moments, and voices shaping culture. We identify where they can credibly take part, who they should show up with, and what role they can play in the conversation to make the work matter. Physical. Nuanced. Human.</p>
+    <p>AI can talk about culture. It can never be in it. Culture3 puts brands in the rooms that matter. Offstage, curated dinners with leaders and cultural voices at defining moments. Onstage, through partners like TED, a platform for their ideas. Then we take it beyond the room, amplifying the conversation through organic and paid media. Physical. Nuanced. Human.</p>
   </div></div>
 </section>
 <div class="sizzle wrap"><video class="lazyvid" muted loop playsinline preload="none" poster="{A("media/poster-culture3.webp")}" data-src="{A("film/sizzle-culture.mp4")}" aria-hidden="true"></video></div>
-<section class="c3-direct wrap" aria-labelledby="c3d">
-  <div class="l"><p class="sec-lbl"><span class="mk" aria-hidden="true"></span>Working with Culture3</p><h2 class="h2" id="c3d">A credible place <span class="thin">in culture.</span></h2></div>
+<section class="c3-direct c3-about wrap" aria-labelledby="c3a">
+  <div class="l"><h2 class="c3-about-logo" id="c3a">{c3_logo()}</h2></div>
   <div class="r">
-    <p class="lead">Culture3 works directly with brands and organisations to build bespoke cultural partnerships, content, and experiences, shaped around their commercial, strategic, or cultural ambitions.</p>
-    <p>Whether an organisation wants to celebrate what it has achieved, champion the people driving change, stand up for what it believes in or lead the conversation on an issue that matters, we create the space and the platform for that ambition to be seen and heard.</p>
-    <p>From original film and editorial series to curated events and live experiences, we find the right moments, voices, and partners to help brands and organisations <em>earn a credible place in culture</em>, rather than simply buy attention. Reaching new audiences, building relevance, and <em>creating lasting impact</em>.</p>
+    <p class="lead">Bringing cultural access, strategic partnerships, relevant voices, and culturally fluent creativity together to build propositions, formats, and opportunities that let a brand take part in culture. It draws on the wider Freedom Works network where needed.</p>
   </div>
 </section>
 <section class="band tight wrap flush-top" aria-label="What Culture3 brings">
@@ -867,8 +928,8 @@ def page_culture(L, A):
     <div class="l"><p class="sec-lbl"><span class="mk" aria-hidden="true"></span>Our methodology</p><h2 class="h2" id="c3m">Where to show up. Who to show up with. <span class="thin">What to build.</span></h2></div>
   </div>
   <ol class="c3-steps">
-    <li><span class="sn">01</span><h3>Strategy</h3><p>We find the cultural opportunities, audiences, and moments that fit a brand or organisation\u2019s commercial or cultural ambitions.</p></li>
-    <li><span class="sn">02</span><h3>Access</h3><p>We connect brands and organisations with established cultural institutions, communities, and influential voices.</p></li>
+    <li><span class="sn">01</span><h3>Strategy</h3><p>We find the cultural opportunities, audiences, and moments that fit a brand\u2019s commercial or cultural ambitions.</p></li>
+    <li><span class="sn">02</span><h3>Access</h3><p>We connect brands with established cultural institutions, communities, and influential voices.</p></li>
     <li><span class="sn">03</span><h3>Programming</h3><p>We develop and curate events, conversations, and experiences that bring cultural ideas to life.</p></li>
     <li><span class="sn">04</span><h3>Content</h3><p>We make original film, editorial series, and content that builds cultural relevance and keeps audiences engaged.</p></li>
   </ol>
@@ -879,10 +940,7 @@ def page_culture(L, A):
       <div class="l"><h2 class="h2" id="c3o">Culture3 <span class="thin">offerings</span></h2></div>
     </div>
     <ul class="c3-offers">
-      <li><div class="ok"><h3>Cultural partnerships</h3><p class="os">Strategic partnerships and cultural access</p><img class="ted-logo" src="{A("logos/ted.webp")}" alt="Including TED" width="1280" height="471"></div><p class="ov">We connect brands and organisations with established cultural institutions, platforms, and intellectual property, and build bespoke opportunities across content, events, influential voices, and audience engagement. This includes partnerships with TED, one of the world\u2019s leading platforms for ideas, whose ecosystem of voices, content, and events gives brands a credible role in the conversations shaping their industry.</p></li>
-      <li><div class="ok"><h3 class="c3n"><span class="c3-inline">{c3_logo()}</span>: Offstage</h3><p class="os">Event sponsorship and partnerships</p></div><p class="ov">Culture3\u2019s curated event series for C-suite leaders, decision-makers, and cultural voices, held at key moments such as Cannes. Brands sponsor an intimate, moderated conversation built around their industry, with access to a carefully curated room of people and perspectives.</p></li>
-      <li><div class="ok"><h3 class="c3n">A <span class="c3-inline">{c3_logo()}</span> Conversation</h3><p class="os">Sponsored conversations and cultural partnerships</p></div><p class="ov">A focused, programmed discussion on a question that matters to a brand\u2019s industry, at moments such as SXSW London. We find the topic, partners, and speakers, with the option to extend the conversation into editorial content.</p></li>
-      <li><div class="ok"><h3>Brand partnerships</h3><p class="os">Brand strategy, content, and experiences</p></div><p class="ov">We work directly with brands and organisations on bespoke cultural partnerships, from original film and editorial series to curated events and live experiences, to give them a credible role in culture and reach new audiences.</p></li>
+{ol}
     </ul>
   </div>
 </section>
@@ -956,7 +1014,7 @@ def page_thinking(L, A):
   <div class="intro"><div class="stack"><p>{len(POSTS)} articles on creativity, AI, talent, and the agency model.</p></div></div>
 </section>
 <section class="thinking wrap">
-  <div class="filters" role="group" aria-label="Filter articles">{btn}</div>
+  {topic_nav(L, None)}
   {post_cards(POSTS, L, A, with_data=True)}
 </section>
 {cta(L)}'''
@@ -973,18 +1031,113 @@ def page_article(p, L, A, strip_images=False):
     if strip_images:
         body = re.sub(r'<p>\s*<img[^>]*src="http[^"]*"[^>]*>\s*</p>', '', body); body = re.sub(r'<img[^>]*src="http[^"]*"[^>]*>', '', body)
     tag = TAGS.get(p['tag'], 'Thinking')
+    body = link_first_service(body, L)
+    topic_link = f'<a href="{L("thinking/" + TOPIC_SLUG[p["tag"]] + "/")}">{esc(tag)}</a>' if p['tag'] in TOPIC_SLUG else esc(tag)
     return f'''<article>
   <header class="article-head wrap">
-    <p class="k">{esc(tag)}</p>
+    <p class="k">{topic_link}</p>
     <h1>{esc(p["title"])}</h1>
-    <p class="meta">{esc(p["author"])}, {month(p["date"])}. Originally published by The Liberty Guild, now Freedom Works. <a href="{esc(p["originalUrl"])}">Read the original</a></p>
+    <p class="meta">By {byline(p, L)}. {month(p["date"])}. Originally published by The Liberty Guild, now Freedom Works. <a href="{esc(p["originalUrl"])}">Read the original</a></p>
   </header>
   <div class="article-body wrap"><div class="prose">
 {body}
+  {share_row(p)}
   </div></div>
 </article>
-<nav class="wrap" aria-label="More thinking"><a class="next" href="{L("thinking/")}"><span class="k">More thinking</span><span class="t">All articles</span></a></nav>
+{next_step(p, L)}
+{more_on_topic(p, L, A)}
+<a class="sticky-cta" href="{L("contact/")}" data-cta="article-sticky-talk-to-us">Talk to us <span aria-hidden="true">\u2192</span></a>
 {cta(L)}'''
+
+def slug_name(n):
+    import unicodedata
+    n = unicodedata.normalize('NFKD', n).encode('ascii', 'ignore').decode()
+    return re.sub(r'[^a-z0-9]+', '-', n.lower()).strip('-')
+
+def svc_by_name(name):
+    from service_pages import SERVICE_PAGES
+    return next((x for x in SERVICE_PAGES if x['name'] == name), None)
+
+def byline(p, L):
+    a = p['author']
+    if a == 'Freedom Works':
+        return f'<a href="{L("agency/")}">Freedom Works</a>'
+    role = AUTHOR_ROLE.get(a)
+    return f'<a href="{L("agency/")}#{slug_name(a)}">{esc(a)}</a>' + (f', {esc(role)}' if role else '')
+
+SVC_PHRASES = [(r'brand strategy', 'Brand strategy'), (r'brand positioning', 'Brand positioning'), (r'communications strategy|comms strategy', 'Communications strategy'),
+               (r'brand architecture', 'Brand architecture'), (r'brand identity', 'Brand identity'), (r'rebrand(?:ing|s)?\b', 'Brand development and rebranding'),
+               (r'visual identity|brand guidelines', 'Visual identity and brand guidelines'), (r'product launch|brand launch', 'Brand and product launches'),
+               (r'campaign strategy', 'Campaign strategy and development'), (r'virtual production', 'Virtual production'), (r'post-production', 'Post-production'),
+               (r'AI production|AI-produced|fully AI', 'AI production'), (r'in-house (?:creative|agenc(?:y|ies)|teams?)', 'In-house creative')]
+
+def link_first_service(body, L):
+    """One in-text link per article: the first natural mention of a service, outside headings, quotes, and existing links."""
+    parts = re.split(r'(<[^>]+>)', body); depth = 0
+    for i, part in enumerate(parts):
+        if part.startswith('<'):
+            tag = re.match(r'</?\s*([a-zA-Z0-9]+)', part)
+            if tag and tag.group(1).lower() in ('a', 'h1', 'h2', 'h3', 'h4', 'blockquote', 'figcaption'):
+                depth += -1 if part.startswith('</') else 1
+            continue
+        if depth > 0 or not part.strip(): continue
+        for rx, name in SVC_PHRASES:
+            m = re.search(r'\b(' + rx + r')', part, re.I)
+            sp_ = svc_by_name(name) if m else None
+            if sp_:
+                parts[i] = part[:m.start(1)] + f'<a href="{L(sp_["path"])}">{m.group(1)}</a>' + part[m.end(1):]
+                return ''.join(parts)
+    return body
+
+def share_row(p):
+    url = urllib.parse.quote(DOMAIN + '/thinking/' + p['slug'] + '/', safe=''); t = urllib.parse.quote(p['title'], safe='')
+    return (f'<div class="share" aria-label="Share this article"><span class="lbl">Share</span>'
+            f'<a href="https://www.linkedin.com/sharing/share-offsite/?url={url}" target="_blank" rel="noopener" data-share="linkedin">LinkedIn</a>'
+            f'<a href="https://twitter.com/intent/tweet?url={url}&amp;text={t}" target="_blank" rel="noopener" data-share="x">X</a>'
+            f'<a href="mailto:?subject={t}&amp;body={url}" data-share="email">Email</a>'
+            f'<button type="button" data-copy="{esc(DOMAIN + "/thinking/" + p["slug"] + "/")}" data-share="copy">Copy link</button>'
+            f'<span class="copied" role="status" aria-live="polite"></span></div>')
+
+def next_step(p, L):
+    main, second = TOPIC_SVC.get(p['tag'], ('Creative', 'Brand strategy'))
+    a, b = svc_by_name(main), svc_by_name(second)
+    if not a: return ''
+    rel = f'<a href="{L(a["path"])}">{esc(main)}</a>' + (f', <a href="{L(b["path"])}">{esc(second)}</a>' if b else '')
+    return (f'<aside class="next-step wrap" aria-labelledby="ns-h"><div class="ns-in"><h2 id="ns-h">Put this thinking <span class="thin">to work.</span></h2>'
+            f'<p>Explore {esc(main[0].lower() + main[1:]) if not main.startswith("AI") else esc(main)}, or tell us about your brief.</p>'
+            f'<div class="ns-btns"><a class="ct-btn" href="{L(a["path"])}" data-cta="article-explore-service">Explore {esc(main if main.startswith("AI") else main.lower())} <span aria-hidden="true">\u2192</span></a>'
+            f'<a class="ct-btn ghost" href="{L("contact/")}" data-cta="article-talk-to-us">Talk to us</a></div>'
+            f'<p class="rel">Related services: {rel}</p></div></aside>')
+
+def more_on_topic(p, L, A):
+    same = [x for x in POSTS if x['tag'] == p['tag'] and x is not p]
+    same.sort(key=lambda x: x['date'], reverse=True)
+    picks = same[:3]
+    if not picks: return ''
+    t = TAGS.get(p['tag'], 'Thinking')
+    return (f'<section class="more-on wrap" aria-labelledby="mo-h"><div class="mo-head"><h2 class="h2" id="mo-h">More on <span class="thin">{esc(t[0].lower() + t[1:]) if not t.startswith("AI") else esc(t)}</span></h2>'
+            f'<p class="mo-links"><a class="sec-link" href="{L("thinking/" + TOPIC_SLUG[p["tag"]] + "/")}">All {esc((t if t.startswith("AI") else t.lower()).replace("the agency model", "agency model"))} articles</a> <a class="sec-link" href="{L("thinking/")}">All articles</a></p></div>'
+            f'{post_cards(picks, L, A)}</section>')
+
+def topic_nav(L, current):
+    items = [('All', 'thinking/', current is None)] + [(TAGS[t], 'thinking/' + TOPIC_SLUG[t] + '/', current == t) for t in TOPIC_SLUG if any(x['tag'] == t for x in POSTS)]
+    cur_ = ' aria-current="page"'
+    return '<nav class="filters topic-nav" aria-label="Thinking topics">' + ''.join(f'<a href="{L(h)}"{cur_ if on else ""}>{esc(n)}</a>' for n, h, on in items) + '</nav>'
+
+def page_topic(tag):
+    def fn(L, A, **k):
+        posts = sorted([x for x in POSTS if x['tag'] == tag], key=lambda x: x['date'], reverse=True)
+        return f"""<section class="page-hero tight wrap">
+  <p class="sec-lbl"><span class="mk" aria-hidden="true"></span><a href="{L("thinking/")}">Thinking</a></p>
+  <h1>{esc(TAGS[tag])}</h1>
+  <div class="intro"><div class="stack"><p>{esc(TOPIC_INTRO[tag])}</p><p class="count">{len(posts)} articles</p></div></div>
+</section>
+<section class="thinking wrap">
+  {topic_nav(L, tag)}
+  {post_cards(posts, L, A)}
+</section>
+{cta(L)}"""
+    return fn
 
 def page_contact(L, A):
     return f'''<section class="contact contact-page" aria-labelledby="ct">
@@ -1038,11 +1191,19 @@ def page_terms(L, A):
 def header(L, A, active, theme='light'):
     cur = ' aria-current="page"'
     cta_attr = ' data-cta="header-talk-to-us"'
-    links = ''.join(f'<a href="{L(p)}"{cur if p == active else ""}{cta_attr if p == "contact/" else ""}>{t}</a>' for p, t in NAV)
-    big = ''.join(f'<li><a href="{L(p)}"{cur if p == active else ""}>{t}</a></li>' for p, t in NAV)
+    dd = ''.join(f'<li><a href="{L(sp_)}">{esc(n)}</a></li>' for n, sp_ in L2_SERVICES)
+    def nav_item(p, t):
+        a = f'<a href="{L(p)}"{cur if p == active else ""}{cta_attr if p == "contact/" else ""}>{t}</a>'
+        if p != 'services/': return a
+        return (f'<div class="nav-dd">{a}<button class="dd-btn" type="button" aria-expanded="false" aria-controls="dd-svc" aria-label="Show services">{CHEVRON}</button>'
+                f'<div class="dd-panel" id="dd-svc"><ul>{dd}</ul></div></div>')
+    links = ''.join(nav_item(p, t) for p, t in NAV)
+    sub = '<ul class="sub">' + ''.join(f'<li><a href="{L(sp_)}">{esc(n)}</a></li>' for n, sp_ in L2_SERVICES) + '</ul>'
+    hs = ' class="has-sub"'
+    big = ''.join(f'<li{hs if p == "services/" else ""}><a href="{L(p)}"{cur if p == active else ""}>{t}</a>{sub if p == "services/" else ""}</li>' for p, t in NAV)
     return f'''<a class="skip" href="#main">Skip to content</a>
 <header class="site-head" data-theme="{theme}">
-  <a class="mark" href="{L("")}" aria-label="Freedom Works home"><img class="lg-white" src="{A("brand/logo-white-480.png")}" alt="Freedom Works" width="480" height="86"><img class="lg-indigo" src="{A("brand/logo-indigo-480.png")}" alt="" aria-hidden="true" width="480" height="86"></a>
+  <a class="mark" href="{L("")}" aria-label="Freedom Works home"><img class="lg-white" src="{A("brand/logo-white-480.png")}" alt="Freedom Works logo" width="480" height="86"><img class="lg-indigo" src="{A("brand/logo-indigo-480.png")}" alt="Freedom Works logo" aria-hidden="true" width="480" height="86"></a>
   <nav aria-label="Main">{links}</nav>
   <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu"><span class="bars" aria-hidden="true"></span>Menu</button>
 </header>
@@ -1056,9 +1217,10 @@ def footer(L, A):
     return f'''<footer class="foot wrap">
   <div class="brand"><img src="{A("brand/logo-linen-480.png")}" alt="Freedom Works" width="480" height="86" loading="lazy"><span>A global creative agency.<br>Calibre, Culture, Craft.</span></div>
   <div class="links">{links}<a href="https://www.linkedin.com">LinkedIn</a><a href="https://www.instagram.com">Instagram</a></div>
+  <div class="fsvc"><p class="fh">Services</p>{''.join(f'<a href="{L(sp_)}">{esc(n)}</a>' for n, sp_ in L2_SERVICES)}</div>
   <div class="legal"><a href="mailto:{CONTACT_EMAIL}">{CONTACT_EMAIL}</a><span>\u00a9 {datetime.date.today().year} Freedom Works, London</span><a href="{L("privacy/")}">Privacy</a><a href="{L("cookies/")}">Cookies</a><a href="{L("terms/")}">Terms</a><button type="button" class="cookie-settings" data-cookie-settings>Cookie settings</button></div>
 </footer>
-<div class="foot-mark" aria-hidden="true"><img src="{A("brand/logo-white.png")}" alt="" width="1600" height="287" loading="lazy"></div>'''
+<div class="foot-mark" aria-hidden="true"><img src="{A("brand/logo-white.png")}" alt="Freedom Works logo" width="1600" height="287" loading="lazy"></div>'''
 
 DARK_TOP = ('', 'contact/', '404')   # pages that open on a dark ground: the header starts in its light-on-dark state
 FLOURISH_JS = open(SP('flourish.js')).read()
@@ -1081,7 +1243,7 @@ ORG = {"@context": "https://schema.org", "@type": "Organization", "name": "Freed
        "description": "A global creative agency built on Calibre, Culture and Craft: brand strategy, identity, creative, production, and in-house creative, from 500+ award-winning independent creatives handpicked for every brief.",
        "slogan": "Freedom makes better work.",
        "url": DOMAIN, "logo": DOMAIN + "/assets/brand/logo-indigo.png", "address": {"@type": "PostalAddress", "streetAddress": "167\u2013169 Great Portland Street, 5th Floor", "addressLocality": "London", "postalCode": "W1W 5PF", "addressCountry": "GB"}, "email": "hello@freedom.works", "contactPoint": {"@type": "ContactPoint", "contactType": "new business", "email": "hello@freedom.works", "url": DOMAIN + "/contact/"},
-       "subOrganization": {"@type": "Organization", "name": "Culture3", "url": DOMAIN + "/culture3/", "description": "Culture3 connects brands to the partnerships, communities, moments, and voices shaping culture."}}
+       "subOrganization": {"@type": "Organization", "name": "Culture3", "url": DOMAIN + "/culture3/", "description": "Culture3 puts brands in the rooms that matter, bringing cultural access, strategic partnerships, relevant voices, and culturally fluent creativity together, from Offstage dinners to partnerships with TED."}}
 
 def crumbs(path, title):
     items = [{"@type": "ListItem", "position": 1, "name": "Home", "item": DOMAIN + "/"}]
@@ -1145,22 +1307,26 @@ def page_service(sp, L, A):
             return f'<li class="plain"><span class="k">{esc(n)}</span><span class="d">{esc(d)}</span><span class="go" aria-hidden="true"></span></li>'
         extra = ((f'<li class="sub-head"><span>Also part of {esc(sp["name"].lower())}</span></li>' if links and caps else '') + ''.join(cap_row(c) for c in caps))
     else:
-        par = sp['parent']; links = [c for c in par['children'] if c is not sp] + [par]; svc_label = 'Related'; extra = ''
+        par = sp['parent']; links = [c for c in par['children'] if c is not sp] + [par]; svc_label = 'Related services'; extra = ''
     rows = ''.join(f'<li><a href="{L(c["path"])}"><span class="k">{esc(c["name"]) if c is not sp.get("parent") else "All " + esc(c["name"].lower())}</span><span class="d">{esc(c["line"])}</span><span class="go" aria-hidden="true">\u2192</span></a></li>' for c in links) + extra
     projs = {p['slug']: p for p in PROJECTS}
-    tiles = '\n'.join(tile(projs[s_], L, A) for s_ in sp['cases'][:2] if s_ in projs)
+    tiles = '\n'.join(tile(projs[s_], L, A) for s_ in relevant_cases(sp) if s_ in projs)
     quote_html = ''
     if sp['quotes']:
         qt, qn, qr = SVC_QUOTES[sp['quotes'][0]]
         quote_html = '<figure class="svc-quote"><blockquote>\u201c' + esc(qt) + '\u201d</blockquote><figcaption><b>' + esc(qn) + '</b>' + esc(qr) + '</figcaption></figure>'
     work_row = ''
-    if tiles or quote_html:
+    if tiles:
         work_row = ('<section class="svc-row wrap" aria-labelledby="s-work"><h2 class="svc-label" id="s-work">Work</h2><div class="svc-body">\n'
-                    + ('  <div class="grid svc-tiles">' + tiles + '</div>\n' if tiles else '') + ('  ' + quote_html + '\n' if quote_html else '') + '</div></section>')
+                    + '  <div class="grid svc-tiles">' + tiles + '</div>\n'
+                    + f'  <a class="sec-link" href="{L("work/")}">See all work</a>\n</div></section>')
+    if quote_html:
+        work_row += ('\n<section class="svc-row wrap" aria-labelledby="s-say"><h2 class="svc-label" id="s-say">What clients say</h2><div class="svc-body">\n  '
+                     + quote_html + '\n</div></section>')
     faqs = ''.join(f'<details><summary>{esc(q)}</summary><p>{esc(a)}</p></details>' for q, a in sp['faqs'][:4])
     by_slug = {x['slug']: x for x in POSTS}
     chosen = [next(x for x in POSTS if x['slug'].startswith(k)) for k in sp.get('articles', []) if any(x['slug'].startswith(k) for x in POSTS)] or related_posts(sp['keywords'])
-    arts = ''.join(f'<li><a href="{L("thinking/"+x["slug"]+"/")}"><span class="t">{esc(x["title"])}</span><span class="m">{month(x["date"])}</span></a></li>' for x in chosen[:3])
+    arts = post_cards(chosen[:3], L, A)
     return f'''<div class="svcpage">
 {'<div class="draft-banner">Example page with starter copy, for review. Not yet live on the site.</div>' if DRAFTS[0] and not SERVICE_PAGES_LIVE else ''}
 <header class="svc-top wrap">
@@ -1172,6 +1338,7 @@ def page_service(sp, L, A):
   </div>
   {('<div class="svc-logos"><p class="svc-label">Trusted by</p><ul>' + logos + '</ul></div>') if logos else ''}
 </header>
+{svc_hero_img(sp, L, A)}
 <section class="svc-row wrap" aria-labelledby="s-exp"><h2 class="svc-label" id="s-exp">Our experience</h2><div class="svc-body">
   <p class="svc-lead">{esc(sp["about"][0])}</p>{about}
   {stats_ul}
@@ -1179,9 +1346,35 @@ def page_service(sp, L, A):
 <section class="svc-row wrap" aria-labelledby="s-how"><h2 class="svc-label" id="s-how">How we work</h2><div class="svc-body"><ol class="svc-steps">{steps}</ol></div></section>
 <section class="svc-row wrap" aria-labelledby="s-svc"><h2 class="svc-label" id="s-svc">{svc_label}</h2><div class="svc-body"><ul class="svc-links">{rows}</ul></div></section>
 {work_row}
-<section class="svc-row wrap" aria-labelledby="s-th"><h2 class="svc-label" id="s-th">Thinking</h2><div class="svc-body"><ul class="svc-articles">{arts}</ul><a class="sec-link" href="{L("thinking/")}">All articles</a></div></section>
+<section class="svc-row wrap" aria-labelledby="s-th"><h2 class="svc-label" id="s-th">Thinking</h2><div class="svc-body svc-thinking">{arts}<a class="sec-link" href="{L("thinking/")}">All articles</a></div></section>
 </div>
 {cta(L)}'''
+
+SVC_HERO_CASE = {'services/brand-strategy/': 'tui', 'services/brand-identity/': 'snowfox-group', 'services/creative/': 'wizz-air',
+                 'services/production/': 'brompton', 'services/in-house/': 'loveholidays'}
+
+def svc_hero_img(sp, L, A):
+    """Main service pages: a still from a relevant case study, with a caption linking to it."""
+    slug = SVC_HERO_CASE.get(sp['path'])
+    proj = next((q for q in PROJECTS if q['slug'] == slug), None)
+    if not proj or not proj.get('img'): return ''
+    src = os.path.join(OUT, 'assets', 'media', proj['img'] + '.webp'); wh = ''
+    try:
+        from PIL import Image
+        w, h = Image.open(src).size; wh = f' width="{w}" height="{h}"'
+    except Exception: pass
+    href = L('work/' + slug + '/')
+    return (f'<figure class="svc-hero wrap"><a href="{href}" tabindex="-1" aria-hidden="true"><img src="{A("media/" + proj["img"] + ".webp")}" alt="{esc(proj["client"])}, {esc(proj["camp"])}"{wh} decoding="async"></a>'
+            f'<figcaption><a href="{href}">From our work for {esc(proj["client"])} <span aria-hidden="true">\u2192</span></a></figcaption></figure>')
+
+def relevant_cases(sp, n=2):
+    """Work on a service page only comes from clients in its own logo strip: its own picks first where they match, then the rest in logo order."""
+    logos = sp.get('logos') or [x['slug'] for x in LOGOWALL[:8]]
+    by_logo = {}
+    for case, logo in CASE_LOGO.items(): by_logo.setdefault(logo, []).append(case)
+    relevant = [c for l in logos for c in by_logo.get(l, [])]
+    picks = [c for c in sp['cases'] if c in relevant] + [c for c in relevant if c not in sp['cases']]
+    return picks[:n]
 
 def service_schema(sp):
     url = DOMAIN + '/' + sp['path']
@@ -1225,14 +1418,17 @@ def pages():
     yield ('services/', 'Services | Freedom Works', 'Brand strategy, identity, creative, production, and in-house creative, plus Culture3 cultural partnerships, from the best creative department in the world.', page_services, 'services/', [])
     if SERVICE_PAGES_LIVE or DRAFTS[0]:
         yield from service_page_entries()
-    yield ('culture3/', 'Culture3 | Freedom Works', 'Culture3 connects brands and organisations to the partnerships, communities, moments, and voices shaping culture. Physical. Nuanced. Human.', page_culture, 'culture3/', [])
+    yield ('culture3/', 'Culture3 | Freedom Works', 'AI can talk about culture. It can never be in it. Culture3 puts brands in the rooms that matter, from Offstage dinners to partnerships with TED.', page_culture, 'culture3/', [])
     yield ('work/', 'Work | Freedom Works', 'Work that matters for Nestl\u00e9, P&G, TUI, Burger King, King Arthur Baking, Wizz Air, M&S Food, and loveholidays.', page_work, 'work/', [])
     for i, p in enumerate(PROJECTS if CASE_PAGES else []):
         art = {"@context": "https://schema.org", "@type": "CreativeWork", "name": f"{p['client']}: {p['camp']}", "creator": {"@type": "Organization", "name": "Freedom Works"}}
         yield (f'work/{p["slug"]}/', f'{p["client"]}: {p["camp"]} | Freedom Works', case_desc(p), (lambda i: lambda L, A: page_project(i, L, A))(i), 'work/', [art])
     yield ('thinking/', 'Thinking | Freedom Works', 'Articles on creativity, AI, talent, and the agency model from Freedom Works.', page_thinking, 'thinking/', [])
+    for t in TOPIC_SLUG:
+        if any(x['tag'] == t for x in POSTS):
+            yield (f'thinking/{TOPIC_SLUG[t]}/', f'{TAGS[t]} | Freedom Works', fit_desc(TOPIC_INTRO[t]), page_topic(t), 'thinking/', [])
     for p in POSTS:
-        art = {"@context": "https://schema.org", "@type": "Article", "headline": p['title'], "datePublished": p['date'], "author": dict({"@type": "Person", "name": p['author']}, **({"url": AUTHOR_LINKEDIN[p['author']], "sameAs": AUTHOR_LINKEDIN[p['author']]} if p['author'] in AUTHOR_LINKEDIN else {"url": DOMAIN + "/agency/"})), "publisher": {"@type": "Organization", "name": "Freedom Works"}}
+        art = {"@context": "https://schema.org", "@type": "Article", "headline": p['title'], "datePublished": p['date'], "author": ({"@type": "Organization", "name": "Freedom Works", "url": DOMAIN + "/"} if p['author'] == 'Freedom Works' else dict({"@type": "Person", "name": p['author']}, **({"url": AUTHOR_LINKEDIN[p['author']], "sameAs": AUTHOR_LINKEDIN[p['author']]} if p['author'] in AUTHOR_LINKEDIN else {"url": DOMAIN + "/agency/"}))), "publisher": {"@type": "Organization", "name": "Freedom Works"}}
         desc = fit_desc(p['description'] or p['title'], p['body_md'])
         yield (f'thinking/{p["slug"]}/', f'{p["title"]} | Freedom Works', desc, (lambda p: lambda L, A, **k: page_article(p, L, A, **k))(p), 'thinking/', [art])
     yield ('contact/', 'Contact | Freedom Works', 'Talk to Freedom Works, a global creative agency. Tell us about your brief and we\u2019ll handpick the right team, from strategy to production.', page_contact, 'contact/', [])
@@ -1321,11 +1517,71 @@ https://thelibertyguild.com/*      https://freedom.works/?utm_source=thelibertyg
 https://www.thelibertyguild.com/*  https://freedom.works/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
 http://thelibertyguild.com/*       https://freedom.works/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
 http://www.thelibertyguild.com/*   https://freedom.works/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
+https://libertyguild.co.uk/*       https://freedom.works/?utm_source=libertyguild.co.uk&utm_medium=redirect&utm_campaign=rebrand  301!
+https://www.libertyguild.co.uk/*   https://freedom.works/?utm_source=libertyguild.co.uk&utm_medium=redirect&utm_campaign=rebrand  301!
+http://libertyguild.co.uk/*        https://freedom.works/?utm_source=libertyguild.co.uk&utm_medium=redirect&utm_campaign=rebrand  301!
+http://www.libertyguild.co.uk/*    https://freedom.works/?utm_source=libertyguild.co.uk&utm_medium=redirect&utm_campaign=rebrand  301!
 """
 if not CASE_PAGES:
     NETLIFY_REDIRECTS += ''.join(f"/work/{p['slug']}/  /work/  302\n" for p in PROJECTS)
 
+_IMG_W = {}
+def optimise_images():
+    """Lighter images (SEO review, tab 2): 800px copies of the case-study stills for tiles, and WebP versions of the logos and awards."""
+    from PIL import Image
+    base = os.path.join(OUT, 'assets')
+    def stale(src, dst): return not os.path.exists(dst) or os.path.getmtime(dst) < os.path.getmtime(src)
+    media = os.path.join(base, 'media')
+    for f in os.listdir(media):
+        if f.startswith('poster-') and f.endswith('.webp') and not f.endswith('-800.webp'):
+            src = os.path.join(media, f); dst = src[:-5] + '-800.webp'
+            try:
+                im = Image.open(src); _IMG_W[f[:-5]] = im.width
+                if im.width > 820 and stale(src, dst):
+                    im.convert('RGB').resize((800, round(im.height * 800 / im.width)), Image.LANCZOS).save(dst, 'WEBP', quality=78, method=6)
+            except Exception: pass
+    for folder, pat in ((os.path.join(base, 'logos', 'wall'), r'.+\.png$'), (os.path.join(base, 'brand'), r'award-.+\.png$'), (os.path.join(base, 'logos'), r'clients-.+\.png$')):
+        if not os.path.isdir(folder): continue
+        for f in os.listdir(folder):
+            if not re.match(pat, f): continue
+            src = os.path.join(folder, f); dst = src[:-4] + '.webp'
+            if stale(src, dst):
+                try: Image.open(src).save(dst, 'WEBP', quality=88, method=6)
+                except Exception: pass
+
+def webpify(doc):
+    """Point pages at the WebP logos and awards wherever a WebP copy exists."""
+    def sub(m):
+        rel = m.group(2) + '.webp'
+        return m.group(1) + rel if os.path.exists(os.path.join(OUT, 'assets', rel)) else m.group(0)
+    return re.sub(r'(assets/)((?:logos/wall/[\w.-]+|brand/award-[\w-]+|logos/clients-[\w-]+))\.png', sub, doc)
+
+def llms_txt():
+    """llms.txt: a plain map of the site for AI assistants (agreed for all Tomorrow Group sites)."""
+    from service_pages import SERVICE_PAGES
+    U = lambda path: DOMAIN + '/' + path
+    out = ['# Freedom Works', '',
+           '> Freedom Works is a global creative agency offering brand strategy, brand identity, creative, production, and in-house creative. '
+           'It brings together The Guild, a network of more than 500 award-winning independent creatives, strategists, and producers across 37 countries and cultures, '
+           'and Culture3, its cultural partnerships business, to build a handpicked team for every brief. Founded by Jon Williams. London.', '',
+           '## About', f'- [About Freedom Works]({U("agency/")}): the model, our DNA, and the leadership team',
+           f'- [The Guild]({U("the-guild/")}): 500+ independent creatives, strategists, and producers in 37 countries and cultures',
+           f'- [Culture3]({U("culture3/")}): cultural partnerships, Offstage, A Culture3 Conversation, and TED partnerships',
+           f'- [Contact]({U("contact/")}): hello@freedom.works', '', '## Services', f'- [All services]({U("services/")})']
+    for sp in SERVICE_PAGES:
+        out.append(f'- [{sp["name"]}]({U(sp["path"])}): {sp.get("line") or sp.get("intro", "")[:140]}')
+    out += ['', '## Work', f'- [All work]({U("work/")})']
+    for q in PROJECTS:
+        res = (HOME_TILE_COPY.get(q['slug'], {}) or {}).get('result') if isinstance(HOME_TILE_COPY.get(q['slug']), dict) else None
+        out.append(f'- [{q["client"]}: {q["camp"]}]({U("work/" + q["slug"] + "/")})' + (f': {res}' if res else ''))
+    out += ['', '## Thinking', f'- [All articles]({U("thinking/")}): {len(POSTS)} articles']
+    for t in TOPIC_SLUG:
+        if any(x['tag'] == t for x in POSTS): out.append(f'- [{TAGS[t]}]({U("thinking/" + TOPIC_SLUG[t] + "/")}): {TOPIC_INTRO[t]}')
+    out += ['', '## Optional', f'- [Sitemap]({DOMAIN}/sitemap.xml)', f'- [Privacy policy]({U("privacy/")})', '']
+    return '\n'.join(out)
+
 def build_site():
+    optimise_images()
     os.makedirs(OUT, exist_ok=True)
     sync_thinking_images()
     for name in os.listdir(OUT):
@@ -1348,10 +1604,13 @@ def build_site():
         _slug = path.strip('/').split('/')[-1] if path.startswith('thinking/') and path.count('/') == 2 else None
         if len(title) > 60 and title.endswith(' | Freedom Works'): title = title[:-len(' | Freedom Works')]   # Google shows the site name anyway
         seo_title = short_title(title)
+        if len(seo_title) < 30 and not seo_title.endswith('| Freedom Works') and len(seo_title + ' | Freedom Works') <= 60: seo_title += ' | Freedom Works'
         _proj = next((q for q in PROJECTS if path == f"work/{q['slug']}/"), None)
         _src = local_img(_slug) if _slug and local_img(_slug) else (('media/' + _proj['img'] + '.webp') if _proj and _proj.get('img') else None)
         _share = share_jpg(_src)
-        og_img = DOMAIN + '/assets/' + _share if _share else DOMAIN + '/assets/media/hero-poster.jpg'
+        og_img = DOMAIN + '/assets/' + _share if _share else ''      # only the page's own picture (case-study still, article cover); otherwise no image
+        og_h = '630'
+        og_title = share_title(path, title)
         og_type = 'article' if _slug else 'website'
         for _e in extra:
             if _e.get('@type') == 'Article':
@@ -1371,17 +1630,17 @@ def build_site():
 {robots}<title>{esc(seo_title)}</title>
 <meta name="description" content="{esc(desc)}">
 <link rel="canonical" href="{canon}">
-<meta property="og:title" content="{esc(title.split(' | ')[0])}">
+<meta property="og:title" content="{esc(og_title)}">
 <meta property="og:description" content="{esc(desc)}">
-<meta property="og:image" content="{og_img}">
+{(f'<meta property="og:image" content="{og_img}">' + chr(10) + f'<meta property="og:image:width" content="1200">' + chr(10) + f'<meta property="og:image:height" content="{og_h}">' + chr(10) + f'<meta property="og:image:alt" content="{esc(og_title)}">') if og_img else ''}
 <meta property="og:url" content="{canon}">
 <meta property="og:type" content="{og_type}">
 <meta property="og:site_name" content="Freedom Works">
 <meta property="og:locale" content="en_GB">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{esc(title.split(' | ')[0])}">
+<meta name="twitter:card" content="{"summary_large_image" if og_img else "summary"}">
+<meta name="twitter:title" content="{esc(og_title)}">
 <meta name="twitter:description" content="{esc(desc)}">
-<meta name="twitter:image" content="{og_img}">
+{f'<meta name="twitter:image" content="{og_img}">' if og_img else ''}
 <link rel="icon" href="{A('favicon.png')}">
 <link rel="apple-touch-icon" href="{A('apple-touch-icon.png')}">
 <meta name="theme-color" content="#20243A">
@@ -1399,6 +1658,7 @@ def build_site():
 {SCRIPT}
 </body>
 </html>'''
+        doc = webpify(doc)
         if path == '404':
             open(os.path.join(OUT, '404.html'), 'w').write(doc); continue
         d = os.path.join(OUT, path); os.makedirs(d, exist_ok=True)
@@ -1410,7 +1670,7 @@ def build_site():
     open(os.path.join(OUT, '_redirects'), 'w').write(NETLIFY_REDIRECTS)
     if STAGING: open(os.path.join(OUT, 'robots.txt'), 'w').write('# Review copy: keep search engines out\nUser-agent: *\nDisallow: /\n')
     else: open(os.path.join(OUT, 'robots.txt'), 'w').write(f'User-agent: *\nAllow: /\n\nSitemap: {DOMAIN}/sitemap.xml\n')
-    open(os.path.join(OUT, 'llms.txt'), 'w').write('# Freedom Works\n\n> A global creative agency built on Calibre, Culture and Craft. More than 500 award-winning independent creatives, strategists, and producers across 37 countries and cultures, handpicked for every brief. Founded by Jon Williams, former CCO of Grey EMEA. London.\n\n## Pages\n' + ''.join(f'- {u}\n' for u in urls[:12]))
+    open(os.path.join(OUT, 'llms.txt'), 'w').write(llms_txt())
     return urls
 
 # ---------------- single-file preview ----------------
