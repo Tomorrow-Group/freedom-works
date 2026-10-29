@@ -83,7 +83,7 @@
 <article class="panel p-black">
   <div><h3 class="word">Craft</h3><p class="make">Make it beautiful.</p><p class="belief">We believe in Craft. Experience, taste, and judgement just got even more differentiating.</p></div>
   <div class="row"><div class="media"><img src="../assets/media/still-craft.webp" alt="" loading="lazy"></div>
-  <div class="txt"><p class="free">Freedom from slop.</p><p class="body">Agentic production removes the old constraints of time, cost, and scale. It doesn&#x27;t remove the need for someone to say &quot;not good enough&quot;. Our creative crew have made this call at the very top of the industry, and they stay with the work from first brief to final cut. Even when machines do the making, humans aren’t just in the loop, they’re in the lead.</p><p class="out"><span class="mk" aria-hidden="true"></span>Craft gets you remembered.</p></div></div>
+  <div class="txt"><p class="free">Freedom from slop.</p><p class="body">Agentic production removes the old constraints of time, cost, and scale. It doesn’t remove the need for someone to say “not good enough”. Our creative crew have made this call at the very top of the industry, and they stay with the work from first brief to final cut. Even when machines do the making, humans aren’t just in the loop, they’re in the lead.</p><p class="out"><span class="mk" aria-hidden="true"></span>Craft gets you remembered.</p></div></div>
 </article></div>
 <section class="band wrap" id="leadership" aria-labelledby="ld">
   <div class="split split-head">
@@ -107,7 +107,7 @@
 <section class="closing-st wrap" aria-label="What we stand for"><p>We make work that matters. Work that’s anchored in culture, crafted for impact, and guided by the best creative minds in the industry.</p></section>
 <section class="contact" aria-labelledby="ct">
   <div class="wrap">
-    <h2 id="ct" class="rw" aria-label="Let&#x27;s make work that matters."><span class="w"><span class="wi">Let's</span></span> <span class="w"><span class="wi">make</span></span> <span class="thin"><span class="w"><span class="wi">work</span></span> <span class="w"><span class="wi">that</span></span> <span class="w"><span class="wi">matters.</span></span></span></h2>
+    <h2 id="ct" class="rw" aria-label="Let’s make work that matters."><span class="w"><span class="wi">Let’s</span></span> <span class="w"><span class="wi">make</span></span> <span class="thin"><span class="w"><span class="wi">work</span></span> <span class="w"><span class="wi">that</span></span> <span class="w"><span class="wi">matters.</span></span></span></h2>
     <div class="ct-cards">
       <div class="ct-card form-card">
         <h3>How can we help?</h3>
@@ -116,7 +116,6 @@
       <p class="hs-fallback"><a class="ct-btn" data-cta="start-enquiry" href="https://share-eu1.hsforms.com/1Cq0E3Fq2QUazU_c4QavIVQf1v2l" target="_blank" rel="noopener">Start your enquiry <span aria-hidden="true">→</span></a></p>
     </div>
         <p class="ct-note">By submitting this form, Freedom Works will use the information you provide to respond to your enquiry. See our <a href="../privacy/">Privacy Policy</a> and <a href="../cookies/">Cookie Policy</a> for more information.</p>
-        <p class="ct-email">Prefer email? <a href="mailto:hello@freedom.works">hello@freedom.works</a></p>
       </div>
     </div>
   </div>
@@ -416,7 +415,7 @@ document.addEventListener('click',function(e){var b=e.target.closest('[data-cook
   try{ if(localStorage.getItem('fw-rebrand-seen')) return; localStorage.setItem('fw-rebrand-seen','1'); }catch(e){}
   var about=(document.querySelector('.site-head nav a[href*="agency/"]')||{}).getAttribute ? document.querySelector('.site-head nav a[href*="agency/"]').getAttribute('href') : 'agency/';
   var el=document.createElement('aside'); el.className='rebrand-note'; el.setAttribute('role','status'); el.setAttribute('aria-label','Looking for The Liberty Guild? We\u2019re now Freedom Works.');
-  el.innerHTML='<p><b>Looking for The Liberty Guild?</b> <span>You\u2019re in the right place. We\u2019re now Freedom Works.</span> <a href="'+about+'">About us</a></p><button type="button" class="rn-close" aria-label="Close">\u00d7</button>';
+  el.innerHTML='<p class="rn-h">Looking for <em class="rn-old">The Liberty Guild?</em></p><p class="rn-t">You\u2019re in the right place. We\u2019re now <em>Freedom Works.</em></p><a class="rn-btn" href="'+about+'">About us <span aria-hidden="true">\u2192</span></a><button type="button" class="rn-close" aria-label="Close">\u00d7</button>';
   document.body.appendChild(el);
   setTimeout(function(){ el.classList.add('on'); fwTrack('fw_rebrand_note_view',{page:location.pathname}); }, 1200);
   el.querySelector('a').addEventListener('click',function(){ fwTrack('fw_rebrand_note_click',{page:location.pathname}); });

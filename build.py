@@ -116,6 +116,8 @@ def load_posts():
     posts.sort(key=lambda p: p['date'], reverse=True)
     return posts
 POSTS = load_posts()
+for _p in POSTS:   # article titles show with typographic apostrophes wherever they appear (bodies are left as written)
+    _p['title'] = re.sub(r"(?<=\w)'(?=\w)", '\u2019', _p['title'])
 # Authors: only those confirmed from the articles' own sign-offs (src/confirmed_authors.json); everything else is credited to
 # Freedom Works until confirmed. To confirm more, add [slug, name] pairs to that file.
 _CONF = {s_: a for s_, a in json.load(open(SP('confirmed_authors.json'), encoding='utf-8'))} if os.path.exists(SP('confirmed_authors.json')) else {}
@@ -137,7 +139,7 @@ assert not _clash, f'topic page address clashes with an article: {_clash}'
 
 FAQ = [
     ("Who are Freedom Works?", "A global creative agency built on Calibre, Culture and Craft. More than 600 award winning independent creatives and strategists across 37 countries and cultures, led by a founder and leadership team who have run businesses, boutique agencies, global networks, production companies, and start-ups."),
-    ("How do you work?", "We run a distributed creative department. No buildings. No fixed teams. For every brief we build a bespoke team from our network, supported by insight from qual, quant, or behavioural science research, with workflow optimised through our tech stack. We use AI when it helps, and we don't when it doesn't. We can run everything end to end, or plug into your in-house team."),
+    ("How do you work?", "We run a distributed creative department. No buildings. No fixed teams. For every brief we build a bespoke team from our network, supported by insight from qual, quant, or behavioural science research, with workflow optimised through our tech stack. We use AI when it helps, and we don't when it doesn’t. We can run everything end to end, or plug into your in-house team."),
     ("How are you different to a legacy agency?", "We don't sell hours. We sell ideas. Our work is productised: fixed scope, fixed cost, fixed time, clear outputs. We work in short sprints, with proper decision points and evidence built in, and when clients want more, a subscription model makes it cheaper and easier."),
     ("What makes your talent better?", "Every project starts by finding the right people for the brief. Not whoever's free. Not whoever's cheapest. Our creatives value the freedom to work on their own terms, on briefs they choose, and between them they've won 2,315 Lions, Pencils, and Effies."),
 ]
@@ -155,14 +157,13 @@ def contact_cards(big=False, hl='h3', L=None):
         <{hl}>How can we help?</{hl}>
         {hs_form()}
         {('<p class="ct-note">By submitting this form, Freedom Works will use the information you provide to respond to your enquiry. See our <a href="' + L('privacy/') + '">Privacy Policy</a> and <a href="' + L('cookies/') + '">Cookie Policy</a> for more information.</p>') if L else ''}
-        <p class="ct-email">Prefer email? <a href="mailto:{CONTACT_EMAIL}">{CONTACT_EMAIL}</a></p>
       </div>
     </div>'''
 
 def cta(L):
     return f'''<section class="contact" aria-labelledby="ct">
   <div class="wrap">
-    <h2 id="ct">Let's make <span class="thin">work that matters.</span></h2>
+    <h2 id="ct">Let’s make <span class="thin">work that matters.</span></h2>
     {contact_cards(L=L)}
   </div>
 </section>'''
@@ -339,7 +340,7 @@ def short_title(t, limit=60):
     for sep in (': ', ' | ', ' \u2013 ', ' - '):
         head = t.split(sep)[0]
         if 20 <= len(head) <= limit: return head
-    m = re.match(r'^(.{15,%d}?(?<!\.)[.?!])\s' % limit, t)            # a first sentence (an ellipsis doesn't count)
+    m = re.match(r'^(.{15,%d}?(?<!\.)[.?!])\s' % limit, t)            # a first sentence (an ellipsis doesn’t count)
     if m: return m.group(1)
     return t[:limit - 1].rsplit(' ', 1)[0].rstrip(',;:\u2013-') + '\u2026'
 
@@ -538,7 +539,7 @@ DNA = [
      'Culture gets you noticed.'),
     ('Craft', 'Make it beautiful.', 'Freedom from slop.', 'p-black', 'still-craft', 'Experience, taste, and judgement just got even more differentiating.',
      "AI speeds up the making. People make it great, and decide what ships, from first brief to final cut.",
-     "Agentic production removes the old constraints of time, cost, and scale. It doesn't remove the need for someone to say \"not good enough\". Our creative crew have made this call at the very top of the industry, and they stay with the work from first brief to final cut. Even when machines do the making, humans aren\u2019t just in the loop, they\u2019re in the lead.",
+     "Agentic production removes the old constraints of time, cost, and scale. It doesn’t remove the need for someone to say “not good enough”. Our creative crew have made this call at the very top of the industry, and they stay with the work from first brief to final cut. Even when machines do the making, humans aren\u2019t just in the loop, they\u2019re in the lead.",
      'Craft gets you remembered.'),
 ]
 
@@ -926,7 +927,7 @@ def page_culture(L, A):
 {bx}
   </div>
 </section>
-{strip3(A, "c3-onstage", "c3-offstage", "c3-conversation", ("44% 40%", "50% 45%", "38% 45%"))}
+{strip3(A, "c3-pwc-earth", "c3-offstage", "c3-pwc-skyline", ("50% 40%", "50% 45%", "50% 40%"))}
 <section class="c3-method band wrap" aria-labelledby="c3m">
   <div class="split split-head">
     <div class="l"><p class="sec-lbl"><span class="mk" aria-hidden="true"></span>Our methodology</p><h2 class="h2" id="c3m">Where to show up. Who to show up with. <span class="thin">What to build.</span></h2></div>
@@ -1023,15 +1024,24 @@ def page_thinking(L, A):
 </section>
 {cta(L)}'''
 
+def opens_with_image(html, blocks=3):
+    """True when one of the article's first few blocks already holds a picture (so adding the cover would show it twice)."""
+    for i, m in enumerate(re.finditer(r'<(p|h[1-6]|ul|ol|blockquote|figure|div)\b[^>]*>(.*?)</\1>', html, re.S)):
+        if i >= blocks: break
+        if '<img' in m.group(2): return True
+    return False
+
 def page_article(p, L, A, strip_images=False):
     body = markdown.markdown(p['body_md'], extensions=['extra'])
     body = localise_inline(body, A)
     body = re.sub(r'<img ', '<img loading="lazy" ', body)
     e = IMGMAP.get(p['slug']) or {}; loc = local_img(p['slug'])
-    if e and loc and e.get('src') and e['src'] in body:
-        body = body.replace(e['src'], A(loc))
-    elif loc and e and e.get('from') == 'cover':
-        body = f'<p><img loading="lazy" src="{A(loc)}" alt=""></p>' + body
+    src = e.get('src') or ''
+    hit = next((c for c in (src, src.replace('&', '&amp;')) if c and c in body), None)   # the body's own copy, however its address is written
+    if loc and hit:
+        body = body.replace(hit, A(loc))
+    elif loc and e.get('from') == 'cover' and not opens_with_image(body):
+        body = f'<p><img loading="lazy" src="{A(loc)}" alt=""></p>' + body      # add the cover only when the article doesn’t already open with a picture
     if strip_images:
         body = re.sub(r'<p>\s*<img[^>]*src="http[^"]*"[^>]*>\s*</p>', '', body); body = re.sub(r'<img[^>]*src="http[^"]*"[^>]*>', '', body)
     tag = TAGS.get(p['tag'], 'Thinking')
@@ -1152,15 +1162,15 @@ def page_msa(L, A):
 def page_contact(L, A):
     return f'''<section class="contact contact-page" aria-labelledby="ct">
   <div class="wrap">
-    <h1 id="ct">Let's make <span class="thin">work that matters.</span></h1>
+    <h1 id="ct">Let’s make <span class="thin">work that matters.</span></h1>
     {contact_cards(big=True, hl='h2', L=L)}
-    <div class="ct-office"><p class="sec-lbl"><span class="mk" aria-hidden="true"></span>Visit us</p><address>{"<br>".join(OFFICE_ADDRESS)}</address><p><a href="mailto:{CONTACT_EMAIL}">{CONTACT_EMAIL}</a></p></div>
+    <div class="ct-office"><p class="sec-lbl"><span class="mk" aria-hidden="true"></span>Visit us</p><address>{"<br>".join(OFFICE_ADDRESS)}</address></div>
   </div>
 </section>'''
 
 def page_404(L, A):
     return f'''<section class="nf wrap">
-  <h1 class="h2">This page <span class="thin">doesn't exist.</span></h1>
+  <h1 class="h2">This page <span class="thin">doesn’t exist.</span></h1>
   <p class="lead-light">It may have moved when we became Freedom Works.</p>
   <p><a class="sec-link" href="{L("")}">Go to the homepage</a> &nbsp; <a class="sec-link" href="{L("work/")}">See the work</a></p>
 </section>'''

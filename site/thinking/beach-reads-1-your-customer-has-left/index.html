@@ -131,7 +131,7 @@
 <a class="sticky-cta" href="../../contact/" data-cta="article-sticky-talk-to-us">Talk to us <span aria-hidden="true">→</span></a>
 <section class="contact" aria-labelledby="ct">
   <div class="wrap">
-    <h2 id="ct" class="rw" aria-label="Let&#x27;s make work that matters."><span class="w"><span class="wi">Let's</span></span> <span class="w"><span class="wi">make</span></span> <span class="thin"><span class="w"><span class="wi">work</span></span> <span class="w"><span class="wi">that</span></span> <span class="w"><span class="wi">matters.</span></span></span></h2>
+    <h2 id="ct" class="rw" aria-label="Let’s make work that matters."><span class="w"><span class="wi">Let’s</span></span> <span class="w"><span class="wi">make</span></span> <span class="thin"><span class="w"><span class="wi">work</span></span> <span class="w"><span class="wi">that</span></span> <span class="w"><span class="wi">matters.</span></span></span></h2>
     <div class="ct-cards">
       <div class="ct-card form-card">
         <h3>How can we help?</h3>
@@ -140,7 +140,6 @@
       <p class="hs-fallback"><a class="ct-btn" data-cta="start-enquiry" href="https://share-eu1.hsforms.com/1Cq0E3Fq2QUazU_c4QavIVQf1v2l" target="_blank" rel="noopener">Start your enquiry <span aria-hidden="true">→</span></a></p>
     </div>
         <p class="ct-note">By submitting this form, Freedom Works will use the information you provide to respond to your enquiry. See our <a href="../../privacy/">Privacy Policy</a> and <a href="../../cookies/">Cookie Policy</a> for more information.</p>
-        <p class="ct-email">Prefer email? <a href="mailto:hello@freedom.works">hello@freedom.works</a></p>
       </div>
     </div>
   </div>
@@ -440,7 +439,7 @@ document.addEventListener('click',function(e){var b=e.target.closest('[data-cook
   try{ if(localStorage.getItem('fw-rebrand-seen')) return; localStorage.setItem('fw-rebrand-seen','1'); }catch(e){}
   var about=(document.querySelector('.site-head nav a[href*="agency/"]')||{}).getAttribute ? document.querySelector('.site-head nav a[href*="agency/"]').getAttribute('href') : 'agency/';
   var el=document.createElement('aside'); el.className='rebrand-note'; el.setAttribute('role','status'); el.setAttribute('aria-label','Looking for The Liberty Guild? We\u2019re now Freedom Works.');
-  el.innerHTML='<p><b>Looking for The Liberty Guild?</b> <span>You\u2019re in the right place. We\u2019re now Freedom Works.</span> <a href="'+about+'">About us</a></p><button type="button" class="rn-close" aria-label="Close">\u00d7</button>';
+  el.innerHTML='<p class="rn-h">Looking for <em class="rn-old">The Liberty Guild?</em></p><p class="rn-t">You\u2019re in the right place. We\u2019re now <em>Freedom Works.</em></p><a class="rn-btn" href="'+about+'">About us <span aria-hidden="true">\u2192</span></a><button type="button" class="rn-close" aria-label="Close">\u00d7</button>';
   document.body.appendChild(el);
   setTimeout(function(){ el.classList.add('on'); fwTrack('fw_rebrand_note_view',{page:location.pathname}); }, 1200);
   el.querySelector('a').addEventListener('click',function(){ fwTrack('fw_rebrand_note_click',{page:location.pathname}); });

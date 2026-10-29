@@ -72,14 +72,14 @@
   <figure class="svc-quote"><blockquote>“Locos is about letting go, embracing spontaneity, and leaning into life’s fun side. Because low cost isn’t only about saving money, it’s about having the freedom to do more and live bigger. Wizz Air has, from its inception, been a digital-first company, so it makes sense that we would be at the leading edge of using new technology in all areas of our business. So making an all AI ad just made sense. Let’s WIZZ!”</blockquote><figcaption><b>Silvia Mosquera González</b>Commercial Officer Central, Wizz Air</figcaption></figure>
 </div></section>
 <section class="svc-row wrap" aria-labelledby="s-th"><h2 class="svc-label" id="s-th">Thinking</h2><div class="svc-body svc-thinking"><ul class="cards">
-<li><a href="../../thinking/beach-reads-6-free-aint-cheap-the/"><span class="cimg ph-12"></span><span class="k">AI and creativity</span><span class="t">Beach Reads (6) - Free Ain&#x27;t Cheap: The Heist to Steal Back Brand Value.</span><span class="m">Freedom Works, August 2025</span></a></li>
-<li><a href="../../thinking/first-full-ai-campaign-wizzair/"><span class="cimg ph-8"><img src="https://substack-post-media.s3.amazonaws.com/public/images/6b412737-5b6a-44de-b50e-937607a672df_1850x1042.jpeg" alt="" loading="lazy" onerror="this.remove()"></span><span class="k">AI and creativity</span><span class="t">Affordable Flights Fuel Adventure in Wizz Air&#x27;s AI Film</span><span class="m">Jon Williams, September 2025</span></a></li>
+<li><a href="../../thinking/beach-reads-6-free-aint-cheap-the/"><span class="cimg ph-12"></span><span class="k">AI and creativity</span><span class="t">Beach Reads (6) - Free Ain’t Cheap: The Heist to Steal Back Brand Value.</span><span class="m">Freedom Works, August 2025</span></a></li>
+<li><a href="../../thinking/first-full-ai-campaign-wizzair/"><span class="cimg ph-8"><img src="https://substack-post-media.s3.amazonaws.com/public/images/6b412737-5b6a-44de-b50e-937607a672df_1850x1042.jpeg" alt="" loading="lazy" onerror="this.remove()"></span><span class="k">AI and creativity</span><span class="t">Affordable Flights Fuel Adventure in Wizz Air’s AI Film</span><span class="m">Jon Williams, September 2025</span></a></li>
 <li><a href="../../thinking/is-ai-the-end-of-production-or-a/"><span class="cimg ph-9"><img src="https://substack-post-media.s3.amazonaws.com/public/images/d21b39c2-4213-4ed8-b9fb-c253d9e9fb38_1024x576.jpeg" alt="" loading="lazy" onerror="this.remove()"></span><span class="k">The agency model</span><span class="t">Is AI the end of production, or a new beginning?</span><span class="m">Jon Williams, April 2026</span></a></li>
 </ul><a class="sec-link" href="../../thinking/">All articles</a></div></section>
 </div>
 <section class="contact" aria-labelledby="ct">
   <div class="wrap">
-    <h2 id="ct" class="rw" aria-label="Let&#x27;s make work that matters."><span class="w"><span class="wi">Let's</span></span> <span class="w"><span class="wi">make</span></span> <span class="thin"><span class="w"><span class="wi">work</span></span> <span class="w"><span class="wi">that</span></span> <span class="w"><span class="wi">matters.</span></span></span></h2>
+    <h2 id="ct" class="rw" aria-label="Let’s make work that matters."><span class="w"><span class="wi">Let’s</span></span> <span class="w"><span class="wi">make</span></span> <span class="thin"><span class="w"><span class="wi">work</span></span> <span class="w"><span class="wi">that</span></span> <span class="w"><span class="wi">matters.</span></span></span></h2>
     <div class="ct-cards">
       <div class="ct-card form-card">
         <h3>How can we help?</h3>
@@ -88,7 +88,6 @@
       <p class="hs-fallback"><a class="ct-btn" data-cta="start-enquiry" href="https://share-eu1.hsforms.com/1Cq0E3Fq2QUazU_c4QavIVQf1v2l" target="_blank" rel="noopener">Start your enquiry <span aria-hidden="true">→</span></a></p>
     </div>
         <p class="ct-note">By submitting this form, Freedom Works will use the information you provide to respond to your enquiry. See our <a href="../../privacy/">Privacy Policy</a> and <a href="../../cookies/">Cookie Policy</a> for more information.</p>
-        <p class="ct-email">Prefer email? <a href="mailto:hello@freedom.works">hello@freedom.works</a></p>
       </div>
     </div>
   </div>
@@ -388,7 +387,7 @@ document.addEventListener('click',function(e){var b=e.target.closest('[data-cook
   try{ if(localStorage.getItem('fw-rebrand-seen')) return; localStorage.setItem('fw-rebrand-seen','1'); }catch(e){}
   var about=(document.querySelector('.site-head nav a[href*="agency/"]')||{}).getAttribute ? document.querySelector('.site-head nav a[href*="agency/"]').getAttribute('href') : 'agency/';
   var el=document.createElement('aside'); el.className='rebrand-note'; el.setAttribute('role','status'); el.setAttribute('aria-label','Looking for The Liberty Guild? We\u2019re now Freedom Works.');
-  el.innerHTML='<p><b>Looking for The Liberty Guild?</b> <span>You\u2019re in the right place. We\u2019re now Freedom Works.</span> <a href="'+about+'">About us</a></p><button type="button" class="rn-close" aria-label="Close">\u00d7</button>';
+  el.innerHTML='<p class="rn-h">Looking for <em class="rn-old">The Liberty Guild?</em></p><p class="rn-t">You\u2019re in the right place. We\u2019re now <em>Freedom Works.</em></p><a class="rn-btn" href="'+about+'">About us <span aria-hidden="true">\u2192</span></a><button type="button" class="rn-close" aria-label="Close">\u00d7</button>';
   document.body.appendChild(el);
   setTimeout(function(){ el.classList.add('on'); fwTrack('fw_rebrand_note_view',{page:location.pathname}); }, 1200);
   el.querySelector('a').addEventListener('click',function(){ fwTrack('fw_rebrand_note_click',{page:location.pathname}); });
