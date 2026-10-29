@@ -1175,8 +1175,9 @@ button.sec-link.cookie-settings{background:none;border:0;border-bottom:1px solid
 .fp .rw:not(.in){visibility:hidden}
 /* Culture3 page: the logo heads the About section; TED's logo is an offering name */
 .c3-about-logo{margin:0;line-height:0;color:var(--heading)}
-.c3-about-logo .c3-logo-svg{display:inline-block;height:clamp(56px,6vw,96px)}
-.c3-about-logo .c3-logo-svg svg{height:100%;width:auto}
+.c3-about-logo .c3-logo-svg{display:block;width:min(100%,560px);height:auto}
+.c3-about-logo .c3-logo-svg svg{display:block;width:100%;height:auto}
+@media (max-width:900px){.c3-about-logo .c3-logo-svg{width:min(78%,420px)}}
 .c3-offers .ted-h{line-height:0}
 .c3-offers .ted-name{display:block;height:clamp(38px,3.4vw,54px);width:auto}
 
@@ -1266,3 +1267,31 @@ button.sec-link.cookie-settings{background:none;border:0;border-bottom:1px solid
 .js .who-intro .wi-title .wi-sub{transition:opacity .8s ease 1.2s}
 .js .who-intro .wi-title:not(.in) .wi-sub{opacity:0;transition:none}
 @media (prefers-reduced-motion:reduce){.js .who-intro .wi-title .wi-sub{opacity:1;transition:none}}
+
+/* About, leadership intro: the paragraph's first line starts level with the top of the headline's lowercase letters.
+   Offset = headline x-height top (0.29 x headline size) minus paragraph cap-height top (0.21 x lead size), from the fonts' own metrics. */
+@media (min-width:901px){#leadership .split-head .r{padding-top:calc(.29 * var(--fs-h2) - .21 * var(--fs-lead))}}
+
+/* page heroes: the background Fw fades out towards the bottom of the hero instead of being sliced by its edge */
+.page-hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:min(48%,300px);background:linear-gradient(to bottom,rgba(237,235,227,0),var(--linen) 82%);pointer-events:none;z-index:0}
+.page-hero>*{z-index:1}
+/* Thinking and its topic pages: the subcopy sits under the title, on the left */
+@media (min-width:901px){.page-hero.intro-left .intro{margin-top:var(--sp-6)}.page-hero.intro-left .intro .stack{grid-column:1 / span 6}}
+.page-hero.intro-left + .thinking{padding-top:clamp(40px,5vw,72px)}
+/* DNA cards: more breathing room under the copy, so it never sits tight to the bottom of the screen when a card pins */
+.panel{padding-bottom:max(var(--sp-section),14vh)}
+
+/* leadership portraits */
+.lead-row .ph-photo{padding:0;background:var(--line);overflow:hidden}
+.lead-row .ph-photo img{display:block;width:100%;height:100%;object-fit:cover}
+/* Our DNA rows: each sentence sits on one line on desktop */
+@media (min-width:901px){.dh-rows .s{grid-column:5 / -1;max-width:none}}
+
+/* office address: footer and contact page */
+.foot .f-addr{display:block;margin-top:var(--sp-4);font-style:normal;color:var(--muted);line-height:1.5}
+.ct-office{margin-top:var(--sp-block);padding-top:var(--sp-6);border-top:1px solid var(--line)}
+.ct-office address{font-style:normal;font-family:var(--f-serif);font-size:var(--fs-lead);line-height:var(--lh-lead);color:var(--heading)}
+.ct-office p:last-child{margin-top:var(--sp-4)}
+.ct-office a{color:var(--heading)}
+/* footer on phones: the main links span the full width, aligned left like the rest of the footer */
+@media (max-width:900px){.foot .links{grid-column:1 / -1}}

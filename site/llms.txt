@@ -1,10 +1,10 @@
 # Freedom Works
 
-> Freedom Works is a global creative agency offering brand strategy, brand identity, creative, production, and in-house creative. It brings together The Guild, a network of more than 500 award-winning independent creatives, strategists, and producers across 37 countries and cultures, and Culture3, its cultural partnerships business, to build a handpicked team for every brief. Founded by Jon Williams. London.
+> Freedom Works is a global creative agency offering brand strategy, brand identity, creative, production, and in-house creative. It brings together The Guild, a network of more than 600 award winning independent creatives, strategists, and producers across 37 countries and cultures, and Culture3, its cultural partnerships business, to build a handpicked team for every brief. Founded by Jon Williams. London.
 
 ## About
 - [About Freedom Works](https://freedom.works/agency/): the model, our DNA, and the leadership team
-- [The Guild](https://freedom.works/the-guild/): 500+ independent creatives, strategists, and producers in 37 countries and cultures
+- [The Guild](https://freedom.works/the-guild/): 600+ independent creatives, strategists, and producers in 37 countries and cultures
 - [Culture3](https://freedom.works/culture3/): cultural partnerships, Offstage, A Culture3 Conversation, and TED partnerships
 - [Contact](https://freedom.works/contact/): hello@freedom.works
 
@@ -20,20 +20,20 @@
 - [Visual identity and brand guidelines](https://freedom.works/services/brand-identity/visual-identity-and-brand-guidelines/): A visual system, and the guidelines that keep it right.
 - [Creative](https://freedom.works/services/creative/): Ideas that span channels and cultures, and move the numbers.
 - [Brand and product launches](https://freedom.works/services/creative/brand-and-product-launches/): Launch campaigns that make an entrance, and keep the momentum.
-- [Digital and social creative](https://freedom.works/services/creative/digital-and-social-creative/): Platform-first ideas that earn attention in the feed.
+- [Digital and social creative](https://freedom.works/services/creative/digital-and-social-creative/): Platform first ideas that earn attention in the feed.
 - [Campaign strategy and development](https://freedom.works/services/creative/campaign-strategy-and-development/): One idea, planned to work across channels and markets.
 - [Production](https://freedom.works/services/production/): Film, design, post-production, and virtual and AI production.
 - [Film and video](https://freedom.works/services/production/film-and-video/): Commercials, brand films, and social content people want to watch.
 - [Design](https://freedom.works/services/production/design/): Campaign, packaging, print, digital, and retail design.
-- [Virtual production](https://freedom.works/services/production/virtual-production/): Real-time environments that take the shoot anywhere.
+- [Virtual production](https://freedom.works/services/production/virtual-production/): Real time environments that take the shoot anywhere.
 - [Post-production](https://freedom.works/services/production/post-production/): Edit, colour, sound, VFX, and versioning for every format.
-- [AI production](https://freedom.works/services/production/ai-production/): AI-made film, imagery, and content, directed by humans.
+- [AI production](https://freedom.works/services/production/ai-production/): AI made film, imagery, and content, directed by humans.
 - [In-house creative](https://freedom.works/services/in-house/): Senior creative firepower for in-house teams.
 
 ## Work
 - [All work](https://freedom.works/work/)
 - [King Arthur Baking: Keep Rising](https://freedom.works/work/king-arthur-baking/)
-- [Wizz Air: Locos for Low-Cost](https://freedom.works/work/wizz-air/)
+- [Wizz Air: Locos for Low Cost](https://freedom.works/work/wizz-air/)
 - [M&S Food: Magic Really Does Sell](https://freedom.works/work/ms-food/)
 - [loveholidays: At Your Fingertips](https://freedom.works/work/loveholidays/)
 - [Rowse Honey: The Squeeze That Protects the Bees](https://freedom.works/work/rowse-honey/)

@@ -25,15 +25,15 @@ def month(d):
 # ---------------- data ----------------
 PROJECTS = [
     dict(slug='king-arthur-baking', img='poster-king-arthur', loop='king-arthur', client='King Arthur Baking', camp='Keep Rising', vimeo=('1156877036', ''),
-         short='A creative platform that celebrates the essence of the King Arthur brand and drives differentiation in a low-interest category.', res='From #3 to #1 flour brand in the US. Doubled sales.', stat='+100%',
+         short='A creative platform that celebrates the essence of the King Arthur brand and drives differentiation in a low interest category.', res='From #3 to #1 flour brand in the US. Doubled sales.', stat='+100%',
          copy='Our Keep Rising platform helped King Arthur become the #1 flour brand in the US, driving a 100% sales uplift and adding 3.4m households. A leading FMCG example of emotional storytelling driving commercial growth.',
          n='+100%', l='Sales uplift', extra=['#1 flour brand in the US', '+3.2pt share gain', '+3.4m new households'],
-         quote=("Keep Rising has been transformative for King Arthur Baking. Not just creatively, but commercially. In a low-interest category, The Guild helped us connect on a deeper emotional level. They captured our brand\u2019s purpose with humanity and craft, and the results speak for themselves: record market share, millions of new households, and the highest repeat rate in the category.", 'Kim Stellavato', 'Brand Director, King Arthur Baking'), home=True),
-    dict(slug='wizz-air', img='poster-wizz-air', loop='wizz-air', client='Wizz Air', camp='Locos for Low-Cost', vimeo=('1156877642', ''),
-         short="The airline\u2019s first fully AI-powered campaign, a human idea scaled by AI.", res='+11.4% demand, year-on-year.', stat='+11.4%',
-         copy="Wizz Air\u2019s first fully AI-powered campaign, created through our partnership with Monks, delivered 17 broadcast-ready assets in three weeks. A human idea scaled by AI. A new model for airlines needing fast, high-impact campaigns.",
-         n='+11.4%', l='Increase in demand, year-on-year', extra=['17 TV, OOH, and social assets', 'Delivered in three weeks'],
-         quote=("Locos is about letting go, embracing spontaneity, and leaning into life\u2019s fun side. Because low-cost isn\u2019t only about saving money, it\u2019s about having the freedom to do more and live bigger. Wizz Air has, from its inception, been a digital-first company, so it makes sense that we would be at the leading edge of using new technology in all areas of our business. So making an all AI ad just makes sense.", 'Silvia Mosquera Gonz\u00e1lez', 'Commercial Officer Central, Wizz Air'), home=True),
+         quote=("Keep Rising has been transformative for King Arthur Baking. Not just creatively, but commercially. In a low interest category, The Guild helped us connect on a deeper emotional level. They captured our brand\u2019s purpose with humanity and craft, and the results speak for themselves: record market share, millions of new households, and the highest repeat rate in the category.", 'Kim Stellavato', 'Brand Director, King Arthur Baking'), home=True),
+    dict(slug='wizz-air', img='poster-wizz-air', loop='wizz-air', client='Wizz Air', camp='Locos for Low Cost', vimeo=('1156877642', ''),
+         short="The airline\u2019s first fully AI powered campaign, a human idea scaled by AI.", res='+11.4% demand, year on year.', stat='+11.4%',
+         copy="Wizz Air\u2019s first fully AI powered campaign, created through our partnership with Monks, delivered 17 broadcast ready assets in three weeks. A human idea scaled by AI. A new model for airlines needing fast, high impact campaigns.",
+         n='+11.4%', l='Increase in demand, year on year', extra=['17 TV, OOH, and social assets', 'Delivered in three weeks'],
+         quote=("Locos is about letting go, embracing spontaneity, and leaning into life\u2019s fun side. Because low cost isn\u2019t only about saving money, it\u2019s about having the freedom to do more and live bigger. Wizz Air has, from its inception, been a digital-first company, so it makes sense that we would be at the leading edge of using new technology in all areas of our business. So making an all AI ad just makes sense.", 'Silvia Mosquera Gonz\u00e1lez', 'Commercial Officer Central, Wizz Air'), home=True),
     dict(slug='ms-food', img='poster-ms-food', loop='ms-food', client='M&S Food', camp='Magic Really Does Sell', vimeo=('1156877368', ''),
          short='Our script provided the creative fuel that allowed M&S\u2019s inhouse team to reunite French & Saunders to bring back the joy of Christmas.', res='+10.2% sales.', stat='+10.2%',
          copy="Working with M&S Food\u2019s in-house team, we created the idea to reunite Dawn French and Jennifer Saunders, delivering a Christmas campaign that lifted sales by 10.2%. Cultural storytelling turning into real retail impact.",
@@ -45,8 +45,8 @@ PROJECTS = [
          n='+72%', l='Consideration', extra=['\u201342% cost per click', '+15pts awareness', '1m extra ATOL licences'],
          quote=("Since starting our brand journey with The Liberty Guild, we\u2019ve added nearly 15%pts of awareness and seen every brand metric we track increase at pace, while our competitors are flat or falling, all despite dramatically lower brand budgets.", 'Al Murray', 'CMO, loveholidays'), home=True),
     dict(slug='rowse-honey', img='poster-rowse', loop='rowse', client='Rowse Honey', camp='The Squeeze That Protects the Bees', vimeo=('1156877553', ''),
-         short='Repositioned as the purpose-led choice, with bee welfare at its heart.', res='+24% new customers.', stat='+24%',
-         copy='We repositioned Rowse Honey as a purpose-led choice, putting bee welfare at the heart of the brand. The work attracted +24% more new customers and delivered a 98th percentile brand power score. Proving that doing good can drive both growth and equity.',
+         short='Repositioned as the purpose led choice, with bee welfare at its heart.', res='+24% new customers.', stat='+24%',
+         copy='We repositioned Rowse Honey as a purpose led choice, putting bee welfare at the heart of the brand. The work attracted +24% more new customers and delivered a 98th percentile brand power score. Proving that doing good can drive both growth and equity.',
          n='+24%', l='New customers', extra=['98th percentile brand power'], quote=None, home=True),
     dict(slug='brompton', img='poster-brompton', loop='brompton', client='Brompton', camp='Life Unfolded', vimeo=('1156876773', ''),
          short='', res='50th anniversary film.', stat='50',
@@ -58,7 +58,7 @@ PROJECTS = [
          copy='We unified four Snowfox sushi brands under one strategic platform, strengthening identity and commercial performance, contributing to a $621m acquisition by Zensho. A retail food example of brand architecture driving enterprise value.',
          n='$621m', l='Acquisition by Zensho', extra=['Four sushi brands, one platform'], quote=None, home=False),
     dict(slug='kitkat-f1', img='poster-kitkat', loop='kitkat', client='KitKat', camp='F1 Ident', vimeo=('1156877162', ''),
-         short='', res='Watch the film', stat='', copy='', n='', l='', extra=[], quote=None, home=False),
+         short='Handpicked production power for Formula 1 launch film.', res='Watch the film', stat='', copy='', n='', l='', extra=[], quote=None, home=False),
     dict(slug='nestle-sma', img='poster-sma', loop='sma', client='Nestl\u00e9 SMA', camp='Go With Your Gut', vimeo=('1203806335', '054f9189f0'),
          short='Building trust long before parents choose formula.', res='2x Baby Club sign-ups.', stat='2x',
          copy="Working with Nestl\u00e9\u2019s Content Studio, we helped SMA\u00ae shift the conversation from infant formula to genuine support, creating a campaign that brought its unique Baby Club services to life and positioned the brand as a trusted companion from pregnancy through to baby\u2019s first months.",
@@ -72,7 +72,7 @@ PROJECTS = [
          gallery=['sma-1', 'sma-2', 'sma-3', 'sma-4'],
          quote=("I really couldn\u2019t have hoped for better. We can all collectively take pride in the achievement. Not just the creative but the fact we\u2019re here. Infant nutrition is one of Nestl\u00e9\u2019s most protected categories and notoriously hard to navigate in creatively. And also throw in the biggest global crisis Nestl\u00e9 has had in well over a decade on the most sensitive of products, the reception is amazing. It\u2019s testament to The Guild\u2019s Amplify product, the process and the amazing talent you brought to the table. Thank you.", 'Tom Nixon', 'Head of Content Studios UK&I, Nestl\u00e9'), home=False),
     dict(slug='tui', img='poster-tui', loop='tui', client='TUI', camp='Skip To The Good Bit', vimeo=('1203813505', '5dd01fa66a'),
-         short='A global brand platform that lets travellers start enjoying their holiday long before they leave home.', res='Watch the film', stat='', copy='', n='', l='', extra=[],
+         short='A global brand platform that lets travellers start enjoying their holiday long before they leave home.', res='9 markets globally.', stat='', copy='', n='', l='', extra=[],
          quote=("The Liberty Guild have been a delight to work with. Their interpretation and understanding of our brief helped crystallise the strategic approach, which then went on to create some creative work that brought to life the proposition in a way that will allow us to flex across markets. In conjunction with DEPT we went on to create an ad using AI. The Liberty Guild project managed the whole process, making it seem like a breeze for me!", 'Rachel Moss', 'Head of International Marketing, TUI Group'), home=False),
 ]
 
@@ -120,7 +120,7 @@ POSTS = load_posts()
 # Freedom Works until confirmed. To confirm more, add [slug, name] pairs to that file.
 _CONF = {s_: a for s_, a in json.load(open(SP('confirmed_authors.json'), encoding='utf-8'))} if os.path.exists(SP('confirmed_authors.json')) else {}
 for _p in POSTS: _p['author'] = _CONF.get(_p['slug'], 'Freedom Works')
-AUTHOR_ROLE = {'Jon Williams': 'Founder and Chief Creative Officer'}   # add Aim\u00e9e's role here once confirmed
+AUTHOR_ROLE = {'Jon Williams': 'Founder and Chief Creative Officer', 'Aim\u00e9e Luther': 'Managing Director'}   # add Aim\u00e9e's role here once confirmed
 TOPIC_SLUG = {'ai-and-creativity': 'ai-and-creativity', 'on-the-model': 'the-agency-model', 'talent-and-work': 'talent-and-work',
               'culture-and-ads': 'culture-and-advertising', 'purpose': 'purpose'}
 TOPIC_INTRO = {
@@ -136,7 +136,7 @@ _clash = [t for t in TOPIC_SLUG.values() if any(_p['slug'] == t for _p in POSTS)
 assert not _clash, f'topic page address clashes with an article: {_clash}'
 
 FAQ = [
-    ("Who are Freedom Works?", "A global creative agency built on Calibre, Culture and Craft. More than 500 award-winning independent creatives and strategists across 37 countries and cultures, led by a founder and leadership team who have run businesses, boutique agencies, global networks, production companies, and start-ups."),
+    ("Who are Freedom Works?", "A global creative agency built on Calibre, Culture and Craft. More than 600 award winning independent creatives and strategists across 37 countries and cultures, led by a founder and leadership team who have run businesses, boutique agencies, global networks, production companies, and start-ups."),
     ("How do you work?", "We run a distributed creative department. No buildings. No fixed teams. For every brief we build a bespoke team from our network, supported by insight from qual, quant, or behavioural science research, with workflow optimised through our tech stack. We use AI when it helps, and we don't when it doesn't. We can run everything end to end, or plug into your in-house team."),
     ("How are you different to a legacy agency?", "We don't sell hours. We sell ideas. Our work is productised: fixed scope, fixed cost, fixed time, clear outputs. We work in short sprints, with proper decision points and evidence built in, and when clients want more, a subscription model makes it cheaper and easier."),
     ("What makes your talent better?", "Every project starts by finding the right people for the brief. Not whoever's free. Not whoever's cheapest. Our creatives value the freedom to work on their own terms, on briefs they choose, and between them they've won 2,315 Lions, Pencils, and Effies."),
@@ -226,17 +226,17 @@ def case_logo(p, A):
 CASE_COPY = {
  'king-arthur-baking': dict(copy='Our Keep Rising platform helped King Arthur become the #1 flour brand in the US, driving a 100% sales uplift and adding 3.4m households. A leading FMCG example of emotional storytelling driving commercial growth.',
     n='+100%', l='Sales uplift', extra=['#1 flour brand in the US', '+3.2pt share gain', '+3.4m new households'],
-    quote=('Keep Rising has been transformative for King Arthur Baking. Not just creatively, but commercially. In a low-interest category, The Guild helped us connect on a deeper emotional level. They captured our brand\u2019s purpose with humanity and craft, and the results speak for themselves: record market share, millions of new households, and the highest repeat rate in the category.', 'Kim Stellavato', 'Brand Director, King Arthur Baking')),
- 'wizz-air': dict(copy='Wizz Air\u2019s first fully AI-powered campaign, created through our partnership with Monks, delivered 17 broadcast-ready assets in three weeks. A human idea scaled by AI. A new model for airlines needing fast, high-impact campaigns.',
-    n='+11.4%', l='Increase in demand, year-on-year', extra=['17 TV, OOH, and social assets', 'Delivered in three weeks'],
-    quote=('Locos is about letting go, embracing spontaneity, and leaning into life\u2019s fun side. Because low-cost isn\u2019t only about saving money, it\u2019s about having the freedom to do more and live bigger. Wizz Air has, from its inception, been a digital-first company, so it makes sense that we would be at the leading edge of using new technology in all areas of our business. So making an all AI ad just makes sense.', 'Silvia Mosquera Gonz\u00e1lez', 'Commercial Officer Central, Wizz Air')),
+    quote=('Keep Rising has been transformative for King Arthur Baking. Not just creatively, but commercially. In a low interest category, The Guild helped us connect on a deeper emotional level. They captured our brand\u2019s purpose with humanity and craft, and the results speak for themselves: record market share, millions of new households, and the highest repeat rate in the category.', 'Kim Stellavato', 'Brand Director, King Arthur Baking')),
+ 'wizz-air': dict(copy='Wizz Air\u2019s first fully AI powered campaign, created through our partnership with Monks, delivered 17 broadcast ready assets in three weeks. A human idea scaled by AI. A new model for airlines needing fast, high impact campaigns.',
+    n='+11.4%', l='Increase in demand, year on year', extra=['17 TV, OOH, and social assets', 'Delivered in three weeks'],
+    quote=('Locos is about letting go, embracing spontaneity, and leaning into life\u2019s fun side. Because low cost isn\u2019t only about saving money, it\u2019s about having the freedom to do more and live bigger. Wizz Air has, from its inception, been a digital-first company, so it makes sense that we would be at the leading edge of using new technology in all areas of our business. So making an all AI ad just makes sense.', 'Silvia Mosquera Gonz\u00e1lez', 'Commercial Officer Central, Wizz Air')),
  'ms-food': dict(copy='Working with M&S Food\u2019s in-house team, we created the idea to reunite Dawn French and Jennifer Saunders, delivering a Christmas campaign that lifted sales by 10.2%. Cultural storytelling turning into real retail impact.',
     n='+10.2%', l='Sales', extra=[],
     quote=('M&S outperformed the market in food in both volume and value for the second year running. The retailer\u2019s high-end food offer traditionally appeals to shoppers at Christmas, and 2022 was no exception despite increasing economic pressure on consumers.', 'Stuart Machin', 'Chief Executive, M&S', '\u201cWine and sequins help UK\u2019s M&S sparkle at Christmas\u201d, 12 January 2023')),
  'loveholidays': dict(copy='We helped loveholidays shift from performance to brand, lifting awareness +15pts and consideration +72%, driving demand that required 1m extra ATOL licences. Proof that brand and performance work better together in travel.',
     n='+72%', l='Consideration', extra=['\u201342% cost per click', '+15pts awareness', '1m extra ATOL licences'],
     quote=('Since starting our brand journey with The Liberty Guild, we\u2019ve added nearly 15% pts of awareness and seen every brand metric we track increase at pace, while our competitors are flat or falling, all despite dramatically lower brand budgets.', 'Al Murray', 'CMO, loveholidays')),
- 'rowse-honey': dict(copy='We repositioned Rowse Honey as a purpose-led choice, putting bee welfare at the heart of the brand. The work attracted +24% more new customers and delivered a 98th percentile brand power score. Proving that doing good can drive both growth and equity.',
+ 'rowse-honey': dict(copy='We repositioned Rowse Honey as a purpose led choice, putting bee welfare at the heart of the brand. The work attracted +24% more new customers and delivered a 98th percentile brand power score. Proving that doing good can drive both growth and equity.',
     n='+24%', l='New customers', extra=['98th percentile brand power'],
     quote=('The most integrated model I have seen when it comes to creative development. And yet it is so obvious that if you embed the consumer into the creative development process and are guided by the data and not the creative ego you are going to get better, more effective work.\nSo many others have tried and failed. But the Liberty Guild process is seamless.', 'Kirstie Jamieson', 'Marketing Director, Rowse Honey')),
  'brompton': dict(copy='There\u2019s a confidence that comes from knowing who you are. The film we created for Brompton\u2019s 50th anniversary leans into that. Life Unfolded doesn\u2019t look back, it launches the brand forward.',
@@ -251,7 +251,7 @@ CASE_COPY = {
  'nestle-sma': dict(copy='Working with Nestl\u00e9\u2019s Content Studio, we helped SMA\u00ae shift the conversation from infant formula to genuine support, creating a campaign that brought its unique Baby Club services to life and positioned the brand as a trusted companion from pregnancy through to baby\u2019s first months.',
     n='2x', l='Baby Club sign-ups', extra=[],
     quote=('I can now assemble a team through The Guild within a few days\u2019 notice that has more Cannes Lions and D&AD Pencils within it than all of our agency accounts put together.', 'Tom Nixon', 'Head of Content Studios UK&I, Nestl\u00e9')),
- 'tui': dict(copy='We helped TUI Hotels reclaim what made travel joyful by creating a global brand platform that lets travellers start enjoying their holiday long before they leave home. \u2018Skip to the Good Bit\u2019 positions TUI Hotels as the brand that has already done the hard work, so customers don\u2019t have to. Brought to life through an entirely AI-produced launch campaign.',
+ 'tui': dict(copy='We helped TUI Hotels reclaim what made travel joyful by creating a global brand platform that lets travellers start enjoying their holiday long before they leave home. \u2018Skip to the Good Bit\u2019 positions TUI Hotels as the brand that has already done the hard work, so customers don\u2019t have to. Brought to life through an entirely AI produced launch campaign.',
     n='', l='', extra=[],
     quote=('Freedom Works [formerly The Liberty Guild] have been a delight to work with. Their interpretation and understanding of our brief helped crystallise the strategic approach, which then went on to create some creative work that brought to life the proposition in a way that will allow us to flex across markets. In conjunction with DEPT we went on to create an ad using AI. The Liberty Guild project managed the whole process, making it seem like a breeze for me!', 'Rachel Moss', 'Head of International Marketing, TUI Group')),
 }
@@ -434,13 +434,15 @@ def share_title(path, title):
     full = f'{name} | Freedom Works'
     return full if len(full) <= 110 else name
 
+OFFICE_ADDRESS = ['Johnson Building', 'Johnson Gardens', '77 Hatton Garden', 'London, EC1N 8JS', 'UK']
+
 LASTMOD = {}
 HOME_TILE_COPY = {
-    'king-arthur-baking': ('A creative platform that celebrates the essence of the King Arthur brand and drives differentiation in a low-interest category.', 'From #2 to #1 flour brand in the US. Doubled sales.'),
-    'wizz-air': ('With a distinctly Spanish flavour, WIZZ\u2019s first fully AI campaign was built on a real human insight and human crafted script.', '+11.4% demand, year-on-year.'),
+    'king-arthur-baking': ('A creative platform that celebrates the essence of the King Arthur brand and drives differentiation in a low interest category.', 'From #2 to #1 flour brand in the US. Doubled sales.'),
+    'wizz-air': ('With a distinctly Spanish flavour, WIZZ\u2019s first fully AI campaign was built on a real human insight and human crafted script.', '+11.4% demand, year on year.'),
     'ms-food': ('Our script provided the creative fuel that allowed M&S\u2019s inhouse team to reunite French & Saunders to bring back the joy of Christmas.', '+10.2% sales.'),
     'loveholidays': ('From performance to brand, without losing demand.', '+72% consideration, \u201342% cost per click, + a million people to their ATOL licence.'),
-    'rowse-honey': ('Purpose led is ok if it\u2019s real. We moved beyond \u2018share of toast\u2019 and gave shoppers bee-welfare as a reason to choose Rowse.', '+24% new customers.'),
+    'rowse-honey': ('Purpose led is ok if it\u2019s real. We moved beyond \u2018share of toast\u2019 and gave shoppers bee welfare as a reason to choose Rowse.', '+24% new customers.'),
     'brompton': ('For 50 years it\u2019s been that funny little folding bike. But actually the real life affirming stuff happens when you unfold it. Welcome to the fold.', '50th anniversary film.'),
 }
 # The homepage tile copy is the definitive tile copy: the Work page and service pages use it too
@@ -528,15 +530,15 @@ def posts_list(posts, L, with_data=False):
 DNA = [
     ('Calibre', 'Make it exceptional.', 'Freedom from tired thinking.', 'p-paper', 'still-calibre', 'While output is now infinite, great ideas are not.',
      'When anyone can generate, the edge is knowing good from great. The Guild is the creative and strategic A-list, handpicked for your brief.',
-     "When anyone can generate, the edge is knowing good from great. The Guild is the global creative and strategic A-list. 500+ of the best independent minds across 37 countries and cultures, with 2,315 Lions, Pencils, and Effies between them. Taste and judgement. Insight and evidence. Handpicked for your brief, on your work from day one.",
+     "When anyone can generate, the edge is knowing good from great. The Guild is the global creative and strategic A-list. 600+ of the best independent minds across 37 countries and cultures, with 2,315 Lions, Pencils, and Effies between them. Taste and judgement. Insight and evidence. Handpicked for your brief, on your work from day one.",
      'Calibre gets you cut through.'),
     ('Culture', 'Make it resonate.', 'Freedom from cultural isolation.', 'p-red', 'still-culture', 'In the brave new world of AI, human connections are crucial.',
      'AI can talk about culture. It can never be in it. Culture3 gives brands access to the real conversations, communities and moments shaping culture.',
-     "AI can talk about culture. It can never be in it. Culture3 puts brands in the rooms that matter. Offstage, curated dinners with leaders and cultural voices at defining moments. Onstage, through partners like TED, a platform for their ideas. Then we take it beyond the room, amplifying the conversation through organic and paid media. Physical. Nuanced. Human.",
+     "AI can talk about culture. It can never be in it. Culture3 puts brands in the rooms that matter: offstage dinners with cultural leaders, onstage with TED, amplified beyond it through organic and paid media. Physical. Nuanced. Human.",
      'Culture gets you noticed.'),
     ('Craft', 'Make it beautiful.', 'Freedom from slop.', 'p-black', 'still-craft', 'Experience, taste, and judgement just got even more differentiating.',
      "AI speeds up the making. People make it great, and decide what ships, from first brief to final cut.",
-     "Agentic production removes the old constraints of time, cost, and scale. It doesn't remove the need for someone to say \"not good enough\". Our creative crew have made this call at the very top of the industry, and they stay with the work from first brief to final cut. Machines do the making. Humans decide what ships.",
+     "Agentic production removes the old constraints of time, cost, and scale. It doesn't remove the need for someone to say \"not good enough\". Our creative crew have made this call at the very top of the industry, and they stay with the work from first brief to final cut. Even when machines do the making, humans aren\u2019t just in the loop, they\u2019re in the lead.",
      'Craft gets you remembered.'),
 ]
 
@@ -551,10 +553,10 @@ def dna_panels(A, full=False):
     return '<div class="panels">' + '\n'.join(out) + '</div>'
 
 def ticker(A):
-    lines = ["Nearly ten years ago we built the agency model that everyone talks about.", "But the world has moved on. And so must we.",
+    lines = ["Nearly ten years ago we built the agency model that everyone talks about.", "But the world has moved on. And so have we.",
              "Today we are entering the agentic age.", "A creative renaissance is here, where machines make anything possible.",
              "And that makes humanity more important than ever.", "Freedom from tired thinking and production constraints.",
-             "Freedom from slop and a sea of sameness.", "Freedom from office-bound monotony.", "Freedom from convention.", "Freedom. Works."]
+             "Freedom from slop and a sea of sameness.", "Freedom from office bound monotony.", "Freedom from convention.", "Freedom. Works."]
     one = ''.join(f'<span class="it"><span class="mk" aria-hidden="true"></span>{esc(t)}</span>' for t in lines)
     dup = one.replace('<span class="it">', '<span class="it" aria-hidden="true">')
     return f'<section class="ticker words" aria-label="Why Freedom Works"><div class="track">{one}{dup}</div></section>'
@@ -583,17 +585,21 @@ def logos_band(A, dark=False):
   </div>
 </section>'''
 
-def strip3(A, a, b, c):
-    return f'<div class="strip3" aria-hidden="true"><div class="a px"><img src="{A("media/"+a+".webp")}" alt="" loading="lazy"></div><div class="b px"><img src="{A("media/"+b+".webp")}" alt="" loading="lazy"></div><div class="c px"><img src="{A("media/"+c+".webp")}" alt="" loading="lazy"></div></div>'
+def strip3(A, a, b, c, pos=('', '', '')):
+    """Three stills: tall, wide, tall. pos optionally sets each crop's focus (CSS object-position, e.g. '40% 50%')."""
+    st = lambda k: f' style="object-position:{pos[k]}"' if pos[k] else ''
+    return (f'<div class="strip3" aria-hidden="true"><div class="a px"><img src="{A("media/"+a+".webp")}" alt="" loading="lazy"{st(0)}></div>'
+            f'<div class="b px"><img src="{A("media/"+b+".webp")}" alt="" loading="lazy"{st(1)}></div>'
+            f'<div class="c px"><img src="{A("media/"+c+".webp")}" alt="" loading="lazy"{st(2)}></div></div>')
 
 HS_PORTAL, HS_FORM, HS_SHARE = '25281165', '0aad04dc-5ab6-4146-b353-f73841abc855', 'https://share-eu1.hsforms.com/1Cq0E3Fq2QUazU_c4QavIVQf1v2l'
 
 IMPACT = [
     ('+100%', 'Sales uplift', 'King Arthur Baking', 'Keep Rising took King Arthur to the #1 flour brand in the US and added 3.4m new households.', 'king-arthur-baking'),
     ('+10.2%', 'Sales', 'M&S Food', "The Christmas idea that reunited Dawn French and Jennifer Saunders, made with M&S Food\u2019s in-house team.", 'ms-food'),
-    ('+11.4%', 'Demand, year-on-year', 'Wizz Air', "The airline\u2019s first fully AI-powered campaign: 17 broadcast-ready assets in three weeks.", 'wizz-air'),
+    ('+11.4%', 'Demand, year on year', 'Wizz Air', "The airline\u2019s first fully AI powered campaign: 17 broadcast ready assets in three weeks.", 'wizz-air'),
     ('+72%', 'Consideration', 'loveholidays', 'From performance to brand: +15pts awareness and demand that needed 1m people added to their ATOL licence.', 'loveholidays'),
-    ('$621m', 'Acquisition by Zensho', 'Snowfox Group', 'Our platform unified Snowfox Group\u2019s four sushi brands, strengthening identity and performance, and contributed to its $621m acquisition by Zensho.', 'snowfox-group'),
+    ('$621m', 'Acquisition by Zensho', 'Snowfox Group', 'Our platform unified Snowfox Group\u2019s four sushi brands and contributed to its $621m acquisition by Zensho.', 'snowfox-group'),
 ]
 
 C3_SVG = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'c3-logo.svg')).read() if os.path.exists(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'c3-logo.svg')) else None
@@ -670,7 +676,7 @@ def page_home(L, A):
   <h2 class="fw-head fw-lockup" id="st"><img src="{A("brand/lockup-freedom-makes-better-work.png")}" alt="Freedom makes better work" width="3482" height="552"></h2>
   <div class="intro-grid">
     <p class="intro-lead">And better work shows up where it counts.<br>On screen, in culture, and on your P&amp;L.</p>
-    <p class="intro-body">Creativity doesn\u2019t thrive in rigid systems or office-bound models. It thrives when people are trusted and supported to do their best thinking. This freedom attracts better talent. Better talent produces better ideas. And better ideas grow your brand. Simple.</p>
+    <p class="intro-body">Creativity doesn\u2019t thrive in rigid systems or office bound models. It thrives when people are trusted and supported to do their best thinking. This freedom attracts better talent. Better talent produces better ideas. And better ideas grow your brand. Simple.</p>
   </div>
 </section>'''
     who_intro = '''<section class="who-intro wrap white" aria-labelledby="whoi">
@@ -680,8 +686,8 @@ def page_home(L, A):
     pillars = f'''<section class="pillars-e wrap light" aria-labelledby="who">
   <div class="sec-head"><h2 class="sec-title" id="who">Who <span class="thin">we are</span></h2></div>
   <div class="pe-grid">
-    <a class="pe" href="{L("the-guild/")}"><span class="pe-n">01</span><h3 class="pe-t">The Guild</h3><p>We have the best creative department in the world: The Guild. More than five hundred A-list creatives, strategists, and producers, in 37 countries and cultures, with over 2,300 Lions &amp; Pencils between them, handpicked for each brief.</p><span class="pe-go">Meet The Guild</span></a>
-    <a class="pe" href="{L("culture3/")}"><span class="pe-n">02</span><h3 class="pe-t">{c3_logo()}</h3><p>AI can talk about culture. It can never be in it. Culture3 puts brands in the rooms that matter. Offstage, curated dinners with leaders and cultural voices at defining moments. Onstage, through partners like TED, a platform for their ideas. Then we take it beyond the room, amplifying the conversation through organic and paid media. Physical. Nuanced. Human.</p><span class="pe-go">Explore Culture3</span></a>
+    <a class="pe" href="{L("the-guild/")}"><span class="pe-n">01</span><h3 class="pe-t">The Guild</h3><p>We have the best creative department in the world: The Guild. More than six hundred A-list creatives, strategists, and producers, in 37 countries and cultures, with over 2,300 Lions &amp; Pencils between them, handpicked for each brief.</p><span class="pe-go">Meet The Guild</span></a>
+    <a class="pe" href="{L("culture3/")}"><span class="pe-n">02</span><h3 class="pe-t">{c3_logo()}</h3><p>AI can talk about culture. It can never be in it. Culture3 puts brands in the rooms that matter: offstage dinners with cultural leaders, onstage with TED, amplified beyond it through organic and paid media. Physical. Nuanced. Human.</p><span class="pe-go">Explore Culture3</span></a>
     <a class="pe" href="{L("agency/")}#leadership"><span class="pe-n">03</span><h3 class="pe-t">Leadership</h3><p>We\u2019re led by a founder and a leadership team who have excelled with ideas, organisations, and talent at the very top of the industry. Their vision and judgement runs through every piece of work we make.</p><span class="pe-go">Meet the leadership</span></a>
   </div>
 </section>'''
@@ -707,7 +713,7 @@ def page_home(L, A):
     <div class="dh-end"><p>This is our DNA. Humanity at the core.</p><a class="sec-link" href="{L("agency/")}#dna">Explore our DNA</a></div>
   </div>
 </section>'''
-    guild = mosaic(A, '<span>500+ minds.</span> <span>37 countries and cultures.</span> <span>One brief at a time.</span>', 'The Guild is the creative and strategic A-list. For every project, we handpick the people who fit your brief, your brand, and your culture.', L('the-guild/'), 'Meet The Guild')
+    guild = mosaic(A, '<span>600+ minds.</span> <span>37 countries and cultures.</span> <span>One brief at a time.</span>', 'The Guild is the creative and strategic A-list. For every project, we handpick the people who fit your brief, your brand, and your culture.', L('the-guild/'), 'Meet The Guild')
     marquee = '<section class="big-marquee light" aria-hidden="true"><div class="track">' + ''.join('<span class="h">Freedom</span><span class="t">works</span><span class="mkb"></span>' for _ in range(5)) + '</div></section>'
     voices = voices_html(VOICES, theme='on-light')
     thinking = f'''<section class="thinking wrap light" aria-labelledby="th">
@@ -722,8 +728,8 @@ def page_agency(L, A):
     return f'''<section class="page-hero wrap">
   <h1>Freedom makes <span class="thin">better</span> work.</h1>
   <div class="intro"><div class="stack">
-    <p>Freedom Works is a global creative agency offering brand strategy, brand identity, creative, production, and in-house creative. We bring together The Guild, a network of more than 500 award-winning independent creatives, strategists, and producers across 37 countries and cultures, and Culture3, our cultural partnerships business, to build a handpicked team for every brief.</p>
-    <p>We believe freedom makes better work. Not as fancy words. In practice. In real life. Creativity doesn\u2019t thrive in rigid systems or office-bound models. It thrives when people are trusted and supported to do their best thinking.</p>
+    <p>Freedom Works is a global creative agency offering brand strategy, brand identity, creative, production, and in-house creative. We bring together The Guild, a network of more than 600 award winning independent creatives, strategists, and producers across 37 countries and cultures, and Culture3, our cultural partnerships business, to build a handpicked team for every brief.</p>
+    <p>We believe freedom makes better work. Not as fancy words. In practice. In real life. Creativity doesn\u2019t thrive in rigid systems or office bound models. It thrives when people are trusted and supported to do their best thinking.</p>
   </div></div>
 </section>
 <div class="sizzle wrap"><video class="lazyvid" muted loop playsinline preload="none" poster="{A("media/still-lunch.webp")}" data-src="{A("film/sizzle-agency.mp4")}" aria-hidden="true"></video></div>
@@ -731,10 +737,10 @@ def page_agency(L, A):
   <div class="split">
     <div class="l"><h2 class="h2">Built for the <span class="thin">next ten years</span></h2></div>
     <div class="r prose">
-      <p class="lead-light">Nearly ten years ago we built the agency model that everyone talks about. But the world has moved on. And so must we.</p>
+      <p class="lead-light">Nearly ten years ago we built the agency model that everyone talks about. But the world has moved on. And so have we.</p>
       <p>As we build out an agency fit for the next ten years, AI is embedded for process and production. But for ideas, we have designed a business with humanity at its core.</p>
-      <p>With The Guild, we have the best creative department in the world: more than five hundred A-list creatives, strategists, and producers, in 37 countries and cultures, with over 2,300 Lions and Pencils between them, handpicked for each brief.</p>
-      <p>AI can talk about culture. It can never be in it. Culture3 puts brands in the rooms that matter. Offstage, curated dinners with leaders and cultural voices at defining moments. Onstage, through partners like TED, a platform for their ideas. Then we take it beyond the room, amplifying the conversation through organic and paid media. Physical. Nuanced. Human.</p>
+      <p>With The Guild, we have the best creative department in the world: more than six hundred A-list creatives, strategists, and producers, in 37 countries and cultures, with over 2,300 Lions and Pencils between them, handpicked for each brief.</p>
+      <p>AI can talk about culture. It can never be in it. Culture3 puts brands in the rooms that matter: offstage dinners with cultural leaders, onstage with TED, amplified beyond it through organic and paid media. Physical. Nuanced. Human.</p>
       <p>We\u2019re led by a founder and a leadership team who have excelled with ideas, organisations, and talent at the very top of the industry. Our vision and judgement runs through every piece of work we make.</p>
     </div>
   </div>
@@ -750,14 +756,14 @@ def page_agency(L, A):
 <section class="band wrap" id="leadership" aria-labelledby="ld">
   <div class="split split-head">
     <div class="l"><h2 class="h2" id="ld">Taste. Judgement. <span class="thin">Experience.</span></h2><p class="ld-sub">The people behind Freedom Works.</p></div>
-    <div class="r"><p class="lead-light">Anyone can generate a hundred ideas now. Knowing a great idea from an average one is where the value lies. This call gets made by people who've made it at the very top of the industry, on the biggest brands in the world. And they don't hand it off after the presentation. They stay on it until it deploys.</p></div>
+    <div class="r"><p class="lead-light">Anyone can generate a hundred ideas now. Knowing a great idea from an average one is where the value lies. This call gets made by people who\u2019ve made it at the very top of the industry, on the biggest brands in the world. And they don\u2019t hand it off after the presentation. They stay on it until it deploys.</p></div>
   </div>
   <div class="leaders">
-    <article class="lead-row" id="jon-williams"><div class="ph">Portrait to come</div><div class="lr-txt"><h3>Jon Williams</h3><p class="role">Founder and Chief Creative Officer</p><a class="lr-li" href="https://www.linkedin.com/in/creativegenius/" target="_blank" rel="noopener" aria-label="Jon Williams on LinkedIn"><svg aria-hidden="true" viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4z"/></svg><span>LinkedIn</span></a><ul class="pstats"><li><b data-count>49</b>Agencies led</li><li><b data-count>105</b>Cannes Lions</li><li><b data-count>109</b>Effies</li><li><b data-count>51</b>D&amp;AD Pencils</li></ul><div class="bio"><p>Jon Williams is Founder and Chief Creative Officer of Freedom Works.</p><p>At Publicis he created HYPE for HP, the platform Cannes used as its benchmark for the Titanium Lion, and \u201cChoices\u201d for the DePaul Trust, the world\u2019s first true interactive TV spot. He went on to make the Carling iPint, the world\u2019s first native branded iPhone app, downloaded six million times.</p><p>As Chief Creative Officer of Grey London, then Grey EMEA across 47 agencies, he built the network\u2019s best-performing creative region: 105 Cannes Lions, 109 Effies, and 51 D&amp;AD Pencils, plus a 2,000-strong talent platform.</p><p>In 2017 he founded The Liberty Guild, which now powers Freedom Works.</p><p>As well as having chaired or sat on pretty much every award show there is, Jon sits on the Creative UK council and has judged the Luma AI Dream Brief and the Advertising Turing Test. Fuelling his conviction that as machines make more, human taste and judgement matter more than ever.</p></div></div></article>
-    <article class="lead-row" id="aimee-luther"><div class="ph">Portrait to come</div><div class="lr-txt"><h3>Aim\u00e9e Luther</h3><p class="role"><span class="pending-tag">Role to confirm</span></p><a class="lr-li" href="https://www.linkedin.com/in/aimeeluther/" target="_blank" rel="noopener" aria-label="Aimée Luther on LinkedIn"><svg aria-hidden="true" viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4z"/></svg><span>LinkedIn</span></a><ul class="pstats pending"><li><b>00</b>Stat to come</li><li><b>00</b>Stat to come</li><li><b>00</b>Stat to come</li></ul><div class="bio"><p>Aim\u00e9e\u2019s career isn\u2019t just a series of job titles and accolades. It\u2019s a masterclass in blending razor-sharp business acumen with a genuine commitment to making a difference.</p><p>She began ad-life as a graduate at Ogilvy &amp; Mather in 2000, before joining start-up agency BMB in 2006 and becoming Managing Director in 2013. There she ran the TUI business for a decade, producing some of the most decorated campaigns in the industry.</p><p>After launching Fortnight Collective in Europe, she joined The Liberty Guild, a fresh, scalable alternative to the traditional agency model. Alongside leading key client business, Aim\u00e9e guided The Guild to a place in the Sunday Times Best Places to Work 2026.</p><p>Aim\u00e9e has been a Founding Trustee of CALM since 2006, is the Chair of Words Matter and a Trustee of the Langa Township Pre-School Trust in Cape Town. She is also a Marketer in Residence and Honorary Teaching Fellow at Lancaster University. And whilst not a natural athlete, Aim\u00e9e has harrumphed around the London Marathon five times.</p></div></div></article>
-    <article class="lead-row" id="holly-dillon"><div class="ph">Portrait to come</div><div class="lr-txt"><h3>Holly Dillon</h3><p class="role"><span class="pending-tag">Role to confirm</span></p><a class="lr-li" href="https://www.linkedin.com/in/holly-dillon/" target="_blank" rel="noopener" aria-label="Holly Dillon on LinkedIn"><svg aria-hidden="true" viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4z"/></svg><span>LinkedIn</span></a><ul class="pstats pending"><li><b>00</b>Stat to come</li><li><b>00</b>Stat to come</li><li><b>00</b>Stat to come</li></ul><div class="bio"><p>Holly leads the business across commercial strategy, growth, operations, and delivery. She oversees senior client relationships and strategic partnerships, including partnerships with cultural organisations such as TED, connecting brands and businesses with the conversations, communities and moments shaping their industries.</p><p>With over 15 years of experience building businesses and leading international teams, Holly brings executive leadership experience from film and television production and storytelling, which informs her approach to business strategy, creative ambition, and commercial growth. She works closely with C-suite leaders and senior decision-makers to identify commercial opportunities, build relationships, and translate ambition into business growth.</p><p>Prior to Culture3, Holly launched and built Variety\u2019s branded content studio, developing partnerships with Netflix and Apple TV, and delivering award-winning work around NEON\u2019s Parasite.</p><p>Holly is also the founder of Get Your Skin Out, changing how visible skin conditions are represented across culture.</p></div></div></article>
-    <article class="lead-row" id="jamila-saidi"><div class="ph">Portrait to come</div><div class="lr-txt"><h3>Jamila Saidi</h3><p class="role"><span class="pending-tag">Role to confirm</span></p><a class="lr-li" href="https://www.linkedin.com/in/jamila-saidi/" target="_blank" rel="noopener" aria-label="Jamila Saidi on LinkedIn"><svg aria-hidden="true" viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4z"/></svg><span>LinkedIn</span></a><ul class="pstats pending"><li><b>00</b>Stat to come</li><li><b>00</b>Stat to come</li><li><b>00</b>Stat to come</li></ul><div class="bio"><p>Jamila leads on strategic growth, partnership development, and commercial expansion, working with brands, businesses, and entrepreneurs at the intersection of culture, creativity, and commerce. Her background in marketing and international trade and investment promotion informs a commercially grounded approach to building lasting client relationships.</p><p>With over 20 years of experience as a global growth leader and commercial strategist, Jamila specialises in entering new markets, building high-value partnerships, and scaling opportunities internationally. She works closely with founders, C-suite leaders, and brand decision-makers to unlock growth that is both ambitious and culturally resonant.</p><p>Jamila brings deep expertise in retail, luxury, fashion, beauty, digital, and the creative industries. She is a passionate advocate for digital trade as a growth enabler and champions female founders and SMEs across the creative economy.</p><p>Prior to joining Culture3, Jamila held senior leadership roles at the UK\u2019s Department for Business and Trade, and worked in international marketing roles at Lloyds Bank Private Banking, Merrill Lynch Global Wealth Management and Grant Thornton.</p></div></div></article>
-    <article class="lead-row" id="lins-karnes"><div class="ph">Portrait to come</div><div class="lr-txt"><h3>Lins Karnes</h3><p class="role">Growth Lead</p><a class="lr-li" href="https://www.linkedin.com/in/linskarnes/" target="_blank" rel="noopener" aria-label="Lins Karnes on LinkedIn"><svg aria-hidden="true" viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4z"/></svg><span>LinkedIn</span></a><ul class="pstats pending"><li><b>00</b>Stat to come</li><li><b>00</b>Stat to come</li><li><b>00</b>Stat to come</li></ul><div class="bio"><p>Lins\u2019 attention to detail keeps everyone in line and makes stuff actually happen. He\u2019s a rare multi-platform, multi-format, digital-native production leader with a degree in computer science.</p><p>He\u2019s worked with big tech, CMS, e-commerce, and digital transformation for companies such as HP, Compaq, Ford, Harvard Business School, and non-governmental agencies. He\u2019s headed up digital production at Wunderman, BHH, and Saint@RKCR/Y&amp;R, improving creative output across digital, and integrated, and delivering global, European, and national programmes for clients such as Microsoft and Unilever.</p><p>His last gig before he came to co-found The Liberty Guild was MD of B-Reel, the world\u2019s leading mixed-media production company, where he drove technical innovation and creative excellence across TV, film, content, digital, integrated, experiential, and product development.</p></div></div></article>
+    <article class="lead-row" id="jon-williams"><div class="ph ph-photo"><img src="{A("media/team/jon-williams-600.webp")}" srcset="{A("media/team/jon-williams-600.webp")} 600w, {A("media/team/jon-williams-1200.webp")} 1200w" sizes="(max-width: 900px) 50vw, 25vw" alt="Jon Williams, Founder and Chief Creative Officer" width="600" height="750" loading="lazy" decoding="async"></div><div class="lr-txt"><h3>Jon Williams</h3><p class="role">Founder and Chief Creative Officer</p><a class="lr-li" href="https://www.linkedin.com/in/creativegenius/" target="_blank" rel="noopener" aria-label="Jon Williams on LinkedIn"><svg aria-hidden="true" viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4z"/></svg><span>LinkedIn</span></a><ul class="pstats"><li><b data-count>49</b>Agencies led</li><li><b data-count>105</b>Cannes Lions</li><li><b data-count>109</b>Effies</li><li><b data-count>51</b>D&amp;AD Pencils</li></ul><div class="bio"><p>Jon Williams is Founder and Chief Creative Officer of Freedom Works.</p><p>At Publicis he created HYPE for HP, the platform Cannes used as its benchmark for the Titanium Lion, and \u201cChoices\u201d for the DePaul Trust, the world\u2019s first true interactive TV spot. He went on to make the Carling iPint, the world\u2019s first native branded iPhone app, downloaded six million times.</p><p>As Chief Creative Officer of Grey London, then Grey EMEA across 47 agencies, he built the network\u2019s best performing creative region: 105 Cannes Lions, 109 Effies, and 51 D&amp;AD Pencils, plus a 2,000 strong talent platform.</p><p>In 2017 he founded The Liberty Guild, which now powers Freedom Works.</p><p>As well as having chaired or sat on pretty much every award show there is, Jon sits on the Creative UK council and has judged the Luma AI Dream Brief and the Advertising Turing Test. Fuelling his conviction that as machines make more, human taste and judgement matter more than ever.</p></div></div></article>
+    <article class="lead-row" id="aimee-luther"><div class="ph ph-photo"><img src="{A("media/team/aimee-luther-600.webp")}" srcset="{A("media/team/aimee-luther-600.webp")} 600w, {A("media/team/aimee-luther-1200.webp")} 1200w" sizes="(max-width: 900px) 50vw, 25vw" alt="Aim\u00e9e Luther, Managing Director" width="600" height="750" loading="lazy" decoding="async"></div><div class="lr-txt"><h3>Aim\u00e9e Luther</h3><p class="role">Managing Director</p><a class="lr-li" href="https://www.linkedin.com/in/aimeeluther/" target="_blank" rel="noopener" aria-label="Aimée Luther on LinkedIn"><svg aria-hidden="true" viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4z"/></svg><span>LinkedIn</span></a><div class="bio"><p>Aim\u00e9e is Managing Director of Freedom Works.</p><p>A graduate of Ogilvy &amp; Mather, Aim\u00e9e spent a decade running TUI at BMB, the start-up agency she joined and went on to lead as Managing Director by 2013, producing some of the most decorated work in the industry. After launching Fortnight Collective in Europe, she joined The Liberty Guild and helped take it into the Sunday Times Best Places to Work 2026.</p><p>She is a Founding Trustee of CALM, Chair of Words Matter and a Trustee of the Langa Township Pre-School Trust in Cape Town, and she is Marketer in Residence and Honorary Teaching Fellow at Lancaster University. Her conviction is that the best businesses are the ones that make a difference.</p><p>And while not a natural athlete, she has harrumphed around the London Marathon five times.</p></div></div></article>
+    <article class="lead-row" id="lins-karnes"><div class="ph ph-photo"><img src="{A("media/team/lins-karnes-600.webp")}" srcset="{A("media/team/lins-karnes-600.webp")} 600w, {A("media/team/lins-karnes-1200.webp")} 1200w" sizes="(max-width: 900px) 50vw, 25vw" alt="Lins Karnes, Chief Delivery Officer" width="600" height="750" loading="lazy" decoding="async"></div><div class="lr-txt"><h3>Lins Karnes</h3><p class="role">Chief Delivery Officer</p><a class="lr-li" href="https://www.linkedin.com/in/linskarnes/" target="_blank" rel="noopener" aria-label="Lins Karnes on LinkedIn"><svg aria-hidden="true" viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4z"/></svg><span>LinkedIn</span></a><div class="bio"><p>Lins\u2019 attention to detail keeps everyone in line and makes stuff actually happen. He\u2019s a rare multi-platform, multi-format, digital native production leader with a degree in computer science.</p><p>He\u2019s worked with big tech, CMS, e-commerce, and digital transformation for companies such as HP, Compaq, Ford, Harvard Business School, and non-governmental agencies. He\u2019s headed up digital production at Wunderman, BHH, and Saint@RKCR/Y&amp;R, improving creative output across digital, and integrated, and delivering global, European, and national programmes for clients such as Microsoft and Unilever.</p><p>His last gig before he came to co-found The Liberty Guild was MD of B-Reel, the world\u2019s leading mixed media production company, where he drove technical innovation and creative excellence across TV, film, content, digital, integrated, experiential, and product development.</p></div></div></article>
+    <article class="lead-row" id="holly-dillon"><div class="ph ph-photo"><img src="{A("media/team/holly-dillon-600.webp")}" srcset="{A("media/team/holly-dillon-600.webp")} 600w, {A("media/team/holly-dillon-1200.webp")} 1200w" sizes="(max-width: 900px) 50vw, 25vw" alt="Holly Dillon, Chief Operating Officer, Culture3" width="600" height="750" loading="lazy" decoding="async"></div><div class="lr-txt"><h3>Holly Dillon</h3><p class="role">Chief Operating Officer, Culture3</p><a class="lr-li" href="https://www.linkedin.com/in/holly-dillon/" target="_blank" rel="noopener" aria-label="Holly Dillon on LinkedIn"><svg aria-hidden="true" viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4z"/></svg><span>LinkedIn</span></a><div class="bio"><p>Holly leads the business across commercial strategy, growth, operations, and delivery. She oversees senior client relationships and strategic partnerships, including partnerships with cultural organisations such as TED, connecting brands and businesses with the conversations, communities and moments shaping their industries.</p><p>With over 15 years of experience building businesses and leading international teams, Holly brings executive leadership experience from film and television production and storytelling, which informs her approach to business strategy, creative ambition, and commercial growth. She works closely with C-suite leaders and senior decision makers to identify commercial opportunities, build relationships, and translate ambition into business growth.</p><p>Prior to Culture3, Holly launched and built Variety\u2019s branded content studio, developing partnerships with Netflix and Apple TV, and delivering award winning work around NEON\u2019s Parasite.</p><p>Holly is also the founder of Get Your Skin Out, changing how visible skin conditions are represented across culture.</p></div></div></article>
+    <article class="lead-row" id="jamila-saidi"><div class="ph ph-photo"><img src="{A("media/team/jamila-saidi-600.webp")}" srcset="{A("media/team/jamila-saidi-600.webp")} 600w, {A("media/team/jamila-saidi-1200.webp")} 1200w" sizes="(max-width: 900px) 50vw, 25vw" alt="Jamila Saidi, Chief Growth Officer, Culture3" width="600" height="750" loading="lazy" decoding="async"></div><div class="lr-txt"><h3>Jamila Saidi</h3><p class="role">Chief Growth Officer, Culture3</p><a class="lr-li" href="https://www.linkedin.com/in/jamila-saidi/" target="_blank" rel="noopener" aria-label="Jamila Saidi on LinkedIn"><svg aria-hidden="true" viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4z"/></svg><span>LinkedIn</span></a><div class="bio"><p>Jamila leads on strategic growth, partnership development, and commercial expansion, working with brands, businesses, and entrepreneurs at the intersection of culture, creativity, and commerce. Her background in marketing and international trade and investment promotion informs a commercially grounded approach to building lasting client relationships.</p><p>With over 20 years of experience as a global growth leader and commercial strategist, Jamila specialises in entering new markets, building high value partnerships, and scaling opportunities internationally. She works closely with founders, C-suite leaders, and brand decision makers to unlock growth that is both ambitious and culturally resonant.</p><p>Jamila brings deep expertise in retail, luxury, fashion, beauty, digital, and the creative industries. She is a passionate advocate for digital trade as a growth enabler and champions female founders and SMEs across the creative economy.</p><p>Prior to joining Culture3, Jamila held senior leadership roles at the UK\u2019s Department for Business and Trade, and worked in international marketing roles at Lloyds Bank Private Banking, Merrill Lynch Global Wealth Management and Grant Thornton.</p></div></div></article>
   </div>
 </section>
 {logo_wall(A)}
@@ -795,7 +801,7 @@ def page_guild(L, A):
     return f'''<section class="page-hero wrap">
   <h1>The best creative <span class="thin">department in the world.</span></h1>
   <div class="intro"><div class="stack">
-    <p>The Guild is the creative A-list: 500+ of the world\u2019s best independent creatives, strategists, and producers across 37 countries and cultures, with 2,315 awards between them.</p>
+    <p>The Guild is the creative A-list: 600+ of the world\u2019s best independent creatives, strategists, and producers across 37 countries and cultures, with 2,315 awards between them.</p>
     <p>We work with our clients to handpick a bespoke team from this community for every project, whatever or wherever required.</p>
   </div></div>
 </section>
@@ -803,7 +809,7 @@ def page_guild(L, A):
 <section class="band tight dark" aria-label="The Guild in numbers">
   <div class="wrap">
     <div class="figures">
-      <div><span class="n">500+</span><span class="l">Creatives, strategists, and producers</span></div>
+      <div><span class="n">600+</span><span class="l">Creatives, strategists, and producers</span></div>
       <div><span class="n">37</span><span class="l">Countries and cultures</span></div>
       <div><span class="n">2,315</span><span class="l">Lions, Pencils, and Effies collectively</span></div>
       <div><span class="n">33<span class="u">%</span></span><span class="l">Female (14% industry benchmark)</span></div>
@@ -827,7 +833,7 @@ def page_guild(L, A):
     <div class="l"><h2 class="h2" id="gt">What makes our talent <span class="thin">better?</span></h2></div>
     <div class="r prose">
       <p class="lead-light">They\u2019ve already won big at Cannes, D&amp;AD, and the Effies. Strategically and creatively, this is the global A-list.</p>
-      <p>And they\u2019re not passing through. They\u2019re here because this is how they want to work. As client demand grows, they\u2019re being joined by a new generation of social-native creators and AI artists.</p>
+      <p>And they\u2019re not passing through. They\u2019re here because this is how they want to work. As client demand grows, they\u2019re being joined by a new generation of social native creators and AI artists.</p>
       <p>Every project starts by finding the right people for the brief. Not whoever\u2019s free. Not whoever\u2019s cheapest.</p>
       <p>Get that right and the ideas get better. And they get there faster.</p>
     </div>
@@ -846,7 +852,7 @@ WHATWEDO = [
      ['Creative platforms', 'Campaign strategy and development', 'Advertising concepts', 'Integrated and multi-channel campaigns', 'Brand and product launches', 'Digital and social creative', 'Content ideas', 'Creator and influencer', 'Global and local campaigns', 'Creative sprints'], 'poster-wizz-air'),
     ('Production', "Give the idea the craft it deserves. We bring campaigns and content to life across channels and markets, through us or alongside your existing production team. Our AI artists and virtual production specialists work alongside traditional crews, so big ideas no longer need big budgets to get made. And with our global content amplification partner, we deliver scaled brilliance: one great idea, built out into every asset, format, and market it needs.",
      ['Campaign production', 'Film and video', 'AI production', 'Virtual production', 'Animation and motion', 'Design', 'Digital and social assets', 'Post-production', 'Adaptation and localisation', 'Content at scale'], 'still-craft'),
-    ('In-house creative', "Boost your in-house team with freshness and firepower on demand or embedded. Many in-house teams carry a \u2018negative trust equity\u2019 with the business for years. Through our plug-and-play services built for in-house agencies, we put award-winning creatives and strategists alongside your team within days, to crack briefs, develop campaigns, and strengthen design. We can also give you \u2018strategy on demand\u2019 over WhatsApp. Together, they help your team earn its place as a strategic partner.",
+    ('In-house creative', "Boost your in-house team with freshness and firepower on demand or embedded. Many in-house teams carry a \u2018negative trust equity\u2019 with the business for years. Through our plug and play services built for in-house agencies, we put award winning creatives and strategists alongside your team within days, to crack briefs, develop campaigns, and strengthen design. We can also give you \u2018strategy on demand\u2019 over WhatsApp. Together, they help your team earn its place as a strategic partner.",
      ['Strategic projects', 'Campaign development', 'Design projects', 'Creative direction', 'Creative mentoring', 'Production excellence', 'Ongoing creative support'], 'still-pie'),
 ]
 
@@ -891,23 +897,21 @@ def page_culture(L, A):
              ('Voices that matter', 'Thinkers, speakers, creators, and specialists who bring authority, perspective, and cultural relevance to a conversation.'),
              ('Creativity that matters', "Freedom Works' global network of independent creatives, bringing culturally fluent perspectives across markets, disciplines, and communities.")]
     bx = '\n'.join(f'<div class="box"><h2>{esc(k)}</h2><p>{esc(v)}</p></div>' for k, v in boxes)
-    ted = f'<img class="ted-name" src="{A("logos/ted.webp")}" alt="TED Partnerships" width="1280" height="471">'
+    ted = f'<img class="ted-logo" src="{A("logos/ted.webp")}" alt="Including TED" width="1280" height="471">'
     offers = [
-        ('<h3>Offstage</h3>', 'Event sponsorship and partnerships',
-         'Culture3\u2019s curated event series for C-suite leaders, decision-makers, and cultural voices, held at key moments such as Cannes. Brands sponsor an intimate, moderated conversation built around their industry, with access to a carefully curated room of people and perspectives.'),
-        (f'<h3 class="c3n">A <span class="c3-inline">{c3_logo()}</span> Conversation</h3>', 'Sponsored conversations and cultural partnerships',
+        ('<h3>Cultural partnerships</h3>', 'Strategic partnerships and cultural access', ted,
+         'We connect brands and organisations with established cultural institutions, platforms and intellectual property, and build bespoke opportunities across content, events, influential voices, and audience engagement. This includes partnerships with TED, one of the world\u2019s leading platforms for ideas, whose ecosystem of voices, content, and events gives brands a credible role in the conversations shaping their industry.'),
+        (f'<h3 class="c3n"><span class="c3-inline">{c3_logo()}</span>: Offstage</h3>', 'Event sponsorship and partnerships', '',
+         'Culture3\u2019s curated event series for C-suite leaders, decision makers and cultural voices, held at key moments such as Cannes. Brands sponsor an intimate, moderated conversation built around their industry, with access to a carefully curated room of people and perspectives.'),
+        (f'<h3 class="c3n">A <span class="c3-inline">{c3_logo()}</span> Conversation</h3>', 'Sponsored conversations and cultural partnerships', '',
          'A focused, programmed discussion on a question that matters to a brand\u2019s industry, at moments such as SXSW London. We find the topic, partners, and speakers, with the option to extend the conversation into editorial content.'),
-        (f'<h3 class="ted-h">{ted}</h3>', 'TED Partnerships: strategic partnerships and cultural access',
-         'Bespoke partnerships with TED, one of the world\u2019s leading platforms for ideas. Access to TED\u2019s ecosystem of voices, content, and events gives brands a credible role in the conversations shaping their industry.'),
-        ('<h3>Cultural partners</h3>', 'Strategic partnerships and cultural access',
-         'We connect brands with established cultural institutions, platforms, and intellectual property, and build bespoke commercial opportunities across content, events, influential voices, and audience engagement.'),
-        ('<h3>Custom brand partnerships</h3>', 'Brand strategy, content, and experiences',
-         'We work directly with brands on bespoke cultural partnerships, from original film and editorial series to curated events and live experiences, to give them a credible role in culture and reach new audiences.')]
-    ol = '\n'.join(f'      <li><div class="ok">{h}<p class="os">{esc(sub)}</p></div><p class="ov">{esc(d)}</p></li>' for h, sub, d in offers)
+        ('<h3>Brand partnerships</h3>', 'Brand strategy, content, and experiences', '',
+         'We work directly with brands and organisations on bespoke cultural partnerships, from original film and editorial series to curated events and live experiences, to give them a credible role in culture and reach new audiences.')]
+    ol = '\n'.join(f'      <li><div class="ok">{h}<p class="os">{esc(sub)}</p>{extra}</div><p class="ov">{esc(d)}</p></li>' for h, sub, extra, d in offers)
     return f'''<section class="page-hero c3-hero wrap">
   <h1>Culture gets <span class="thin">you noticed.</span></h1>
   <div class="intro"><div class="stack">
-    <p>AI can talk about culture. It can never be in it. Culture3 puts brands in the rooms that matter. Offstage, curated dinners with leaders and cultural voices at defining moments. Onstage, through partners like TED, a platform for their ideas. Then we take it beyond the room, amplifying the conversation through organic and paid media. Physical. Nuanced. Human.</p>
+    <p>AI can talk about culture. It can never be in it. Culture3 puts brands in the rooms that matter: offstage dinners with cultural leaders, onstage with TED, amplified beyond it through organic and paid media. Physical. Nuanced. Human.</p>
   </div></div>
 </section>
 <div class="sizzle wrap"><video class="lazyvid" muted loop playsinline preload="none" poster="{A("media/poster-culture3.webp")}" data-src="{A("film/sizzle-culture.mp4")}" aria-hidden="true"></video></div>
@@ -922,7 +926,7 @@ def page_culture(L, A):
 {bx}
   </div>
 </section>
-{strip3(A, "still-lunch", "still-culture", "still-mountain")}
+{strip3(A, "c3-onstage", "c3-offstage", "c3-conversation", ("44% 40%", "50% 45%", "38% 45%"))}
 <section class="c3-method band wrap" aria-labelledby="c3m">
   <div class="split split-head">
     <div class="l"><p class="sec-lbl"><span class="mk" aria-hidden="true"></span>Our methodology</p><h2 class="h2" id="c3m">Where to show up. Who to show up with. <span class="thin">What to build.</span></h2></div>
@@ -949,7 +953,7 @@ def page_culture(L, A):
 def page_work(L, A):
     return f'''<section class="page-hero tight wrap">
   <h1>Work that <span class="thin">matters.</span></h1>
-  <div class="intro"><div class="stack"><p>Creative work should move the numbers a board cares about: sales, share, demand, and value. Here\u2019s what ours has done.</p></div></div>
+  <div class="intro"><div class="stack"><p>Creative work should move the numbers a board cares about: sales, share, demand, and value. Here\u2019s what ours has done:</p></div></div>
 </section>
 <div class="sizzle wrap"><video class="lazyvid" muted loop playsinline preload="none" poster="{A("media/still-mountain.webp")}" data-src="{A("film/sizzle-work.mp4")}" aria-hidden="true"></video></div>
 <section class="work wrap flush-top">
@@ -1009,7 +1013,7 @@ def page_project(i, L, A):
 def page_thinking(L, A):
     used = [t for t in TAGS if any(p['tag'] == t for p in POSTS)]
     btn = '<button type="button" aria-pressed="true" data-f="all">All</button>' + ''.join(f'<button type="button" aria-pressed="false" data-f="{t}">{esc(TAGS[t])}</button>' for t in used)
-    return f'''<section class="page-hero tight wrap">
+    return f'''<section class="page-hero tight wrap intro-left">
   <h1>Thinking</h1>
   <div class="intro"><div class="stack"><p>{len(POSTS)} articles on creativity, AI, talent, and the agency model.</p></div></div>
 </section>
@@ -1069,7 +1073,7 @@ SVC_PHRASES = [(r'brand strategy', 'Brand strategy'), (r'brand positioning', 'Br
                (r'brand architecture', 'Brand architecture'), (r'brand identity', 'Brand identity'), (r'rebrand(?:ing|s)?\b', 'Brand development and rebranding'),
                (r'visual identity|brand guidelines', 'Visual identity and brand guidelines'), (r'product launch|brand launch', 'Brand and product launches'),
                (r'campaign strategy', 'Campaign strategy and development'), (r'virtual production', 'Virtual production'), (r'post-production', 'Post-production'),
-               (r'AI production|AI-produced|fully AI', 'AI production'), (r'in-house (?:creative|agenc(?:y|ies)|teams?)', 'In-house creative')]
+               (r'AI production|AI produced|fully AI', 'AI production'), (r'in-house (?:creative|agenc(?:y|ies)|teams?)', 'In-house creative')]
 
 def link_first_service(body, L):
     """One in-text link per article: the first natural mention of a service, outside headings, quotes, and existing links."""
@@ -1127,7 +1131,7 @@ def topic_nav(L, current):
 def page_topic(tag):
     def fn(L, A, **k):
         posts = sorted([x for x in POSTS if x['tag'] == tag], key=lambda x: x['date'], reverse=True)
-        return f"""<section class="page-hero tight wrap">
+        return f"""<section class="page-hero tight wrap intro-left">
   <p class="sec-lbl"><span class="mk" aria-hidden="true"></span><a href="{L("thinking/")}">Thinking</a></p>
   <h1>{esc(TAGS[tag])}</h1>
   <div class="intro"><div class="stack"><p>{esc(TOPIC_INTRO[tag])}</p><p class="count">{len(posts)} articles</p></div></div>
@@ -1139,11 +1143,18 @@ def page_topic(tag):
 {cta(L)}"""
     return fn
 
+def page_dni(L, A):
+    return legal_shell('Diversity <span class="thin">and inclusion</span>', 'Our statement on diversity, inclusion, and the freedom to be yourself.', legal_md('diversity-inclusion', L))
+
+def page_msa(L, A):
+    return legal_shell('Modern slavery <span class="thin">statement</span>', 'How we guard against slavery and human trafficking in our business and supply chain.', legal_md('modern-slavery-statement', L))
+
 def page_contact(L, A):
     return f'''<section class="contact contact-page" aria-labelledby="ct">
   <div class="wrap">
     <h1 id="ct">Let's make <span class="thin">work that matters.</span></h1>
     {contact_cards(big=True, hl='h2', L=L)}
+    <div class="ct-office"><p class="sec-lbl"><span class="mk" aria-hidden="true"></span>Visit us</p><address>{"<br>".join(OFFICE_ADDRESS)}</address><p><a href="mailto:{CONTACT_EMAIL}">{CONTACT_EMAIL}</a></p></div>
   </div>
 </section>'''
 
@@ -1215,10 +1226,10 @@ def header(L, A, active, theme='light'):
 def footer(L, A):
     links = ''.join(f'<a href="{L(p)}">{t}</a>' for p, t in NAV[:6])
     return f'''<footer class="foot wrap">
-  <div class="brand"><img src="{A("brand/logo-linen-480.png")}" alt="Freedom Works" width="480" height="86" loading="lazy"><span>A global creative agency.<br>Calibre, Culture, Craft.</span></div>
+  <div class="brand"><img src="{A("brand/logo-linen-480.png")}" alt="Freedom Works" width="480" height="86" loading="lazy"><span>A global creative agency.<br>Calibre, Culture, Craft.</span><address class="f-addr">{"<br>".join(OFFICE_ADDRESS)}</address></div>
   <div class="links">{links}<a href="https://www.linkedin.com">LinkedIn</a><a href="https://www.instagram.com">Instagram</a></div>
   <div class="fsvc"><p class="fh">Services</p>{''.join(f'<a href="{L(sp_)}">{esc(n)}</a>' for n, sp_ in L2_SERVICES)}</div>
-  <div class="legal"><a href="mailto:{CONTACT_EMAIL}">{CONTACT_EMAIL}</a><span>\u00a9 {datetime.date.today().year} Freedom Works, London</span><a href="{L("privacy/")}">Privacy</a><a href="{L("cookies/")}">Cookies</a><a href="{L("terms/")}">Terms</a><button type="button" class="cookie-settings" data-cookie-settings>Cookie settings</button></div>
+  <div class="legal"><a href="mailto:{CONTACT_EMAIL}">{CONTACT_EMAIL}</a><span>\u00a9 {datetime.date.today().year} Freedom Works, London</span><a href="{L("privacy/")}">Privacy</a><a href="{L("cookies/")}">Cookies</a><a href="{L("terms/")}">Terms</a><a href="{L("modern-slavery-statement/")}">Modern slavery statement</a><a href="{L("diversity-inclusion/")}">Diversity and inclusion</a><button type="button" class="cookie-settings" data-cookie-settings>Cookie settings</button></div>
 </footer>
 <div class="foot-mark" aria-hidden="true"><img src="{A("brand/logo-white.png")}" alt="Freedom Works logo" width="1600" height="287" loading="lazy"></div>'''
 
@@ -1240,9 +1251,9 @@ SCRIPT = '''<script>
 <script>''' + SHADERS_JS + '''</script>'''
 
 ORG = {"@context": "https://schema.org", "@type": "Organization", "name": "Freedom Works", "alternateName": "FRE3DOM WORKS",
-       "description": "A global creative agency built on Calibre, Culture and Craft: brand strategy, identity, creative, production, and in-house creative, from 500+ award-winning independent creatives handpicked for every brief.",
+       "description": "A global creative agency built on Calibre, Culture and Craft: brand strategy, identity, creative, production, and in-house creative, from 600+ award winning independent creatives handpicked for every brief.",
        "slogan": "Freedom makes better work.",
-       "url": DOMAIN, "logo": DOMAIN + "/assets/brand/logo-indigo.png", "address": {"@type": "PostalAddress", "streetAddress": "167\u2013169 Great Portland Street, 5th Floor", "addressLocality": "London", "postalCode": "W1W 5PF", "addressCountry": "GB"}, "email": "hello@freedom.works", "contactPoint": {"@type": "ContactPoint", "contactType": "new business", "email": "hello@freedom.works", "url": DOMAIN + "/contact/"},
+       "url": DOMAIN, "logo": DOMAIN + "/assets/brand/logo-indigo.png", "address": {"@type": "PostalAddress", "streetAddress": "Johnson Building, Johnson Gardens, 77 Hatton Garden", "addressLocality": "London", "postalCode": "EC1N 8JS", "addressCountry": "GB"}, "email": "hello@freedom.works", "contactPoint": {"@type": "ContactPoint", "contactType": "new business", "email": "hello@freedom.works", "url": DOMAIN + "/contact/"},
        "subOrganization": {"@type": "Organization", "name": "Culture3", "url": DOMAIN + "/culture3/", "description": "Culture3 puts brands in the rooms that matter, bringing cultural access, strategic partnerships, relevant voices, and culturally fluent creativity together, from Offstage dinners to partnerships with TED."}}
 
 def crumbs(path, title):
@@ -1350,6 +1361,7 @@ def page_service(sp, L, A):
 </div>
 {cta(L)}'''
 
+SVC_HERO_IMG = {'services/brand-identity/': 'still-snowfox-ramen'}   # page-specific stills (default: the case study poster)
 SVC_HERO_CASE = {'services/brand-strategy/': 'tui', 'services/brand-identity/': 'snowfox-group', 'services/creative/': 'wizz-air',
                  'services/production/': 'brompton', 'services/in-house/': 'loveholidays'}
 
@@ -1358,13 +1370,14 @@ def svc_hero_img(sp, L, A):
     slug = SVC_HERO_CASE.get(sp['path'])
     proj = next((q for q in PROJECTS if q['slug'] == slug), None)
     if not proj or not proj.get('img'): return ''
-    src = os.path.join(OUT, 'assets', 'media', proj['img'] + '.webp'); wh = ''
+    img = SVC_HERO_IMG.get(sp['path'], proj['img'])     # a page can use its own still from the case study
+    src = os.path.join(OUT, 'assets', 'media', img + '.webp'); wh = ''
     try:
         from PIL import Image
         w, h = Image.open(src).size; wh = f' width="{w}" height="{h}"'
     except Exception: pass
     href = L('work/' + slug + '/')
-    return (f'<figure class="svc-hero wrap"><a href="{href}" tabindex="-1" aria-hidden="true"><img src="{A("media/" + proj["img"] + ".webp")}" alt="{esc(proj["client"])}, {esc(proj["camp"])}"{wh} decoding="async"></a>'
+    return (f'<figure class="svc-hero wrap"><a href="{href}" tabindex="-1" aria-hidden="true"><img src="{A("media/" + img + ".webp")}" alt="{esc(proj["client"])}, {esc(proj["camp"])}"{wh} decoding="async"></a>'
             f'<figcaption><a href="{href}">From our work for {esc(proj["client"])} <span aria-hidden="true">\u2192</span></a></figcaption></figure>')
 
 def relevant_cases(sp, n=2):
@@ -1411,9 +1424,9 @@ def service_page_entries():
 
 def pages():
     """yield (path, title, description, body_fn, active, extra_schema)"""
-    yield ('', 'Freedom Works | Global creative agency, London', 'A global creative agency built on Calibre, Culture and Craft. More than 500 award-winning independent creatives and strategists, handpicked for every brief.', page_home, '', [{"@context": "https://schema.org", "@type": "WebSite", "name": "Freedom Works", "url": DOMAIN + "/", "inLanguage": "en-GB"}])
+    yield ('', 'Freedom Works | Global creative agency, London', 'A global creative agency built on Calibre, Culture and Craft. More than 600 award winning independent creatives and strategists, handpicked for every brief.', page_home, '', [{"@context": "https://schema.org", "@type": "WebSite", "name": "Freedom Works", "url": DOMAIN + "/", "inLanguage": "en-GB"}])
     yield ('agency/', 'About | Freedom Works', 'Freedom makes better work. Our DNA of Calibre, Culture, and Craft, and the leadership behind Freedom Works, a global creative agency.', page_agency, 'agency/', [])
-    yield ('the-guild/', 'The Guild | Freedom Works', '500+ of the world\u2019s best independent creatives, strategists, and producers across 37 countries and cultures, handpicked for every brief.', page_guild, 'the-guild/', [])
+    yield ('the-guild/', 'The Guild | Freedom Works', '600+ of the world\u2019s best independent creatives, strategists, and producers across 37 countries and cultures, handpicked for every brief.', page_guild, 'the-guild/', [])
     faq_schema = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in FAQ]}
     yield ('services/', 'Services | Freedom Works', 'Brand strategy, identity, creative, production, and in-house creative, plus Culture3 cultural partnerships, from the best creative department in the world.', page_services, 'services/', [])
     if SERVICE_PAGES_LIVE or DRAFTS[0]:
@@ -1434,6 +1447,8 @@ def pages():
     yield ('contact/', 'Contact | Freedom Works', 'Talk to Freedom Works, a global creative agency. Tell us about your brief and we\u2019ll handpick the right team, from strategy to production.', page_contact, 'contact/', [])
     yield ('privacy/', 'Privacy policy | Freedom Works', 'How Freedom Works collects and uses your personal data, and your rights under data protection law.', page_privacy, '', [])
     yield ('cookies/', 'Cookie policy | Freedom Works', 'Which cookies the Freedom Works website uses, and how to change your cookie choices.', page_cookies, '', [])
+    yield ('diversity-inclusion/', 'Diversity and inclusion | Freedom Works', 'The Freedom Works statement on diversity and inclusion: inclusivity is a reflex, not an initiative, and diversity is a catalyst for creativity and innovation.', page_dni, '', [])
+    yield ('modern-slavery-statement/', 'Modern slavery statement | Freedom Works', 'The Freedom Works modern slavery statement, made under section 54 of the Modern Slavery Act 2015: our business, supply chain, risk assessment, and review.', page_msa, '', [])
     yield ('terms/', 'Terms of use | Freedom Works', 'The terms and conditions that apply to your use of the Freedom Works website.', page_terms, '', [])
 
 def schema_tags(path, title, extra):
@@ -1513,14 +1528,23 @@ NETLIFY_REDIRECTS = """/culture              /culture3/   301
 /services/creative/creator-and-influencer   /services/creative/  301
 # The old Liberty Guild site was a single page: send everything on its domain to the new homepage.
 # These only take effect once the old domain is added to this Netlify site as a domain alias.
+# Old Liberty Guild policy pages go to their new equivalents
+https://thelibertyguild.com/legal                 https://freedom.works/privacy/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
+https://thelibertyguild.com/slavery-act           https://freedom.works/modern-slavery-statement/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
+https://thelibertyguild.com/diversity-inclusion   https://freedom.works/diversity-inclusion/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
+https://www.thelibertyguild.com/legal                 https://freedom.works/privacy/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
+https://www.thelibertyguild.com/slavery-act           https://freedom.works/modern-slavery-statement/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
+https://www.thelibertyguild.com/diversity-inclusion   https://freedom.works/diversity-inclusion/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
+http://thelibertyguild.com/legal                 https://freedom.works/privacy/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
+http://thelibertyguild.com/slavery-act           https://freedom.works/modern-slavery-statement/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
+http://thelibertyguild.com/diversity-inclusion   https://freedom.works/diversity-inclusion/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
+http://www.thelibertyguild.com/legal                 https://freedom.works/privacy/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
+http://www.thelibertyguild.com/slavery-act           https://freedom.works/modern-slavery-statement/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
+http://www.thelibertyguild.com/diversity-inclusion   https://freedom.works/diversity-inclusion/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
 https://thelibertyguild.com/*      https://freedom.works/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
 https://www.thelibertyguild.com/*  https://freedom.works/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
 http://thelibertyguild.com/*       https://freedom.works/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
 http://www.thelibertyguild.com/*   https://freedom.works/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
-https://libertyguild.co.uk/*       https://freedom.works/?utm_source=libertyguild.co.uk&utm_medium=redirect&utm_campaign=rebrand  301!
-https://www.libertyguild.co.uk/*   https://freedom.works/?utm_source=libertyguild.co.uk&utm_medium=redirect&utm_campaign=rebrand  301!
-http://libertyguild.co.uk/*        https://freedom.works/?utm_source=libertyguild.co.uk&utm_medium=redirect&utm_campaign=rebrand  301!
-http://www.libertyguild.co.uk/*    https://freedom.works/?utm_source=libertyguild.co.uk&utm_medium=redirect&utm_campaign=rebrand  301!
 """
 if not CASE_PAGES:
     NETLIFY_REDIRECTS += ''.join(f"/work/{p['slug']}/  /work/  302\n" for p in PROJECTS)
@@ -1562,10 +1586,10 @@ def llms_txt():
     U = lambda path: DOMAIN + '/' + path
     out = ['# Freedom Works', '',
            '> Freedom Works is a global creative agency offering brand strategy, brand identity, creative, production, and in-house creative. '
-           'It brings together The Guild, a network of more than 500 award-winning independent creatives, strategists, and producers across 37 countries and cultures, '
+           'It brings together The Guild, a network of more than 600 award winning independent creatives, strategists, and producers across 37 countries and cultures, '
            'and Culture3, its cultural partnerships business, to build a handpicked team for every brief. Founded by Jon Williams. London.', '',
            '## About', f'- [About Freedom Works]({U("agency/")}): the model, our DNA, and the leadership team',
-           f'- [The Guild]({U("the-guild/")}): 500+ independent creatives, strategists, and producers in 37 countries and cultures',
+           f'- [The Guild]({U("the-guild/")}): 600+ independent creatives, strategists, and producers in 37 countries and cultures',
            f'- [Culture3]({U("culture3/")}): cultural partnerships, Offstage, A Culture3 Conversation, and TED partnerships',
            f'- [Contact]({U("contact/")}): hello@freedom.works', '', '## Services', f'- [All services]({U("services/")})']
     for sp in SERVICE_PAGES:

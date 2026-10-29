@@ -132,7 +132,7 @@ The full audit runs across all 176 pages. Everything is built in, so new pages g
 - To stop depending on Substack at build time, commit `src/thinking-img/` and `src/thinking-images.json` to GitHub once.
 
 **Old domain and rebrand note.**
-- Every address on `thelibertyguild.com` and `libertyguild.co.uk` (with or without www, http or https) 301s to the homepage, tagged `utm_source=thelibertyguild.com` or `utm_source=libertyguild.co.uk` (plus `utm_medium=redirect&utm_campaign=rebrand`). This takes effect once the domain is added to Netlify as a domain alias and its DNS points to Netlify.
+- Every address on `thelibertyguild.com` (with or without www, http or https) 301s to the homepage, tagged `utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand`. This takes effect once the domain is added to Netlify as a domain alias and its DNS points to Netlify.
 - Visitors arriving with that tag see a one-time, dismissible note under the header: "Looking for The Liberty Guild? You’re in the right place. We’re now Freedom Works. About us".
 - It is remembered in `localStorage`, so it shows only once per visitor.
 - Tracked as `fw_rebrand_note_view` and `fw_rebrand_note_click`. The UTM tag also attributes these visits in GA4.
@@ -212,3 +212,43 @@ The full audit runs across all 176 pages. Everything is built in, so new pages g
 - LinkedIn and Instagram addresses (footer and contact page).
 - Whether there's a publishable address (footer, contact and map).
 - Ema's confirmation on the service page H1 size.
+
+## Feedback round (29 Oct, afternoon)
+
+- **The Guild:** 600+ everywhere: site copy, search descriptions, structured data, and llms.txt. The archive articles are unchanged.
+- **About, leadership intro:** the paragraph's first line now starts level with the top of the headline's lowercase letters. The offset is `0.29 × --fs-h2 − 0.21 × --fs-lead`, from the fonts' metrics, applied above 900px wide.
+- **About, DNA cards:** a card taller than the screen now scrolls fully into view before it pins, so the next card no longer covers its image and text (script in `src/flourish.js`).
+- **Culture3 page:**
+  - The logo now fills its column.
+  - The three stills are frames from the Culture3 film: `c3-onstage`, `c3-offstage` and `c3-conversation` in `assets/media`.
+  - `strip3()` now takes an optional focus point for each crop.
+
+## Policy pages from the old site (29 Oct)
+
+- **New pages:**
+  - `/diversity-inclusion/` and `/modern-slavery-statement/`, with text in `src/legal/diversity-inclusion.md` and `src/legal/modern-slavery-statement.md`.
+  - Rebranded from The Liberty Guild to Freedom Works, with typos fixed.
+  - Linked in the footer.
+- **Old addresses:**
+  - `/legal`, `/slavery-act` and `/diversity-inclusion` on thelibertyguild.com now 301 to `/privacy/`, `/modern-slavery-statement/` and `/diversity-inclusion/`.
+  - These rules sit before the catch-all homepage redirect.
+- **The modern slavery statement still needs:**
+  - the legal entity and company number
+  - the financial year it covers
+  - board approval and the date
+  - a director's signature (red placeholders on the page)
+
+## Leadership portraits and roles (29 Oct)
+
+- **Roles:**
+  - Jon Williams: Founder and Chief Creative Officer
+  - Lins Karnes: Chief Delivery Officer
+  - Aimée Luther: Managing Director
+  - Holly Dillon: Chief Operating Officer, Culture3
+  - Jamila Saidi: Chief Growth Officer, Culture3
+
+  They're shown in that order, and Aimée's role also appears on her article bylines (`AUTHOR_ROLE`).
+- **Portraits:**
+  - `assets/media/team/<slug>-600.webp` and `-1200.webp`.
+  - True black and white, cropped to 4:5, loaded by srcset.
+  - To replace one, overwrite both files with the same names.

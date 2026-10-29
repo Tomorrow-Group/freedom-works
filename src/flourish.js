@@ -313,4 +313,14 @@ window.__fwReady=true;
       new IntersectionObserver(function(es){ es.forEach(function(x){ x.target.__vis=x.isIntersecting; }); near=[].some.call(document.querySelectorAll('.next-step,section.contact'),function(n){return n.__vis;}); upd(); }).observe(el); });
   }
 })();
+/* stacked DNA cards: a card taller than the screen scrolls fully into view before it pins, so the next card never covers its image and text */
+(function(){
+  var ps=document.querySelectorAll('.panels .panel'); if(!ps.length) return;
+  function fit(){ ps.forEach(function(p){ if(window.innerWidth<=900){ p.style.top=''; return; } var over=p.offsetHeight-window.innerHeight; p.style.top= over>0 ? (-over)+'px' : ''; }); }
+  fit(); window.addEventListener('load',fit); var t; window.addEventListener('resize',function(){ clearTimeout(t); t=setTimeout(fit,120); });
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(fit);
+  /* re-fit whenever a card appears or changes size (page switches in the preview, late fonts and images) */
+  if('ResizeObserver' in window){ var ro=new ResizeObserver(function(){ fit(); }); ps.forEach(function(p){ ro.observe(p); }); }
+  window.addEventListener('hashchange',function(){ setTimeout(fit,50); });
+})();
 
