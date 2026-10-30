@@ -7,19 +7,32 @@
 /services/creative/creator-and-influencer   /services/creative/  301
 # The old Liberty Guild site was a single page: send everything on its domain to the new homepage.
 # These only take effect once the old domain is added to this Netlify site as a domain alias.
+# culture3.com: the old Culture3 site. Every address goes to the Culture3 page (contact to the contact page)
+https://culture3.com/contact            https://freedom.works/contact/?utm_source=culture3.com&utm_medium=redirect&utm_campaign=rebrand  301!
+https://culture3.com/*                  https://freedom.works/culture3/?utm_source=culture3.com&utm_medium=redirect&utm_campaign=rebrand  301!
+https://www.culture3.com/contact            https://freedom.works/contact/?utm_source=culture3.com&utm_medium=redirect&utm_campaign=rebrand  301!
+https://www.culture3.com/*                  https://freedom.works/culture3/?utm_source=culture3.com&utm_medium=redirect&utm_campaign=rebrand  301!
+http://culture3.com/contact            https://freedom.works/contact/?utm_source=culture3.com&utm_medium=redirect&utm_campaign=rebrand  301!
+http://culture3.com/*                  https://freedom.works/culture3/?utm_source=culture3.com&utm_medium=redirect&utm_campaign=rebrand  301!
+http://www.culture3.com/contact            https://freedom.works/contact/?utm_source=culture3.com&utm_medium=redirect&utm_campaign=rebrand  301!
+http://www.culture3.com/*                  https://freedom.works/culture3/?utm_source=culture3.com&utm_medium=redirect&utm_campaign=rebrand  301!
 # Old Liberty Guild policy pages go to their new equivalents
 https://thelibertyguild.com/legal                 https://freedom.works/privacy/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
 https://thelibertyguild.com/slavery-act           https://freedom.works/modern-slavery-statement/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
 https://thelibertyguild.com/diversity-inclusion   https://freedom.works/diversity-inclusion/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
+https://thelibertyguild.com/people                 https://freedom.works/agency/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand#leadership  301!
 https://www.thelibertyguild.com/legal                 https://freedom.works/privacy/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
 https://www.thelibertyguild.com/slavery-act           https://freedom.works/modern-slavery-statement/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
 https://www.thelibertyguild.com/diversity-inclusion   https://freedom.works/diversity-inclusion/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
+https://www.thelibertyguild.com/people                 https://freedom.works/agency/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand#leadership  301!
 http://thelibertyguild.com/legal                 https://freedom.works/privacy/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
 http://thelibertyguild.com/slavery-act           https://freedom.works/modern-slavery-statement/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
 http://thelibertyguild.com/diversity-inclusion   https://freedom.works/diversity-inclusion/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
+http://thelibertyguild.com/people                 https://freedom.works/agency/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand#leadership  301!
 http://www.thelibertyguild.com/legal                 https://freedom.works/privacy/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
 http://www.thelibertyguild.com/slavery-act           https://freedom.works/modern-slavery-statement/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
 http://www.thelibertyguild.com/diversity-inclusion   https://freedom.works/diversity-inclusion/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
+http://www.thelibertyguild.com/people                 https://freedom.works/agency/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand#leadership  301!
 https://thelibertyguild.com/*      https://freedom.works/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
 https://www.thelibertyguild.com/*  https://freedom.works/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
 http://thelibertyguild.com/*       https://freedom.works/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!

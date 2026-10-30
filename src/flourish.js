@@ -73,7 +73,7 @@ document.addEventListener('click',function(e){ var a=e.target.closest('a'); if(!
   }
 
   /* ---------- headlines: words rise out of a mask, staggered (the media pill grows in with them) ---------- */
-  var HEADS='.page-hero h1, .proj-hero h1, .contact h2, .contact-page h1, .nf h1, .svc-top h1, .sec-title, .h2, .lw-head h2, .guild .over h2';
+  var HEADS='.page-hero h1, .lab-h2s, .proj-hero h1, .contact h2, .contact-page h1, .nf h1, .svc-top h1, .sec-title, .h2, .lw-head h2, .guild .over h2';
   function splitWords(el){
     var texts=[]; (function walk(n){ n.childNodes.forEach(function(c){ if(c.nodeType===3) texts.push(c); else if(c.nodeType===1 && !c.classList.contains('pill')) walk(c); }); })(el);
     texts.forEach(function(t){
@@ -101,7 +101,7 @@ document.addEventListener('click',function(e){ var a=e.target.closest('a'); if(!
     '.lw-head','.lw-grid','.dh-top>*','.dh-rows li','.dh-end','.door','.contact h2','.figures>div','.strip3>div',
     '.wwd','.c3-about>*','.box','.c3-steps li','.c3-offers li','.cw-list','.lead-row','.panel .row','.proj-body>*','.cs-sec','.cs-gallery img','.proj-quote>*',
     '.sizzle','.proj-img','.svc-row>*','.svc-logos','.svc-top-row>*','.nf>*',
-    '.wi-lead','.pe','.guild .over>p','.guild .over>.sec-link','.ct-card','.sec-head>.sec-link'].join(',');
+    '.wi-lead','.pe','.lab-run>*','.lab-headrow>*','.lab-ing article','.lab-steps li','.lab-formats li','.guild .over>p','.guild .over>.sec-link','.ct-card','.sec-head>.sec-link'].join(',');
   if(!RM && IO){
     var rvio=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); rvio.unobserve(e.target); } }); },{rootMargin:'0px 0px -8% 0px',threshold:0.01});
     var vh0=window.innerHeight, groups=new Map();
@@ -278,6 +278,20 @@ document.addEventListener('click',function(e){var b=e.target.closest('[data-cook
   document.body.appendChild(el);
   setTimeout(function(){ el.classList.add('on'); fwTrack('fw_rebrand_note_view',{page:location.pathname}); }, 1200);
   el.querySelector('a').addEventListener('click',function(){ fwTrack('fw_rebrand_note_click',{page:location.pathname}); });
+  el.querySelector('.rn-close').addEventListener('click',function(){ el.classList.remove('on'); setTimeout(function(){ el.remove(); },400); });
+})();
+/* Culture3 note: only for visitors redirected from culture3.com (the redirect adds utm_source), shown once */
+(function(){
+  var q=new URLSearchParams(location.search), fromC3=/culture3/.test(q.get('utm_source')||'') || /\/\/(www\.)?culture3\.com/.test(document.referrer||'');
+  if(!fromC3) return;
+  try{ if(localStorage.getItem('fw-c3-seen')) return; localStorage.setItem('fw-c3-seen','1'); }catch(e){}
+  var ab=document.querySelector('.site-head nav a[href*="agency/"]'), about=ab ? ab.getAttribute('href') : 'agency/';
+  var m=document.querySelector('.site-head .nav-c3 svg'), mark=m ? m.outerHTML.replace('role="img"','aria-hidden="true"').replace(' aria-label="Culture3"','') : '';
+  var el=document.createElement('aside'); el.className='rebrand-note c3-note'; el.setAttribute('role','status'); el.setAttribute('aria-label','Culture3 is now a part of Freedom Works.');
+  el.innerHTML='<p class="rn-h"><span class="c3n-mark"><span class="sr-only">Culture3</span>'+mark+'</span> is now a part of <em>Freedom Works.</em></p><a class="rn-btn" href="'+about+'">About Freedom Works <span aria-hidden="true">\u2192</span></a><button type="button" class="rn-close" aria-label="Close">\u00d7</button>';
+  document.body.appendChild(el);
+  setTimeout(function(){ el.classList.add('on'); fwTrack('fw_c3_note_view',{page:location.pathname}); }, 1200);
+  el.querySelector('a').addEventListener('click',function(){ fwTrack('fw_c3_note_click',{page:location.pathname}); });
   el.querySelector('.rn-close').addEventListener('click',function(){ el.classList.remove('on'); setTimeout(function(){ el.remove(); },400); });
 })();
 window.__fwReady=true;

@@ -14,7 +14,7 @@ CSS = open(SP('site.css')).read()   # the whole design system: tokens, grounds, 
 HOME_MAIN = open(SP('home-main.html')).read()
 
 NAV = [('services/', 'Services'), ('work/', 'Work'), ('agency/', 'About'), ('the-guild/', 'The Guild'),
-       ('culture3/', 'Culture3'), ('thinking/', 'Thinking'), ('contact/', 'Talk to us')]
+       ('thinking/', 'Thinking'), ('culture3/', 'Culture3'), ('contact/', 'Talk to us')]
 TAGS = {'ai-and-creativity': 'AI and creativity', 'on-the-model': 'The agency model', 'talent-and-work': 'Talent and work',
         'culture-and-ads': 'Culture and advertising', 'purpose': 'Purpose'}
 
@@ -422,7 +422,7 @@ CHEVRON = '<svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><p
 
 SHARE_TITLES = {'': 'Freedom Works | Global creative agency', 'agency/': 'About Freedom Works | Global creative agency',
                 'services/': 'Services | Freedom Works', 'work/': 'Our work | Freedom Works', 'the-guild/': 'The Guild | Freedom Works',
-                'culture3/': 'Culture3 | Freedom Works', 'thinking/': 'Thinking | Freedom Works', 'contact/': 'Contact Freedom Works'}
+                'culture3/': 'Culture3 | Freedom Works\u2019 Culture Lab', 'thinking/': 'Thinking | Freedom Works', 'contact/': 'Contact Freedom Works'}
 
 def share_title(path, title):
     """What a shared link says on LinkedIn: the page's full name, plus Freedom Works (articles keep their full headline)."""
@@ -535,7 +535,7 @@ DNA = [
      'Calibre gets you cut through.'),
     ('Culture', 'Make it resonate.', 'Freedom from cultural isolation.', 'p-red', 'still-culture', 'In the brave new world of AI, human connections are crucial.',
      'AI can talk about culture. It can never be in it. Culture3 gives brands access to the real conversations, communities and moments shaping culture.',
-     "AI can talk about culture. It can never be in it. Culture3 puts brands in the rooms that matter: offstage dinners with cultural leaders, onstage with TED, amplified beyond it through organic and paid media. Physical. Nuanced. Human.",
+     "AI can talk about culture. It can never be in it. Culture3 is Freedom Works\u2019 Culture Lab. We put brands in the rooms that matter: intimate moments with cultural leaders, impactful partnerships with platforms like TED, and stories that travel far beyond the room.",
      'Culture gets you noticed.'),
     ('Craft', 'Make it beautiful.', 'Freedom from slop.', 'p-black', 'still-craft', 'Experience, taste, and judgement just got even more differentiating.',
      "AI speeds up the making. People make it great, and decide what ships, from first brief to final cut.",
@@ -688,7 +688,7 @@ def page_home(L, A):
   <div class="sec-head"><h2 class="sec-title" id="who">Who <span class="thin">we are</span></h2></div>
   <div class="pe-grid">
     <a class="pe" href="{L("the-guild/")}"><span class="pe-n">01</span><h3 class="pe-t">The Guild</h3><p>We have the best creative department in the world: The Guild. More than six hundred A-list creatives, strategists, and producers, in 37 countries and cultures, with over 2,300 Lions &amp; Pencils between them, handpicked for each brief.</p><span class="pe-go">Meet The Guild</span></a>
-    <a class="pe" href="{L("culture3/")}"><span class="pe-n">02</span><h3 class="pe-t">{c3_logo()}</h3><p>AI can talk about culture. It can never be in it. Culture3 puts brands in the rooms that matter: offstage dinners with cultural leaders, onstage with TED, amplified beyond it through organic and paid media. Physical. Nuanced. Human.</p><span class="pe-go">Explore Culture3</span></a>
+    <a class="pe" href="{L("culture3/")}"><span class="pe-n">02</span><h3 class="pe-t">{c3_logo()}</h3><p>AI can talk about culture. It can never be in it. Culture3 is Freedom Works\u2019 Culture Lab. We put brands in the rooms that matter: intimate moments with cultural leaders, impactful partnerships with platforms like TED, and stories that travel far beyond the room.</p><span class="pe-go">Explore Culture3</span></a>
     <a class="pe" href="{L("agency/")}#leadership"><span class="pe-n">03</span><h3 class="pe-t">Leadership</h3><p>We\u2019re led by a founder and a leadership team who have excelled with ideas, organisations, and talent at the very top of the industry. Their vision and judgement runs through every piece of work we make.</p><span class="pe-go">Meet the leadership</span></a>
   </div>
 </section>'''
@@ -741,7 +741,7 @@ def page_agency(L, A):
       <p class="lead-light">Nearly ten years ago we built the agency model that everyone talks about. But the world has moved on. And so have we.</p>
       <p>As we build out an agency fit for the next ten years, AI is embedded for process and production. But for ideas, we have designed a business with humanity at its core.</p>
       <p>With The Guild, we have the best creative department in the world: more than six hundred A-list creatives, strategists, and producers, in 37 countries and cultures, with over 2,300 Lions and Pencils between them, handpicked for each brief.</p>
-      <p>AI can talk about culture. It can never be in it. Culture3 puts brands in the rooms that matter: offstage dinners with cultural leaders, onstage with TED, amplified beyond it through organic and paid media. Physical. Nuanced. Human.</p>
+      <p>AI can talk about culture. It can never be in it. Culture3 is Freedom Works\u2019 Culture Lab. We put brands in the rooms that matter: intimate moments with cultural leaders, impactful partnerships with platforms like TED, and stories that travel far beyond the room.</p>
       <p>We\u2019re led by a founder and a leadership team who have excelled with ideas, organisations, and talent at the very top of the industry. Our vision and judgement runs through every piece of work we make.</p>
     </div>
   </div>
@@ -893,63 +893,72 @@ def page_services(L, A):
 {cta(L)}'''
 
 def page_culture(L, A):
-    boxes = [('Partnerships that matter', 'Platforms, institutions, and organisations that create access, credibility, and distinctive opportunities. Proof: TED, and a pipeline of new and impactful partnerships.'),
-             ('Moments that matter', 'Events, formats, and spaces where the relevant conversations are happening. Live programming, salons, and original formats such as Offstage.'),
-             ('Voices that matter', 'Thinkers, speakers, creators, and specialists who bring authority, perspective, and cultural relevance to a conversation.'),
-             ('Creativity that matters', "Freedom Works' global network of independent creatives, bringing culturally fluent perspectives across markets, disciplines, and communities.")]
-    bx = '\n'.join(f'<div class="box"><h2>{esc(k)}</h2><p>{esc(v)}</p></div>' for k, v in boxes)
+    """Culture3, presented as Freedom Works' Culture Lab: its own graphite and scarlet theme (body.lab-page)."""
+    c3h = C3_SVG.replace('<svg ', '<svg aria-hidden="true" focusable="false" ', 1)   # the ident in the headline; the hidden text carries its name
+    ingredients = [('Partnerships that matter', 'Platforms, institutions, and organisations that create access, credibility, and distinctive opportunities. Proof: TED, and a pipeline of new and impactful partnerships.'),
+                   ('Moments that matter', 'Events, formats, and spaces where the relevant conversations are happening. Live programming, salons, and original formats such as Offstage.'),
+                   ('Voices that matter', 'Thinkers, speakers, creators, and specialists who bring authority, perspective, and cultural relevance to a conversation.'),
+                   ('Creativity that matters', 'Freedom Works\u2019 global network of independent creatives, bringing culturally fluent perspectives across markets, disciplines, and communities.')]
+    ing = '\n'.join(f'    <article><p class="n">0{i+1}</p><h3>{esc(k)}</h3><p>{esc(v)}</p></article>' for i, (k, v) in enumerate(ingredients))
+    steps = [('Strategy', 'We find the cultural opportunities, audiences, and moments that fit a brand\u2019s commercial or cultural ambitions.'),
+             ('Access', 'We connect brands with established cultural institutions, communities, and influential voices.'),
+             ('Programming', 'We develop and curate events, conversations, and experiences that bring cultural ideas to life.'),
+             ('Content', 'We make original film, editorial series, and content that builds cultural relevance and keeps audiences engaged.')]
+    st = '\n'.join(f'    <li><p class="sn">Step 0{i+1}</p><h3>{esc(k)}</h3><p>{esc(v)}</p></li>' for i, (k, v) in enumerate(steps))
     ted = f'<img class="ted-logo" src="{A("logos/ted.webp")}" alt="Including TED" width="1280" height="471">'
     offers = [
-        ('<h3>Cultural partnerships</h3>', 'Strategic partnerships and cultural access', ted,
+        ('Cultural partnerships', 'Strategic partnerships and cultural access', ted,
          'We connect brands and organisations with established cultural institutions, platforms and intellectual property, and build bespoke opportunities across content, events, influential voices, and audience engagement. This includes partnerships with TED, one of the world\u2019s leading platforms for ideas, whose ecosystem of voices, content, and events gives brands a credible role in the conversations shaping their industry.'),
-        (f'<h3 class="c3n"><span class="c3-inline">{c3_logo()}</span>: Offstage</h3>', 'Event sponsorship and partnerships', '',
+        (f'<span class="c3-inline">{c3_logo()}</span>: Offstage', 'Event sponsorship and partnerships', '',
          'Culture3\u2019s curated event series for C-suite leaders, decision makers and cultural voices, held at key moments such as Cannes. Brands sponsor an intimate, moderated conversation built around their industry, with access to a carefully curated room of people and perspectives.'),
-        (f'<h3 class="c3n">A <span class="c3-inline">{c3_logo()}</span> Conversation</h3>', 'Sponsored conversations and cultural partnerships', '',
+        (f'A <span class="c3-inline">{c3_logo()}</span> Conversation', 'Sponsored conversations and cultural partnerships', '',
          'A focused, programmed discussion on a question that matters to a brand\u2019s industry, at moments such as SXSW London. We find the topic, partners, and speakers, with the option to extend the conversation into editorial content.'),
-        ('<h3>Brand partnerships</h3>', 'Brand strategy, content, and experiences', '',
+        ('Brand partnerships', 'Brand strategy, content, and experiences', '',
          'We work directly with brands and organisations on bespoke cultural partnerships, from original film and editorial series to curated events and live experiences, to give them a credible role in culture and reach new audiences.')]
-    ol = '\n'.join(f'      <li><div class="ok">{h}<p class="os">{esc(sub)}</p>{extra}</div><p class="ov">{esc(d)}</p></li>' for h, sub, extra, d in offers)
-    return f'''<section class="page-hero c3-hero wrap">
-  <h1>Culture gets <span class="thin">you noticed.</span></h1>
+    fm = '\n'.join(f'    <li><div class="k"><h3>{h}</h3><p class="os">{esc(sub)}</p>{extra}</div><p class="d">{esc(d)}</p></li>' for h, sub, extra, d in offers)
+    return f'''<section class="page-hero wrap">
+  <h1>Welcome\u00a0to <span class="c3-h1"><span class="sr-only">Culture3</span>{c3h}</span></h1>
   <div class="intro"><div class="stack">
-    <p>AI can talk about culture. It can never be in it. Culture3 puts brands in the rooms that matter: offstage dinners with cultural leaders, onstage with TED, amplified beyond it through organic and paid media. Physical. Nuanced. Human.</p>
+    <p class="lab-state">Freedom Works\u2019 Culture Lab.</p>
+    <p>AI can talk about culture. It can never be in it. Culture3 is Freedom Works\u2019 Culture Lab. We put brands in the rooms that matter: intimate moments with cultural leaders, impactful partnerships with platforms like TED, and stories that travel far beyond the room.</p>
   </div></div>
 </section>
 <div class="sizzle wrap"><video class="lazyvid" muted loop playsinline preload="none" poster="{A("media/poster-culture3.webp")}" data-src="{A("film/sizzle-culture.mp4")}" aria-hidden="true"></video></div>
-<section class="c3-direct c3-about wrap" aria-labelledby="c3a">
-  <div class="l"><h2 class="c3-about-logo" id="c3a">{c3_logo()}</h2></div>
-  <div class="r">
-    <p class="lead">Bringing cultural access, strategic partnerships, relevant voices, and culturally fluent creativity together to build propositions, formats, and opportunities that let a brand take part in culture. It draws on the wider Freedom Works network where needed.</p>
+<section class="lab-run wrap" aria-labelledby="lab-run">
+  <div class="l"><p class="sec-lbl"><span class="mk" aria-hidden="true"></span>Run by</p><h2 class="lab-run-logo" id="lab-run">{c3_logo()}</h2></div>
+  <p class="r">We bring cultural access, strategic partnerships, relevant voices, and culturally fluent creativity together to build propositions, formats, and opportunities that let a brand take part in culture.</p>
+</section>
+<section class="lab-sec wrap" aria-labelledby="lab-ing">
+  <p class="sec-lbl"><span class="mk" aria-hidden="true"></span>What goes into the lab</p>
+  <h2 class="lab-h2s" id="lab-ing">Four ingredients.</h2>
+  <div class="lab-ing">
+{ing}
   </div>
 </section>
-<section class="band tight wrap flush-top" aria-label="What Culture3 brings">
-  <div class="boxes four">
-{bx}
+<div class="lab-strip">{strip3(A, "c3-pwc-earth", "c3-offstage", "c3-pwc-skyline", ("50% 40%", "50% 45%", "50% 40%"))}</div>
+<section class="lab-sec wrap" aria-labelledby="lab-how">
+  <div class="lab-headrow">
+    <div><p class="sec-lbl"><span class="mk" aria-hidden="true"></span>Our methodology</p><h2 class="lab-h2s" id="lab-how">How the lab works.</h2></div>
+    <p class="lab-sub">Where to show up. Who to show up with. What to build.</p>
   </div>
-</section>
-{strip3(A, "c3-pwc-earth", "c3-offstage", "c3-pwc-skyline", ("50% 40%", "50% 45%", "50% 40%"))}
-<section class="c3-method band wrap" aria-labelledby="c3m">
-  <div class="split split-head">
-    <div class="l"><p class="sec-lbl"><span class="mk" aria-hidden="true"></span>Our methodology</p><h2 class="h2" id="c3m">Where to show up. Who to show up with. <span class="thin">What to build.</span></h2></div>
-  </div>
-  <ol class="c3-steps">
-    <li><span class="sn">01</span><h3>Strategy</h3><p>We find the cultural opportunities, audiences, and moments that fit a brand\u2019s commercial or cultural ambitions.</p></li>
-    <li><span class="sn">02</span><h3>Access</h3><p>We connect brands with established cultural institutions, communities, and influential voices.</p></li>
-    <li><span class="sn">03</span><h3>Programming</h3><p>We develop and curate events, conversations, and experiences that bring cultural ideas to life.</p></li>
-    <li><span class="sn">04</span><h3>Content</h3><p>We make original film, editorial series, and content that builds cultural relevance and keeps audiences engaged.</p></li>
+  <ol class="lab-steps">
+{st}
   </ol>
 </section>
-<section class="band dark" aria-labelledby="c3o">
-  <div class="wrap">
-    <div class="split split-head">
-      <div class="l"><h2 class="h2" id="c3o">Culture3 <span class="thin">offerings</span></h2></div>
-    </div>
-    <ul class="c3-offers">
-{ol}
-    </ul>
-  </div>
+<section class="lab-sec wrap" aria-labelledby="lab-out">
+  <p class="sec-lbl"><span class="mk" aria-hidden="true"></span>What comes out of the lab</p>
+  <h2 class="lab-h2s" id="lab-out">Four formats.</h2>
+  <ul class="lab-formats">
+{fm}
+  </ul>
 </section>
-{cta(L)}'''
+<section class="contact lab-contact" aria-labelledby="ct">
+  <div class="wrap">
+    <p class="lab-kicker">Culture gets you noticed.</p>
+    <h2 id="ct">Bring a brief to the <span class="thin">Culture Lab.</span></h2>
+    {contact_cards(L=L)}
+  </div>
+</section>'''
 
 def page_work(L, A):
     return f'''<section class="page-hero tight wrap">
@@ -1214,6 +1223,8 @@ def header(L, A, active, theme='light'):
     cta_attr = ' data-cta="header-talk-to-us"'
     dd = ''.join(f'<li><a href="{L(sp_)}">{esc(n)}</a></li>' for n, sp_ in L2_SERVICES)
     def nav_item(p, t):
+        if p == 'culture3/':   # Culture3 sits apart from the departments, as its own wordmark
+            return f'<span class="nav-div" aria-hidden="true"></span><a class="nav-c3" href="{L(p)}"{cur if p == active else ""}>{c3_logo()}</a>'
         a = f'<a href="{L(p)}"{cur if p == active else ""}{cta_attr if p == "contact/" else ""}>{t}</a>'
         if p != 'services/': return a
         return (f'<div class="nav-dd">{a}<button class="dd-btn" type="button" aria-expanded="false" aria-controls="dd-svc" aria-label="Show services">{CHEVRON}</button>'
@@ -1224,7 +1235,7 @@ def header(L, A, active, theme='light'):
     big = ''.join(f'<li{hs if p == "services/" else ""}><a href="{L(p)}"{cur if p == active else ""}>{t}</a>{sub if p == "services/" else ""}</li>' for p, t in NAV)
     return f'''<a class="skip" href="#main">Skip to content</a>
 <header class="site-head" data-theme="{theme}">
-  <a class="mark" href="{L("")}" aria-label="Freedom Works home"><img class="lg-white" src="{A("brand/logo-white-480.png")}" alt="Freedom Works logo" width="480" height="86"><img class="lg-indigo" src="{A("brand/logo-indigo-480.png")}" alt="Freedom Works logo" aria-hidden="true" width="480" height="86"></a>
+  <a class="mark" href="{L("")}" aria-label="Freedom Works home"><img class="lg-white" src="{A("brand/logo-white-480.png")}" alt="Freedom Works logo" width="480" height="86"><img class="lg-indigo" src="{A("brand/logo-indigo-480.png")}" alt="Freedom Works logo" aria-hidden="true" width="480" height="86">{LAB_LOCK}</a>
   <nav aria-label="Main">{links}</nav>
   <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu"><span class="bars" aria-hidden="true"></span>Menu</button>
 </header>
@@ -1243,7 +1254,8 @@ def footer(L, A):
 </footer>
 <div class="foot-mark" aria-hidden="true"><img src="{A("brand/logo-white.png")}" alt="Freedom Works logo" width="1600" height="287" loading="lazy"></div>'''
 
-DARK_TOP = ('', 'contact/', '404')   # pages that open on a dark ground: the header starts in its light-on-dark state
+LAB_LOCK = '<span class="lab-lock"><span class="lab-lock-rule" aria-hidden="true"></span><span class="lab-lock-dot" aria-hidden="true"></span>Culture Lab</span>'
+DARK_TOP = ('', 'contact/', '404', 'culture3/')   # pages that open on a dark ground: the header starts in its light-on-dark state
 FLOURISH_JS = open(SP('flourish.js')).read()
 SHADERS_JS = open(SP('shaders.js')).read()
 SCRIPT = '''<script>
@@ -1441,7 +1453,7 @@ def pages():
     yield ('services/', 'Services | Freedom Works', 'Brand strategy, identity, creative, production, and in-house creative, plus Culture3 cultural partnerships, from the best creative department in the world.', page_services, 'services/', [])
     if SERVICE_PAGES_LIVE or DRAFTS[0]:
         yield from service_page_entries()
-    yield ('culture3/', 'Culture3 | Freedom Works', 'AI can talk about culture. It can never be in it. Culture3 puts brands in the rooms that matter, from Offstage dinners to partnerships with TED.', page_culture, 'culture3/', [])
+    yield ('culture3/', 'Culture3 | Freedom Works\u2019 Culture Lab', 'Culture3 is Freedom Works\u2019 Culture Lab. We put brands in the rooms that matter, with cultural leaders, impactful partnerships and platforms like TED.', page_culture, 'culture3/', [])
     yield ('work/', 'Work | Freedom Works', 'Work that matters for Nestl\u00e9, P&G, TUI, Burger King, King Arthur Baking, Wizz Air, M&S Food, and loveholidays.', page_work, 'work/', [])
     for i, p in enumerate(PROJECTS if CASE_PAGES else []):
         art = {"@context": "https://schema.org", "@type": "CreativeWork", "name": f"{p['client']}: {p['camp']}", "creator": {"@type": "Organization", "name": "Freedom Works"}}
@@ -1538,19 +1550,32 @@ NETLIFY_REDIRECTS = """/culture              /culture3/   301
 /services/creative/creator-and-influencer   /services/creative/  301
 # The old Liberty Guild site was a single page: send everything on its domain to the new homepage.
 # These only take effect once the old domain is added to this Netlify site as a domain alias.
+# culture3.com: the old Culture3 site. Every address goes to the Culture3 page (contact to the contact page)
+https://culture3.com/contact            https://freedom.works/contact/?utm_source=culture3.com&utm_medium=redirect&utm_campaign=rebrand  301!
+https://culture3.com/*                  https://freedom.works/culture3/?utm_source=culture3.com&utm_medium=redirect&utm_campaign=rebrand  301!
+https://www.culture3.com/contact            https://freedom.works/contact/?utm_source=culture3.com&utm_medium=redirect&utm_campaign=rebrand  301!
+https://www.culture3.com/*                  https://freedom.works/culture3/?utm_source=culture3.com&utm_medium=redirect&utm_campaign=rebrand  301!
+http://culture3.com/contact            https://freedom.works/contact/?utm_source=culture3.com&utm_medium=redirect&utm_campaign=rebrand  301!
+http://culture3.com/*                  https://freedom.works/culture3/?utm_source=culture3.com&utm_medium=redirect&utm_campaign=rebrand  301!
+http://www.culture3.com/contact            https://freedom.works/contact/?utm_source=culture3.com&utm_medium=redirect&utm_campaign=rebrand  301!
+http://www.culture3.com/*                  https://freedom.works/culture3/?utm_source=culture3.com&utm_medium=redirect&utm_campaign=rebrand  301!
 # Old Liberty Guild policy pages go to their new equivalents
 https://thelibertyguild.com/legal                 https://freedom.works/privacy/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
 https://thelibertyguild.com/slavery-act           https://freedom.works/modern-slavery-statement/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
 https://thelibertyguild.com/diversity-inclusion   https://freedom.works/diversity-inclusion/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
+https://thelibertyguild.com/people                 https://freedom.works/agency/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand#leadership  301!
 https://www.thelibertyguild.com/legal                 https://freedom.works/privacy/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
 https://www.thelibertyguild.com/slavery-act           https://freedom.works/modern-slavery-statement/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
 https://www.thelibertyguild.com/diversity-inclusion   https://freedom.works/diversity-inclusion/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
+https://www.thelibertyguild.com/people                 https://freedom.works/agency/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand#leadership  301!
 http://thelibertyguild.com/legal                 https://freedom.works/privacy/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
 http://thelibertyguild.com/slavery-act           https://freedom.works/modern-slavery-statement/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
 http://thelibertyguild.com/diversity-inclusion   https://freedom.works/diversity-inclusion/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
+http://thelibertyguild.com/people                 https://freedom.works/agency/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand#leadership  301!
 http://www.thelibertyguild.com/legal                 https://freedom.works/privacy/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
 http://www.thelibertyguild.com/slavery-act           https://freedom.works/modern-slavery-statement/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
 http://www.thelibertyguild.com/diversity-inclusion   https://freedom.works/diversity-inclusion/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
+http://www.thelibertyguild.com/people                 https://freedom.works/agency/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand#leadership  301!
 https://thelibertyguild.com/*      https://freedom.works/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
 https://www.thelibertyguild.com/*  https://freedom.works/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
 http://thelibertyguild.com/*       https://freedom.works/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
@@ -1683,7 +1708,7 @@ def build_site():
 <link rel="stylesheet" href="{A('site.css')}">
 {schema_tags(path if path != '404' else '', title, extra)}
 </head>
-<body{' class="light-page"' if path else ''}>
+<body{' class="light-page lab-page"' if path == 'culture3/' else (' class="light-page"' if path else '')}>
 {analytics_body()}{header(L, A, active, 'dark' if path in DARK_TOP else 'light')}
 <main id="main">
 {body}
@@ -1742,7 +1767,7 @@ def build_preview(outfile, only=None, external=''):
         if rel not in cache:
             fp = os.path.join(SRC, 'assets', rel)
             ext = rel.rsplit('.', 1)[-1]
-            mime = {'webp': 'image/webp', 'png': 'image/png', 'jpg': 'image/jpeg', 'mp4': 'video/mp4', 'woff2': 'font/woff2'}[ext]
+            mime = {'webp': 'image/webp', 'png': 'image/png', 'jpg': 'image/jpeg', 'mp4': 'video/mp4', 'woff2': 'font/woff2', 'svg': 'image/svg+xml'}[ext]
             cache[rel] = f'data:{mime};base64,' + base64.b64encode(open(fp, 'rb').read()).decode()
         return cache[rel]
     def L(p):
@@ -1767,6 +1792,8 @@ def build_preview(outfile, only=None, external=''):
         css = css.replace(f'url(../fonts/{f}.woff2)', f'url({data("fonts/" + f + ".woff2")})')
     for bi in ['icon-linen', 'icon-indigo', 'icon-peri', 'c3-icon-peri']:
         css = css.replace(f'url(brand/{bi}.png)', 'url(' + data('brand/' + bi + '.png') + ')')
+    for bs in ('c3-icon-linen', 'c3-icon-peri'):   # SVG backgrounds used by the styles
+        css = css.replace(f'url(brand/{bs}.svg)', 'url(' + data('brand/' + bs + '.svg') + ')')
     for f in []:
         css = css.replace(f'url(../fonts/{f}.woff2)', f'url({data("fonts/" + f + ".woff2")})')
     hdr = header(L, A, '')
@@ -1787,7 +1814,7 @@ def build_preview(outfile, only=None, external=''):
     rs.forEach(function(r){{ if(r.getAttribute('data-route')===h) hit=r; }});
     if(!hit) hit=document.querySelector('.route[data-route=""]')||document.querySelector('.route');
     rs.forEach(function(r){{ r.hidden=(r!==hit); }});
-    document.title=hit.getAttribute('data-title'); var prg=document.querySelector('.progress'); if(prg) prg.style.display='none'; document.body.classList.toggle('light-page', hit.getAttribute('data-route')!=='');
+    document.title=hit.getAttribute('data-title'); var prg=document.querySelector('.progress'); if(prg) prg.style.display='none'; document.body.classList.toggle('light-page', hit.getAttribute('data-route')!==''); document.body.classList.toggle('lab-page', hit.getAttribute('data-route')==='culture3/');
     document.querySelectorAll('.site-head nav a').forEach(function(a){{ var t=a.getAttribute('href').replace('#/',''); if(t && h.indexOf(t)===0) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current'); }});
     rs.forEach(function(r){{ if(r!==hit) r.querySelectorAll('video').forEach(function(x){{ x.pause(); }}); }}); hit.querySelectorAll('video[autoplay]').forEach(function(x){{ x.muted=true; var pr=x.play(); if(pr) pr.catch(function(){{}}); }});
     var tgt=anc?hit.querySelector('#'+anc):null; if(tgt){{ setTimeout(function(){{ tgt.scrollIntoView(); }},60); }} else {{ window.scrollTo(0,0); }} if(hit.animate && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) hit.animate([{{opacity:0}},{{opacity:1}}],{{duration:280,easing:'ease'}});

@@ -252,3 +252,25 @@ The full audit runs across all 176 pages. Everything is built in, so new pages g
   - `assets/media/team/<slug>-600.webp` and `-1200.webp`.
   - True black and white, cropped to 4:5, loaded by srcset.
   - To replace one, overwrite both files with the same names.
+
+## Culture3 as Freedom Works' Culture Lab (30 Oct)
+
+- **Menu, every page:** Services · Work · About · The Guild · Thinking | Culture3 (as its wordmark, after a divider) · Talk to us.
+  - The footer and the phone menu follow the same order: `NAV` in build.py.
+  - The wordmark item: `.nav-c3`, with the divider `.nav-div`.
+- **The Culture3 page:**
+  - `body.lab-page` sets its own theme: graphite #3A3936, with a scarlet signal.
+  - The header shows "| ● CULTURE LAB" beside the logo (`LAB_LOCK`), the wordmark underlined in scarlet, and a scarlet Talk to us button.
+  - Layout: hero (lockup, Barlow H2, intro), Run by Culture3, four ingredients, stills band, How the lab works, four formats, and the scarlet closing band with the HubSpot form.
+  - Styles: the `lab-*` classes in site.css.
+- **The new Culture3 line** ("Culture3 is Freedom Works' Culture Lab. We put brands in the rooms that matter…") replaces the old one on the homepage, the About page (twice) and the Culture3 page.
+- **The design mockup** is on the canvas https://claude.ai/artifact/GK4vMWGuxcJ6uDEUtVwbeP.
+
+## culture3.com (30 Oct)
+
+- **Every culture3.com address** (http and https, with and without www) 301s to https://freedom.works/culture3/ with `utm_source=culture3.com`. /contact goes to /contact/.
+- **The domain previously hosted Culture3's editorial site** (/posts/, /tag/, /section/, /writer/), and those addresses now land on the Culture3 page.
+- **To go live:**
+  - add culture3.com and www.culture3.com as Netlify domain aliases
+  - Manoj points A @ to 75.2.60.5 and www to freedomworksstaging.netlify.app
+  - the email records stay untouched
