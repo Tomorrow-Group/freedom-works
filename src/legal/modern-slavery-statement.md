@@ -2,7 +2,7 @@ Freedom Works is committed to good corporate governance and ethical business pra
 
 # Our business
 
-Freedom Works is a trading name of <span class="fill">[legal entity name]</span>, company number <span class="fill">[company number]</span>. We are a global creative agency: a curated network of independent creatives, strategists, and producers who work together to deliver creative solutions for our clients. We work with clients and suppliers around the world.
+Freedom Works is a trading name of Liberty Guild 2.0 Limited, company number 13354551. We are a global creative agency: a curated network of independent creatives, strategists, and producers who work together to deliver creative solutions for our clients. We work with clients and suppliers around the world.
 
 # Our supply chain
 
@@ -42,4 +42,4 @@ We use the following key performance indicators to measure how effective we have
 
 We will continue to review our approach to supply chain due diligence regularly, to ensure we have adequate structures, policies, and training in place to monitor and mitigate the risk of slavery and human trafficking in connection with our business. Any updates will be reflected in future statements.
 
-This statement covers the financial year ending <span class="fill">[date]</span>. It was approved by the board of <span class="fill">[legal entity name]</span> on <span class="fill">[date]</span>, and signed by <span class="fill">[name, role]</span>.
+This statement is made voluntarily. It has been approved by the board of Liberty Guild 2.0 Limited and is signed by Jon Williams, Founder and Chief Creative Officer, November 2026. We will review and update it each year.

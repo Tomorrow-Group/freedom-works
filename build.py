@@ -1543,6 +1543,9 @@ Header set X-Frame-Options "SAMEORIGIN"
 
 NETLIFY_REDIRECTS = """/culture              /culture3/   301
 /guild                /the-guild/  301
+# Short links to documents (temporary, so the destination can change)
+/nda                  https://app.sign.dropbox.com/s/5UCsJyyO  302
+/guildagreement       https://app.sign.dropbox.com/s/DRPkiwjg  302
 /approach             /services/   301
 /voices-and-partners  /culture3/   301
 /about                /agency/     301

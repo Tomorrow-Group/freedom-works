@@ -1,4 +1,4 @@
-This website uses cookies. We use cookies to personalise content and ads, to provide social media features and to analyse our traffic. We also share information about your use of our site with our social media, advertising and analytics partners who may combine it with other information that you’ve provided to them or that they’ve collected from your use of their services. You consent to our cookies if you continue to use our website.
+This website uses cookies. Some are strictly necessary to make the site work. Others, such as analytics cookies, are only used if you allow them, and help us understand how the site is used so we can improve it. We do not use cookies for advertising. You can change or withdraw your consent at any time, using the cookie settings link below or in the footer of every page.
 
 Cookies are small text files that can be used by websites to make a user's experience more efficient.
 

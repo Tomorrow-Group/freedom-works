@@ -10,9 +10,9 @@ It is important that you read this privacy policy together with any other privac
 
 ## Controller
 
-Liberty 2.0 Limited, trading as Freedom Works, is the controller and responsible for your personal data (collectively referred to as "Freedom Works", "we", "us" or "our" in this privacy policy).
+Liberty Guild 2.0 Limited (company number 13354551), trading as Freedom Works, is the controller and responsible for your personal data (collectively referred to as "Freedom Works", "we", "us" or "our" in this privacy policy).
 
-The Tomorrow Group is made up of different legal entities, details of which can be found here (see Glossary). This privacy policy is issued on behalf of the Tomorrow Group so when we mention "Freedom Works", "we", "us" or "our" in this privacy policy, we are referring to the relevant company in the Tomorrow Group responsible for processing your data. We will let you know which entity will be the controller for your data when you purchase a product or service with us. Liberty 2.0 Limited is the controller and responsible for this website.
+The Tomorrow Group is made up of different legal entities, details of which can be found here (see Glossary). This privacy policy is issued on behalf of the Tomorrow Group so when we mention "Freedom Works", "we", "us" or "our" in this privacy policy, we are referring to the relevant company in the Tomorrow Group responsible for processing your data. We will let you know which entity will be the controller for your data when you purchase a product or service with us. Liberty Guild 2.0 Limited is the controller and responsible for this website.
 
 We have appointed a data privacy manager who is responsible for overseeing questions in relation to this privacy policy. If you have any questions about this privacy policy, including any requests to exercise your legal rights, please contact the data privacy manager using the details set out below.
 
@@ -20,7 +20,7 @@ We have appointed a data privacy manager who is responsible for overseeing quest
 
 If you have any questions about this privacy policy or our privacy practices, please contact our data privacy manager in the following ways:
 
-Full name of legal entity: Liberty 2.0 Limited t/a Freedom Works  
+Full name of legal entity: Liberty Guild 2.0 Limited t/a Freedom Works (company number 13354551)  
 Email address: [freedomworks_dpo@tomorrowgroup.co](mailto:freedomworks_dpo@tomorrowgroup.co)  
 Postal address: 167-169 Great Portland Street, 5th Floor, London, W1W 5PF
 
@@ -91,15 +91,17 @@ Analytics & marketing technologies. We use analytics for the following purposes:
 
 ### Google Analytics:
 
-- Remarketing (showing our ads on third party websites). Freedom Works and our advertising partners (Google) will use cookie information to serve our past visitor relevant and optimized ads.
-
-- Google Display Network Impression Reporting. Freedom Works, and third-party vendors, use cookies to report how our ad impressions, other uses of ad services and interactions with these ad impressions and ad services are related to visits to our site.
-
-- Google Analytics Demographics and Interest Reporting. Freedom Works use data from Google's Interest-based advertising or 3rd-party audience data (such as age, gender and interests) with Google Analytics to inform our marketing strategy.
-
-Visitors can opt out of Google Analytics for Display Advertising and customise Google Display Network ads using Google's Ad Settings page: [adssettings.google.com](https://adssettings.google.com)
+We use Google Analytics 4, managed through Google Tag Manager, to understand how visitors use our website, for example which pages are visited and when an enquiry is sent. It only runs if you accept analytics cookies in our cookie banner. We do not use Google Analytics for advertising, remarketing, or demographics and interests reporting.
 
 Visitors can opt out of Google Analytics using this browser add-on: [tools.google.com/dlpage/gaoptout](https://tools.google.com/dlpage/gaoptout)
+
+### Cookiebot:
+
+Our cookie banner is provided by Usercentrics (Cookiebot). It records your cookie choices so that we can respect them. Their privacy policy is available at this address: [usercentrics.com/privacy-policy](https://usercentrics.com/privacy-policy/)
+
+### Vimeo:
+
+The films on our website are played through Vimeo, using its "do not track" setting. When a film loads, Vimeo receives standard technical information such as your IP address and browser type. Their privacy policy is available at this address: [vimeo.com/privacy](https://vimeo.com/privacy)
 
 ### Hubspot:
 
@@ -108,8 +110,6 @@ Marketing automation service in order to assist us with staying in touch with ou
 ### Pipedrive:
 
 CRM platform helping us manage our sales pipeline and revenue reporting. Their privacy policy is available at this address: [pipedrive.com/en/privacy](https://www.pipedrive.com/en/privacy)
-
-We also use advertising partners to collect cookie-based information about our website users in order to assist us with better targeting of our advertising. For more specific information about our advertising partners, please visit our [Cookie Policy]({cookies}).
 
 For further information on cookies in general, including how to decline and remove cookies from your browser visit [www.aboutcookies.org](https://www.aboutcookies.org).
 
@@ -182,10 +182,17 @@ Additionally, we may sometimes contract with the following third parties to supp
 | --- | --- | --- | --- |
 | Xero | Financial reporting, invoicing and bookkeeping service. | Finance and business support | US (data stored) / NZ (head office) |
 | Teamtailor | Recruitment management | Recruitment | EU/EEA |
-| Google | SEO, PPC & Analytics services | Digital marketing services | US/EU |
+| Google | Website analytics (Google Analytics 4), tag management (Google Tag Manager) and search services | Digital marketing services | US/EU |
 | Office 365 | Office 365 products and email servers | Operations and business support | US |
 | Hubspot | Sales and marketing email management | Sales and marketing | US/EU |
 | Pipedrive | CRM to manage relationships | CRM | UK/EU |
+| Google Workspace | Email and document services | Operations and business support | US/EU |
+| Netlify | Website hosting, including standard server logs | Technology | US |
+| Usercentrics (Cookiebot) | Cookie consent management | Technology | EU |
+| Vimeo | Hosting and playing the films on our website | Technology | US |
+| Braidr | Setting up and managing our website analytics on our behalf | Digital marketing services | UK |
+| Sopro | Outbound marketing on our behalf | Sales and marketing | UK |
+| Substack (Amazon Web Services) and Unsplash | Hosting some images shown on our Thinking articles | Technology | US |
 
 If any of your personal data is shared with a third party, as described above, we will take steps to ensure that your personal data is handled safely, securely, and in accordance with your rights, our obligations, and the third party's obligations under the law.
 
@@ -251,7 +258,7 @@ We try to respond to all legitimate requests within one month. Occasionally it c
 
 ## Tomorrow Group
 
-Means the following companies: Karta 2.0 Limited, Found Group Limited, Disrupt Marketing Limited, Braidr Limited, Divinc Services Limited, Seedd Limited and Liberty 2.0 Limited.
+Means the following companies: Karta 2.0 Limited, Found Group Limited, Disrupt Marketing Limited, Braidr Limited, Divinc Services Limited, Seedd Limited and Liberty Guild 2.0 Limited.
 
 ## Lawful basis
 
