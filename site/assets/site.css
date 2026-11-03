@@ -1460,3 +1460,5 @@ aside.rebrand-note.c3-note .rn-btn:hover,aside.rebrand-note.c3-note .rn-btn:focu
 aside.rebrand-note.c3-note .rn-close{border-color:rgba(30,27,24,.3);color:var(--carbon)}
 aside.rebrand-note.c3-note .rn-close:hover,aside.rebrand-note.c3-note .rn-close:focus-visible{background:var(--carbon);color:var(--linen)}
 aside.rebrand-note.c3-note::before{opacity:.38}
+/* logo wall: the colour version always fits the grey version's box, centred, whatever its own shape */
+.lw-cell .col{width:100%;height:100%;object-fit:contain;object-position:50% 50%}

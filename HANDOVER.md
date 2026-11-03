@@ -274,3 +274,9 @@ The full audit runs across all 176 pages. Everything is built in, so new pages g
   - add culture3.com and www.culture3.com as Netlify domain aliases
   - Manoj points A @ to 75.2.60.5 and www to freedomworksstaging.netlify.app
   - the email records stay untouched
+
+## Search titles from the SEO review (Nov 2026)
+
+- **Where they live:** `SEO_TITLES` in build.py sets the title tag for 21 pages (the homepage, Services, and every service and sub-service page), exactly as Ema wrote them.
+- **No shortening:** they bypass `short_title`, so titles over 60 characters are kept whole.
+- **What's unchanged:** the sharing titles (og:title), and Ema's H1 and body copy suggestions, which weren't applied.

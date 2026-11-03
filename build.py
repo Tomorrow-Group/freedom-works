@@ -13,6 +13,32 @@ DOMAIN = 'https://freedom.works'
 CSS = open(SP('site.css')).read()   # the whole design system: tokens, grounds, layout, type, components, templates, motion
 HOME_MAIN = open(SP('home-main.html')).read()
 
+# Search titles from the SEO review (Ema, Nov 2026): used exactly as written, never shortened.
+# The social sharing titles (og:title) are separate and unchanged.
+SEO_TITLES = {
+    '': 'Global Creative Agency, London, UK | Freedom Works',
+    'services/': 'Creative Services by Award-Winning Talent | Freedom Works',
+    'services/brand-strategy/': 'Global Brand Strategy Agency | Brand Strategy Services | Freedom Works',
+    'services/brand-strategy/brand-positioning/': 'Brand Positioning Agency | Brand Positioning Services | Freedom Works',
+    'services/brand-strategy/communications-strategy/': 'Communications Strategy Agency | Freedom Works',
+    'services/brand-strategy/brand-architecture/': 'Brand Architecture Agency, London | Freedom Works',
+    'services/brand-identity/': 'Brand Identity Agency, London | Brand Identity Design | Freedom Works',
+    'services/brand-identity/brand-development-and-rebranding/': 'Brand Development Services | Rebranding Agency | Freedom Works',
+    'services/brand-identity/naming/': 'Brand Naming Agency | Brand Naming Consultants | Freedom Works',
+    'services/brand-identity/visual-identity-and-brand-guidelines/': 'Visual Identity Design & Brand Guidelines Agency | Freedom Works',
+    'services/creative/': 'Creative Campaign Agency: Campaigns & Content | Freedom Works',
+    'services/creative/brand-and-product-launches/': 'Brand Launch Agency | Brand & Product Launch Campaigns | Freedom Works',
+    'services/creative/digital-and-social-creative/': 'Digital and Social Creative Agency | Freedom Works',
+    'services/creative/campaign-strategy-and-development/': 'Campaign Strategy & Development Agency | Freedom Works',
+    'services/production/': 'Creative Production Agency for Brands | Freedom Works',
+    'services/production/film-and-video/': 'Film and Video Production Company for Brands | Freedom Works',
+    'services/production/design/': 'Brand Design Agency | Brand Design Services | Freedom Works',
+    'services/production/virtual-production/': 'Virtual Production Studio for Brands | Freedom Works',
+    'services/production/post-production/': 'Post-Production Studio and Services for Brands | Freedom Works',
+    'services/production/ai-production/': 'AI Production Company & Services for Brands | Freedom Works',
+    'services/in-house/': 'In-House Creative Support & Direction Agency | Freedom Works',
+}
+
 NAV = [('services/', 'Services'), ('work/', 'Work'), ('agency/', 'About'), ('the-guild/', 'The Guild'),
        ('thinking/', 'Thinking'), ('culture3/', 'Culture3'), ('contact/', 'Talk to us')]
 TAGS = {'ai-and-creativity': 'AI and creativity', 'on-the-model': 'The agency model', 'talent-and-work': 'Talent and work',
@@ -1667,6 +1693,7 @@ def build_site():
         if len(title) > 60 and title.endswith(' | Freedom Works'): title = title[:-len(' | Freedom Works')]   # Google shows the site name anyway
         seo_title = short_title(title)
         if len(seo_title) < 30 and not seo_title.endswith('| Freedom Works') and len(seo_title + ' | Freedom Works') <= 60: seo_title += ' | Freedom Works'
+        seo_title = SEO_TITLES.get(path, seo_title)
         _proj = next((q for q in PROJECTS if path == f"work/{q['slug']}/"), None)
         _src = local_img(_slug) if _slug and local_img(_slug) else (('media/' + _proj['img'] + '.webp') if _proj and _proj.get('img') else None)
         _share = share_jpg(_src)
