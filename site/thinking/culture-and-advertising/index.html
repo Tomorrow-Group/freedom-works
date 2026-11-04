@@ -12,15 +12,18 @@
 <link rel="canonical" href="https://freedom.works/thinking/culture-and-advertising/">
 <meta property="og:title" content="Culture and advertising | Thinking from Freedom Works">
 <meta property="og:description" content="Where brands meet culture, and what it takes to earn a place there. Our thinking on campaigns, cultural moments, and the ideas that get people talking.">
-
+<meta property="og:image" content="https://freedom.works/assets/brand/share-freedom-works.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Culture and advertising | Thinking from Freedom Works">
 <meta property="og:url" content="https://freedom.works/thinking/culture-and-advertising/">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Freedom Works">
 <meta property="og:locale" content="en_GB">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Culture and advertising | Thinking from Freedom Works">
 <meta name="twitter:description" content="Where brands meet culture, and what it takes to earn a place there. Our thinking on campaigns, cultural moments, and the ideas that get people talking.">
-
+<meta name="twitter:image" content="https://freedom.works/assets/brand/share-freedom-works.jpg">
 <link rel="icon" href="../../assets/favicon.png">
 <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
 <meta name="theme-color" content="#20243A">
@@ -385,8 +388,8 @@ document.addEventListener('click',function(e){var b=e.target.closest('[data-cook
   if(!fromOld) return;
   try{ if(localStorage.getItem('fw-rebrand-seen')) return; localStorage.setItem('fw-rebrand-seen','1'); }catch(e){}
   var about=(document.querySelector('.site-head nav a[href*="agency/"]')||{}).getAttribute ? document.querySelector('.site-head nav a[href*="agency/"]').getAttribute('href') : 'agency/';
-  var el=document.createElement('aside'); el.className='rebrand-note'; el.setAttribute('role','status'); el.setAttribute('aria-label','Looking for The Liberty Guild? We\u2019re now Freedom Works.');
-  el.innerHTML='<p class="rn-h">Looking for <em class="rn-old">The Liberty Guild?</em></p><p class="rn-t">You\u2019re in the right place. We\u2019re now <em>Freedom Works.</em></p><a class="rn-btn" href="'+about+'">About us <span aria-hidden="true">\u2192</span></a><button type="button" class="rn-close" aria-label="Close">\u00d7</button>';
+  var el=document.createElement('aside'); el.className='rebrand-note'; el.setAttribute('role','status'); el.setAttribute('aria-label','The Liberty Guild is now part of Freedom Works.');
+  el.innerHTML='<p class="rn-h">The Liberty Guild is now part of <em>Freedom Works.</em></p><a class="rn-btn" href="'+about+'">About us <span aria-hidden="true">\u2192</span></a><button type="button" class="rn-close" aria-label="Close">\u00d7</button>';
   document.body.appendChild(el);
   setTimeout(function(){ el.classList.add('on'); fwTrack('fw_rebrand_note_view',{page:location.pathname}); }, 1200);
   el.querySelector('a').addEventListener('click',function(){ fwTrack('fw_rebrand_note_click',{page:location.pathname}); });
@@ -399,8 +402,8 @@ document.addEventListener('click',function(e){var b=e.target.closest('[data-cook
   try{ if(localStorage.getItem('fw-c3-seen')) return; localStorage.setItem('fw-c3-seen','1'); }catch(e){}
   var ab=document.querySelector('.site-head nav a[href*="agency/"]'), about=ab ? ab.getAttribute('href') : 'agency/';
   var m=document.querySelector('.site-head .nav-c3 svg'), mark=m ? m.outerHTML.replace('role="img"','aria-hidden="true"').replace(' aria-label="Culture3"','') : '';
-  var el=document.createElement('aside'); el.className='rebrand-note c3-note'; el.setAttribute('role','status'); el.setAttribute('aria-label','Culture3 is now a part of Freedom Works.');
-  el.innerHTML='<p class="rn-h"><span class="c3n-mark"><span class="sr-only">Culture3</span>'+mark+'</span> is now a part of <em>Freedom Works.</em></p><a class="rn-btn" href="'+about+'">About Freedom Works <span aria-hidden="true">\u2192</span></a><button type="button" class="rn-close" aria-label="Close">\u00d7</button>';
+  var el=document.createElement('aside'); el.className='rebrand-note c3-note'; el.setAttribute('role','status'); el.setAttribute('aria-label','Culture3 is now part of Freedom Works.');
+  el.innerHTML='<p class="rn-h"><span class="c3n-mark"><span class="sr-only">Culture3</span>'+mark+'</span> is now part of <em>Freedom Works.</em></p><a class="rn-btn" href="'+about+'">About Freedom Works <span aria-hidden="true">\u2192</span></a><button type="button" class="rn-close" aria-label="Close">\u00d7</button>';
   document.body.appendChild(el);
   setTimeout(function(){ el.classList.add('on'); fwTrack('fw_c3_note_view',{page:location.pathname}); }, 1200);
   el.querySelector('a').addEventListener('click',function(){ fwTrack('fw_c3_note_click',{page:location.pathname}); });

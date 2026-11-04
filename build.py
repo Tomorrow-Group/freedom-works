@@ -1708,7 +1708,9 @@ def build_site():
         _proj = next((q for q in PROJECTS if path == f"work/{q['slug']}/"), None)
         _src = local_img(_slug) if _slug and local_img(_slug) else (('media/' + _proj['img'] + '.webp') if _proj and _proj.get('img') else None)
         _share = share_jpg(_src)
-        og_img = DOMAIN + '/assets/' + _share if _share else ''      # only the page's own picture (case-study still, article cover); otherwise no image
+        if not _share and path != '404':   # pages without their own picture get the brand sharing card
+            _share = 'brand/share-culture3.jpg' if path == 'culture3/' else 'brand/share-freedom-works.jpg'
+        og_img = DOMAIN + '/assets/' + _share if _share else ''      # the page's own picture (case-study still, article cover), else the brand sharing card
         og_h = '630'
         og_title = share_title(path, title)
         og_type = 'article' if _slug else 'website'

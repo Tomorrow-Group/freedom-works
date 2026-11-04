@@ -3,6 +3,8 @@
 # Short links to documents (temporary, so the destination can change)
 /nda                  https://app.sign.dropbox.com/s/5UCsJyyO  302
 /guildagreement       https://app.sign.dropbox.com/s/DRPkiwjg  302
+/creativemeta         https://freedomworks.typeform.com/to/rOU9jLEK  302
+/strategymeta         https://freedomworks.typeform.com/to/yLqMclcr  302
 /approach             /services/   301
 /voices-and-partners  /culture3/   301
 /about                /agency/     301
@@ -19,6 +21,15 @@ http://culture3.com/contact            https://freedom.works/contact/?utm_source
 http://culture3.com/*                  https://freedom.works/culture3/?utm_source=culture3.com&utm_medium=redirect&utm_campaign=rebrand  301!
 http://www.culture3.com/contact            https://freedom.works/contact/?utm_source=culture3.com&utm_medium=redirect&utm_campaign=rebrand  301!
 http://www.culture3.com/*                  https://freedom.works/culture3/?utm_source=culture3.com&utm_medium=redirect&utm_campaign=rebrand  301!
+# Old Liberty Guild short links to Typeforms keep working (temporary, so the forms can change)
+https://thelibertyguild.com/creativemeta   https://freedomworks.typeform.com/to/rOU9jLEK  302!
+https://www.thelibertyguild.com/creativemeta   https://freedomworks.typeform.com/to/rOU9jLEK  302!
+http://thelibertyguild.com/creativemeta   https://freedomworks.typeform.com/to/rOU9jLEK  302!
+http://www.thelibertyguild.com/creativemeta   https://freedomworks.typeform.com/to/rOU9jLEK  302!
+https://thelibertyguild.com/strategymeta   https://freedomworks.typeform.com/to/yLqMclcr  302!
+https://www.thelibertyguild.com/strategymeta   https://freedomworks.typeform.com/to/yLqMclcr  302!
+http://thelibertyguild.com/strategymeta   https://freedomworks.typeform.com/to/yLqMclcr  302!
+http://www.thelibertyguild.com/strategymeta   https://freedomworks.typeform.com/to/yLqMclcr  302!
 # Old Liberty Guild policy pages go to their new equivalents
 https://thelibertyguild.com/legal                 https://freedom.works/privacy/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
 https://thelibertyguild.com/slavery-act           https://freedom.works/modern-slavery-statement/?utm_source=thelibertyguild.com&utm_medium=redirect&utm_campaign=rebrand  301!
