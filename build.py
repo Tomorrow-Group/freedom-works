@@ -1081,6 +1081,7 @@ def page_article(p, L, A, strip_images=False):
         body = re.sub(r'<p>\s*<img[^>]*src="http[^"]*"[^>]*>\s*</p>', '', body); body = re.sub(r'<img[^>]*src="http[^"]*"[^>]*>', '', body)
     tag = TAGS.get(p['tag'], 'Thinking')
     body = link_first_service(body, L)
+    body = link_case_studies(body, L)
     topic_link = f'<a href="{L("thinking/" + TOPIC_SLUG[p["tag"]] + "/")}">{esc(tag)}</a>' if p['tag'] in TOPIC_SLUG else esc(tag)
     return f'''<article>
   <header class="article-head wrap">
@@ -1136,6 +1137,33 @@ def link_first_service(body, L):
             if sp_:
                 parts[i] = part[:m.start(1)] + f'<a href="{L(sp_["path"])}">{m.group(1)}</a>' + part[m.end(1):]
                 return ''.join(parts)
+    return body
+
+CASE_LINKS = [   # client name as written in articles -> its case study (first natural mention only)
+    (r'loveholidays', 'loveholidays'), (r'Rowse(?: Honey)?', 'rowse-honey'), (r'Wizz ?Air', 'wizz-air'),
+    (r'Brompton(?: Bicycle)?', 'brompton'), (r'King Arthur(?: Baking)?(?: Company)?', 'king-arthur-baking'),
+    (r'M&amp;S(?: Food)?|Marks (?:and|&amp;) Spencer', 'ms-food'), (r'Nestl(?:é|e) SMA|SMA Nutrition|\bSMA\b', 'nestle-sma'),
+    (r'Kit ?Kat', 'kitkat-f1'), (r'Snowfox(?: Group)?', 'snowfox-group'), (r'\bTUI\b', 'tui')]
+
+def link_case_studies(body, L, limit=3):
+    """Link the first natural mention of each client that has a case study, outside headings, quotes and existing links."""
+    done = 0
+    for rx, slug in CASE_LINKS:
+        if done >= limit: break
+        if ('work/' + slug + '/') in body: continue                      # already links to this case study
+        parts = re.split(r'(<[^>]+>)', body); depth = 0
+        for i, part in enumerate(parts):
+            if part.startswith('<'):
+                tag = re.match(r'</?\s*([a-zA-Z0-9]+)', part)
+                if tag and tag.group(1).lower() in ('a', 'h1', 'h2', 'h3', 'h4', 'blockquote', 'figcaption'):
+                    depth += -1 if part.startswith('</') else 1
+                continue
+            if depth > 0 or not part.strip(): continue
+            m = re.search(r'(' + rx + r')', part)
+            if m:
+                parts[i] = part[:m.start(1)] + f'<a href="{L("work/" + slug + "/")}">{m.group(1)}</a>' + part[m.end(1):]
+                body = ''.join(parts); done += 1
+                break
     return body
 
 def share_row(p):

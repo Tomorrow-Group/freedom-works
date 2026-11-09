@@ -280,3 +280,10 @@ The full audit runs across all 176 pages. Everything is built in, so new pages g
 - **Where they live:** `SEO_TITLES` in build.py sets the title tag for 21 pages (the homepage, Services, and every service and sub-service page), exactly as Ema wrote them.
 - **No shortening:** they bypass `short_title`, so titles over 60 characters are kept whole.
 - **What's unchanged:** the sharing titles (og:title), and Ema's H1 and body copy suggestions, which weren't applied.
+
+## Internal links to case studies (Nov 2026)
+
+- **What it does:** `link_case_studies()` links the first natural mention of a client in each Thinking article to its case study.
+- **Rules:** one link per client, up to 3 per article, never inside headings, quotes or existing links, and skipped where the article already links to that case study.
+- **The client names it looks for** are listed in `CASE_LINKS` in build.py.
+- **Why:** added after Search Console showed /work/rowse-honey/ and /work/loveholidays/ as "Crawled – currently not indexed".
