@@ -1302,7 +1302,7 @@ def footer(L, A):
     links = ''.join(f'<a href="{L(p)}">{t}</a>' for p, t in NAV[:6])
     return f'''<footer class="foot wrap">
   <div class="brand"><img src="{A("brand/logo-linen-480.png")}" alt="Freedom Works" width="480" height="86" loading="lazy"><span>A global creative agency.<br>Calibre, Culture, Craft.</span><address class="f-addr">{"<br>".join(OFFICE_ADDRESS)}</address></div>
-  <div class="links">{links}<a href="https://www.linkedin.com">LinkedIn</a><a href="https://www.instagram.com">Instagram</a></div>
+  <div class="links">{links}<a href="https://www.linkedin.com/company/freedomworks-agency/" target="_blank" rel="noopener">LinkedIn</a><a href="https://lbbonline.com/companies/freedom-works" target="_blank" rel="noopener">LBB</a></div>
   <div class="fsvc"><p class="fh">Services</p>{''.join(f'<a href="{L(sp_)}">{esc(n)}</a>' for n, sp_ in L2_SERVICES)}</div>
   <div class="legal"><a href="mailto:{CONTACT_EMAIL}">{CONTACT_EMAIL}</a><span>\u00a9 {datetime.date.today().year} Freedom Works, London</span><a href="{L("privacy/")}">Privacy</a><a href="{L("cookies/")}">Cookies</a><a href="{L("terms/")}">Terms</a><a href="{L("modern-slavery-statement/")}">Modern slavery statement</a><a href="{L("diversity-inclusion/")}">Diversity and inclusion</a><button type="button" class="cookie-settings" data-cookie-settings>Cookie settings</button></div>
 </footer>
@@ -1329,7 +1329,7 @@ SCRIPT = '''<script>
 ORG = {"@context": "https://schema.org", "@type": "Organization", "name": "Freedom Works", "alternateName": "FRE3DOM WORKS",
        "description": "A global creative agency built on Calibre, Culture and Craft: brand strategy, identity, creative, production, and in-house creative, from 600+ award winning independent creatives handpicked for every brief.",
        "slogan": "Freedom makes better work.",
-       "url": DOMAIN, "logo": DOMAIN + "/assets/brand/logo-indigo.png", "address": {"@type": "PostalAddress", "streetAddress": "Johnson Building, Johnson Gardens, 77 Hatton Garden", "addressLocality": "London", "postalCode": "EC1N 8JS", "addressCountry": "GB"}, "email": "hello@freedom.works", "contactPoint": {"@type": "ContactPoint", "contactType": "new business", "email": "hello@freedom.works", "url": DOMAIN + "/contact/"},
+       "url": DOMAIN, "sameAs": ["https://www.linkedin.com/company/freedomworks-agency/", "https://lbbonline.com/companies/freedom-works"], "logo": DOMAIN + "/assets/brand/logo-indigo.png", "address": {"@type": "PostalAddress", "streetAddress": "Johnson Building, Johnson Gardens, 77 Hatton Garden", "addressLocality": "London", "postalCode": "EC1N 8JS", "addressCountry": "GB"}, "email": "hello@freedom.works", "contactPoint": {"@type": "ContactPoint", "contactType": "new business", "email": "hello@freedom.works", "url": DOMAIN + "/contact/"},
        "subOrganization": {"@type": "Organization", "name": "Culture3", "url": DOMAIN + "/culture3/", "description": "Culture3 puts brands in the rooms that matter, bringing cultural access, strategic partnerships, relevant voices, and culturally fluent creativity together, from Offstage dinners to partnerships with TED."}}
 
 def crumbs(path, title):
